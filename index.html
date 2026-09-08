@@ -1,0 +1,988 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0d5c63">
+  <title>Apex V1.1 - Study To-Do</title>
+  <style>
+    :root {
+      --bg: #f7f5ed;
+      --surface: #ffffff;
+      --surface-2: #eef7f4;
+      --ink: #172026;
+      --muted: #657079;
+      --line: #d9ddd8;
+      --accent: #0d8077;
+      --accent-2: #0d5c63;
+      --gold: #f4a21d;
+      --coral: #d84d3f;
+      --good: #227a54;
+      --shadow: 0 18px 50px rgba(23, 32, 38, 0.12);
+      --radius: 12px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; margin: 0; }
+    body {
+      color: var(--ink);
+      background: linear-gradient(140deg, rgba(13, 128, 119, 0.1), transparent 42%),
+                  linear-gradient(320deg, rgba(244, 162, 29, 0.16), transparent 46%), var(--bg);
+    }
+    button, input, select, textarea { font: inherit; }
+    button { border: 0; cursor: pointer; }
+    button:disabled { cursor: not-allowed; opacity: 0.6; }
+
+    .shell {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: grid;
+      place-items: center;
+      padding: 0;
+    }
+
+    .phone {
+      width: min(100%, 520px);
+      min-height: 100vh;
+      min-height: 100dvh;
+      background: rgba(255, 255, 255, 0.96);
+      border: 0;
+      border-radius: 0;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    @media (min-width: 520px) {
+      .shell { padding: 18px; }
+      .phone {
+        min-height: min(900px, calc(100vh - 36px));
+        border-radius: 24px;
+        border: 1px solid rgba(23, 32, 38, 0.12);
+      }
+    }
+
+    .auth-screen, .app-screen { min-height: inherit; display: flex; flex-direction: column; }
+    .auth-screen { justify-content: center; gap: 20px; padding: 24px; }
+    .brand { display: grid; gap: 8px; text-align: center; justify-items: center; }
+    .brand-mark {
+      width: 64px; height: 64px; border-radius: 20px; display: grid; place-items: center;
+      color: white; background: linear-gradient(135deg, var(--accent-2), var(--accent));
+      font-weight: 900; font-size: 28px; box-shadow: 0 8px 20px rgba(13, 128, 119, 0.3);
+    }
+    h1, h2, h3, p { margin: 0; }
+    h1 { font-size: 32px; line-height: 1.1; }
+    h2 { font-size: 20px; line-height: 1.2; }
+    h3 { font-size: 15px; line-height: 1.2; }
+    .subtle { color: var(--muted); line-height: 1.4; font-size: 14px; }
+
+    .panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }
+    .stack { display: grid; gap: 12px; }
+    .row { display: flex; align-items: center; gap: 10px; }
+    .row.between { justify-content: space-between; }
+    .row.wrap { flex-wrap: wrap; }
+
+    .field { display: grid; gap: 6px; }
+    .field span { font-size: 11px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    input, select, textarea {
+      width: 100%; border: 1px solid var(--line); border-radius: var(--radius);
+      background: #fff; color: var(--ink); padding: 12px; outline: none;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+    textarea { min-height: 76px; resize: vertical; }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(13, 128, 119, 0.14);
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .btn {
+      min-height: 46px; border-radius: var(--radius); padding: 0 16px;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      font-weight: 800; color: var(--ink); background: #eef1ec; border: 1px solid transparent;
+      transition: transform 0.1s ease, opacity 0.18s ease;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn.primary { background: var(--accent-2); color: #fff; }
+    .btn.gold { background: var(--gold); color: #23180b; }
+    .btn.ghost { background: transparent; border-color: var(--line); }
+    .btn.danger { background: #fff1ef; color: var(--coral); border-color: #f2cbc6; }
+    .btn.small { min-height: 36px; padding: 0 12px; font-size: 13px; }
+
+    .icon-btn {
+      width: 42px; height: 42px; min-width: 42px; border-radius: var(--radius);
+      display: grid; place-items: center; background: #eef1ec; color: var(--ink); border: 1px solid transparent; font-weight: 900;
+    }
+    .icon-btn.good { background: #e8f5ee; color: var(--good); border-color: #b9ddca; }
+    .icon-btn.bad { background: #fff1ef; color: var(--coral); border-color: #f2cbc6; }
+
+    .topbar {
+      padding: 14px; display: grid; gap: 12px; background: rgba(255, 255, 255, 0.92);
+      border-bottom: 1px solid var(--line); backdrop-filter: blur(8px);
+    }
+    .avatar {
+      width: 42px; height: 42px; border-radius: 50%; background: var(--accent-2);
+      color: #fff; display: grid; place-items: center; font-weight: 900; overflow: hidden;
+      border: 2px solid #fff; box-shadow: 0 3px 12px rgba(23, 32, 38, 0.16);
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .identity { min-width: 0; flex: 1; }
+    .identity strong { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 15px; }
+    .identity span { display: block; color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .status-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .stat {
+      border: 1px solid var(--line); border-radius: var(--radius); padding: 10px;
+      background: #fff; display: grid; gap: 2px; min-width: 0; text-align: center;
+    }
+    .stat strong { font-size: 18px; line-height: 1; color: var(--accent-2); }
+    .stat span { color: var(--muted); font-size: 10px; font-weight: 800; text-transform: uppercase; }
+
+    .content {
+      flex: 1; overflow-y: auto; padding: 14px 14px 96px; display: grid; align-content: start; gap: 14px;
+    }
+    .view { display: none; gap: 14px; }
+    .view.active { display: grid; }
+
+    .filters {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; padding: 4px;
+      border: 1px solid var(--line); border-radius: var(--radius); background: #fff;
+    }
+    .chip { min-height: 36px; border-radius: 8px; background: transparent; color: var(--muted); font-weight: 800; font-size: 12px; }
+    .chip.active { color: #fff; background: var(--accent-2); }
+
+    .task-list { display: grid; gap: 10px; }
+    .task-card {
+      background: #fff; border: 1px solid var(--line); border-left: 5px solid var(--accent);
+      border-radius: var(--radius); padding: 14px; display: grid; gap: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .task-card.completed { border-left-color: var(--good); background: #fbfffc; }
+    .task-card.missed { border-left-color: var(--coral); background: #fffafa; }
+
+    .task-title { font-weight: 900; font-size: 15px; overflow-wrap: anywhere; }
+    .task-meta { display: flex; flex-wrap: wrap; gap: 6px; color: var(--muted); font-size: 11px; font-weight: 700; }
+    .pill { border-radius: 999px; background: #eef1ec; padding: 4px 10px; color: var(--muted); font-size: 11px; font-weight: 800; }
+    .pill.gold { background: #fff3d6; color: #7a4a00; }
+    .pill.good { background: #e8f5ee; color: var(--good); }
+    .pill.bad { background: #fff1ef; color: var(--coral); }
+
+    .task-actions { display: flex; gap: 6px; justify-content: flex-end; }
+    .empty {
+      padding: 32px 16px; border: 2px dashed var(--line); border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.6); text-align: center; display: grid; gap: 6px;
+    }
+
+    .progress-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .progress-tile { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 14px; display: grid; gap: 4px; }
+    .progress-tile strong { font-size: 26px; color: var(--accent-2); }
+
+    .bottom-nav {
+      position: absolute; left: 0; right: 0; bottom: 0; display: grid; grid-template-columns: repeat(5, 1fr);
+      background: rgba(255, 255, 255, 0.98); border-top: 1px solid var(--line);
+      padding: 6px 6px calc(6px + env(safe-area-inset-bottom)); backdrop-filter: blur(12px); z-index: 10;
+    }
+    .nav-btn {
+      min-height: 50px; border-radius: var(--radius); display: grid; place-items: center; gap: 2px;
+      background: transparent; color: var(--muted); font-size: 10px; font-weight: 800;
+    }
+    .nav-btn span:first-child { font-size: 16px; }
+    .nav-btn.active { color: var(--accent-2); background: var(--surface-2); }
+
+    .modal-backdrop {
+      position: fixed; inset: 0; z-index: 50; display: none; place-items: center; padding: 16px;
+      background: rgba(16, 24, 28, 0.5); backdrop-filter: blur(4px);
+    }
+    .modal-backdrop.show { display: grid; }
+    .modal {
+      width: min(100%, 480px); max-height: min(85vh, 700px); overflow-y: auto; background: #fff;
+      border-radius: 16px; border: 1px solid var(--line); box-shadow: var(--shadow); padding: 20px; display: grid; gap: 14px;
+    }
+
+    .toast {
+      position: fixed; left: 50%; bottom: 80px; transform: translateX(-50%) translateY(20px);
+      z-index: 100; max-width: min(90vw, 400px); background: #172026; color: #fff;
+      border-radius: var(--radius); padding: 12px 16px; opacity: 0.1; pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease; font-size: 13px; box-shadow: var(--shadow); text-align: center;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    .sync-state { font-size: 11px; color: var(--muted); font-weight: 700; }
+    .hidden { display: none !important; }
+
+    [data-theme="night"] {
+      --bg: #121918; --surface: #1b2624; --surface-2: #243431; --ink: #f0f4f3;
+      --muted: #9aa8a4; --line: #2b3c39; --accent: #1faa92; --accent-2: #157369;
+    }
+    [data-theme="sunrise"] {
+      --bg: #fff5e6; --surface: #ffffff; --surface-2: #ffeeda; --ink: #2b1d0c;
+      --muted: #8c7355; --line: #ebd6bc; --accent: #d46a31; --accent-2: #a74d1a; --gold: #e69512;
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="phone" data-theme="focus">
+      <!-- Auth Screen -->
+      <section id="authScreen" class="auth-screen">
+        <div class="brand">
+          <div class="brand-mark">A</div>
+          <h1>Apex V1.1</h1>
+          <p class="subtle">Advanced Study To-Do & Exam Prep Engine[cite: 1].</p>
+        </div>
+        <div class="panel stack">
+          <button id="googleBtn" class="btn primary" type="button">Continue with Google (Firebase)</button>
+          <div class="grid-2">
+            <label class="field"><span>Email</span><input id="authEmail" type="email" autocomplete="email" placeholder="student@example.com"></label>
+            <label class="field"><span>Password</span><input id="authPassword" type="password" autocomplete="current-password" placeholder="6+ chars"></label>
+          </div>
+          <div class="grid-2">
+            <button id="emailLoginBtn" class="btn ghost" type="button">Login</button>
+            <button id="emailSignupBtn" class="btn gold" type="button">Sign Up</button>
+          </div>
+          <button id="demoBtn" class="btn" type="button">Explore Offline Demo Mode</button>
+          <p id="authHelp" class="subtle" style="text-align:center; font-size:12px;"></p>
+        </div>
+      </section>
+
+      <!-- App Screen -->
+      <section id="appScreen" class="app-screen hidden">
+        <header class="topbar">
+          <div class="row between">
+            <div class="row" style="min-width:0;">
+              <button id="profileQuickBtn" class="avatar" type="button" aria-label="Profile"></button>
+              <div class="identity">
+                <strong id="userName">Student</strong>
+                <span id="userLine">Apex Exam Target</span>
+              </div>
+            </div>
+            <div class="row">
+              <button id="notifyBtn" class="icon-btn" type="button" title="Enable Notifications" aria-label="Notifications">🔔</button>
+              <button id="logoutBtn" class="icon-btn" type="button" title="Logout" aria-label="Logout">🚪</button>
+            </div>
+          </div>
+          <div class="status-strip">
+            <div class="stat"><strong id="gpValue">0</strong><span>GP Score</span></div>
+            <div class="stat"><strong id="streakValue">0</strong><span>Streak Days</span></div>
+            <div class="stat"><strong id="todayValue">0/0</strong><span>Today Tasks</span></div>
+          </div>
+          <div class="row between">
+            <span id="syncState" class="sync-state">Connecting Cloud...</span>
+            <button id="guideTopBtn" class="btn small ghost" type="button">Usage Guide</button>
+          </div>
+        </header>
+
+        <section class="content">
+          <!-- To-Do View -->
+          <section id="todoView" class="view active">
+            <div class="panel quick-form stack">
+              <div class="row between">
+                <h2>New Target</h2>
+                <span id="todayDate" class="pill gold"></span>
+              </div>
+              <label class="field"><span>Task Title</span><input id="taskTitle" maxlength="120" placeholder="e.g., Physics Rotational Motion DPP"></label>
+              <div class="grid-2">
+                <label class="field"><span>Subject</span><input id="taskSubject" maxlength="40" placeholder="Physics"></label>
+                <label class="field">
+                  <span>Priority</span>
+                  <select id="taskPriority">
+                    <option value="normal">Normal</option>
+                    <option value="high">High</option>
+                    <option value="revision">Revision</option>
+                  </select>
+                </label>
+              </div>
+              <div class="grid-2">
+                <label class="field"><span>Date</span><input id="taskDate" type="date"></label>
+                <label class="field"><span>Time</span><input id="taskTime" type="time"></label>
+              </div>
+              <div class="grid-2">
+                <label class="field"><span>Hours</span><input id="taskHours" type="number" min="0" max="12" value="1"></label>
+                <label class="field"><span>Minutes</span><input id="taskMinutes" type="number" min="0" max="59" step="5" value="0"></label>
+              </div>
+              <label class="field"><span>Notes / Chapter Details</span><textarea id="taskNotes" maxlength="260" placeholder="Question numbers or subtopics"></textarea></label>
+              <div class="row">
+                <button id="clearTaskBtn" class="btn ghost" type="button" style="flex:1;">Clear</button>
+                <button id="saveTaskBtn" class="btn primary" type="button" style="flex:2;">Add Study Target</button>
+              </div>
+            </div>
+
+            <div class="filters" role="tablist">
+              <button class="chip active" data-filter="all" type="button">All</button>
+              <button class="chip" data-filter="today" type="button">Today</button>
+              <button class="chip" data-filter="pending" type="button">Pending</button>
+              <button class="chip" data-filter="done" type="button">Done</button>
+            </div>
+
+            <div id="taskList" class="task-list"></div>
+          </section>
+
+          <!-- Progress View -->
+          <section id="progressView" class="view">
+            <div class="row between"><h2>Analytics & Study Stats</h2><span class="pill">V1.1</span></div>
+            <div class="progress-grid">
+              <div class="progress-tile"><strong id="completedCount">0</strong><span class="subtle">Completed</span></div>
+              <div class="progress-tile"><strong id="pendingCount">0</strong><span class="subtle">Pending</span></div>
+              <div class="progress-tile"><strong id="studyHours">0h</strong><span class="subtle">Study Time</span></div>
+              <div class="progress-tile"><strong id="missedCount">0</strong><span class="subtle">Missed</span></div>
+            </div>
+            <div class="panel stack">
+              <h3>Recent Daily Progress</h3>
+              <div id="daySummary" class="task-list"></div>
+            </div>
+          </section>
+
+          <!-- Guide View -->
+          <section id="guideView" class="view">
+            <div class="panel stack">
+              <div class="row between"><h2>App Guide</h2><span class="pill">Apex V1.1</span></div>
+              <p class="subtle">Stay consistent with daily task tracking, revision priorities, and cloud backup.</p>
+              <a id="guideLink" class="btn primary" href="#" target="_blank" rel="noreferrer">Open Video Guide</a>
+              <button id="resetGuideBtn" class="btn ghost" type="button">Show Welcome Popup</button>
+            </div>
+          </section>
+
+          <!-- Profile View -->
+          <section id="profileView" class="view">
+            <div class="panel stack">
+              <div class="row between"><h2>Student Profile</h2><span id="versionPill" class="pill gold">V1.1</span></div>
+              <div class="row">
+                <div id="profileAvatarBig" class="avatar" style="width:64px;height:64px;"></div>
+                <div class="identity">
+                  <strong id="profileNameText">Student</strong>
+                  <span id="profileIdText">@student</span>
+                </div>
+              </div>
+              <button id="editProfileBtn" class="btn primary" type="button">Edit Profile Details</button>
+            </div>
+          </section>
+
+          <!-- Future View -->
+          <section id="futureView" class="view">
+            <div class="row between"><h2>Upcoming Features</h2><span class="pill">V2 Roadmap</span></div>
+            <div class="task-list">
+              <div class="panel"><strong>Advanced Backlog Manager</strong><span class="subtle">Auto-reschedule missed high-priority targets.</span></div>
+              <div class="panel"><strong>Peer Study Rooms</strong><span class="subtle">Live focus timer leaderboards with study buddies.</span></div>
+            </div>
+          </section>
+        </section>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+          <button class="nav-btn active" data-tab="todo" type="button"><span>📌</span><span>To-Do</span></button>
+          <button class="nav-btn" data-tab="progress" type="button"><span>📈</span><span>Stats</span></button>
+          <button class="nav-btn" data-tab="guide" type="button"><span>💡</span><span>Guide</span></button>
+          <button class="nav-btn" data-tab="profile" type="button"><span>👤</span><span>Profile</span></button>
+          <button class="nav-btn" data-tab="future" type="button"><span>🚀</span><span>Future</span></button>
+        </nav>
+      </section>
+    </section>
+  </main>
+
+  <!-- Profile Modal -->
+  <div id="profileModal" class="modal-backdrop" role="dialog" aria-modal="true">
+    <form id="profileForm" class="modal">
+      <div class="row between"><h2>Student Setup</h2><button id="closeProfileModal" class="icon-btn" type="button">✕</button></div>
+      <div class="grid-2">
+        <label class="field"><span>Full Name</span><input id="profileName" required maxlength="50" placeholder="Mayuresh Kondale"></label>
+        <label class="field"><span>Username</span><input id="profileCustomId" required minlength="4" maxlength="24" pattern="[a-zA-Z0-9_]+" placeholder="apex_student"></label>
+      </div>
+      <div class="grid-2">
+        <label class="field">
+          <span>Grade</span>
+          <select id="profileGrade" required>
+            <option value="">Select</option><option>11</option><option>12</option><option>Dropper</option><option>College</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Target Exam</span>
+          <select id="profileExam" required>
+            <option value="">Select</option><option>JEE</option><option>NEET</option><option>Boards</option><option>Other</option>
+          </select>
+        </label>
+      </div>
+      <div class="grid-2">
+        <label class="field">
+          <span>Theme</span>
+          <select id="profileTheme"><option value="focus">Focus Teal</option><option value="night">Night Dark</option><option value="sunrise">Sunrise Warm</option></select>
+        </label>
+        <label class="field"><span>Photo URL</span><input id="profilePhoto" type="url" placeholder="https://..."></label>
+      </div>
+      <button class="btn primary" type="submit">Save Profile</button>
+    </form>
+  </div>
+
+  <!-- Honesty Check Modal -->
+  <div id="honestyModal" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal">
+      <h2>Task Verification Check</h2>
+      <p id="honestyTask" class="subtle"></p>
+      <div class="grid-2">
+        <button id="honestNoBtn" class="btn danger" type="button">Not Done</button>
+        <button id="honestYesBtn" class="btn primary" type="button">Completed!</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <!-- Firebase & App Script -->
+  <script type="module">
+    const APP_CONFIG = {
+      appName: "Apex",
+      version: "V1.1",
+      founderName: "Mayuresh Kondale",
+      youtubeGuideUrl: "https://www.youtube.com/",
+      firebaseConfig: {
+        apiKey: "AIzaSyBlAVHnF8qF8JG2HNaxqjftVo52Jn_IpMw",
+        authDomain: "apex-cdde2.firebaseapp.com",
+        projectId: "apex-cdde2",
+        storageBucket: "apex-cdde2.firebasestorage.app",
+        messagingSenderId: "449552557725",
+        appId: "1:449552557725:web:f66213a918e5ecf31a5674",
+        measurementId: "G-L20L6Y3X9S"
+      }
+    };
+
+    const FIREBASE_VERSION = "12.18.0";
+    const DEMO_UID = "demo-user";
+    const state = {
+      firebaseReady: false,
+      fb: null,
+      unsubscribeTasks: null,
+      currentUser: null,
+      profile: null,
+      tasks: [],
+      filter: "all",
+      activeTab: "todo",
+      editingTaskId: null,
+      dueTaskId: null
+    };
+
+    const el = {
+      authScreen: document.querySelector("#authScreen"),
+      appScreen: document.querySelector("#appScreen"),
+      googleBtn: document.querySelector("#googleBtn"),
+      authEmail: document.querySelector("#authEmail"),
+      authPassword: document.querySelector("#authPassword"),
+      emailLoginBtn: document.querySelector("#emailLoginBtn"),
+      emailSignupBtn: document.querySelector("#emailSignupBtn"),
+      demoBtn: document.querySelector("#demoBtn"),
+      authHelp: document.querySelector("#authHelp"),
+      userName: document.querySelector("#userName"),
+      userLine: document.querySelector("#userLine"),
+      profileQuickBtn: document.querySelector("#profileQuickBtn"),
+      profileAvatarBig: document.querySelector("#profileAvatarBig"),
+      profileNameText: document.querySelector("#profileNameText"),
+      profileIdText: document.querySelector("#profileIdText"),
+      notifyBtn: document.querySelector("#notifyBtn"),
+      logoutBtn: document.querySelector("#logoutBtn"),
+      guideTopBtn: document.querySelector("#guideTopBtn"),
+      syncState: document.querySelector("#syncState"),
+      gpValue: document.querySelector("#gpValue"),
+      streakValue: document.querySelector("#streakValue"),
+      todayValue: document.querySelector("#todayValue"),
+      todayDate: document.querySelector("#todayDate"),
+      taskTitle: document.querySelector("#taskTitle"),
+      taskSubject: document.querySelector("#taskSubject"),
+      taskPriority: document.querySelector("#taskPriority"),
+      taskDate: document.querySelector("#taskDate"),
+      taskTime: document.querySelector("#taskTime"),
+      taskHours: document.querySelector("#taskHours"),
+      taskMinutes: document.querySelector("#taskMinutes"),
+      taskNotes: document.querySelector("#taskNotes"),
+      saveTaskBtn: document.querySelector("#saveTaskBtn"),
+      clearTaskBtn: document.querySelector("#clearTaskBtn"),
+      taskList: document.querySelector("#taskList"),
+      completedCount: document.querySelector("#completedCount"),
+      pendingCount: document.querySelector("#pendingCount"),
+      studyHours: document.querySelector("#studyHours"),
+      missedCount: document.querySelector("#missedCount"),
+      daySummary: document.querySelector("#daySummary"),
+      guideLink: document.querySelector("#guideLink"),
+      resetGuideBtn: document.querySelector("#resetGuideBtn"),
+      versionPill: document.querySelector("#versionPill"),
+      editProfileBtn: document.querySelector("#editProfileBtn"),
+      profileModal: document.querySelector("#profileModal"),
+      profileForm: document.querySelector("#profileForm"),
+      closeProfileModal: document.querySelector("#closeProfileModal"),
+      profileName: document.querySelector("#profileName"),
+      profileCustomId: document.querySelector("#profileCustomId"),
+      profileGrade: document.querySelector("#profileGrade"),
+      profileExam: document.querySelector("#profileExam"),
+      profileTheme: document.querySelector("#profileTheme"),
+      profilePhoto: document.querySelector("#profilePhoto"),
+      honestyModal: document.querySelector("#honestyModal"),
+      honestyTask: document.querySelector("#honestyTask"),
+      honestNoBtn: document.querySelector("#honestNoBtn"),
+      honestYesBtn: document.querySelector("#honestYesBtn"),
+      toast: document.querySelector("#toast")
+    };
+
+    function todayKey(date = new Date()) {
+      const offset = date.getTimezoneOffset();
+      const local = new Date(date.getTime() - offset * 60000);
+      return local.toISOString().slice(0, 10);
+    }
+
+    function timeNowValue() {
+      const date = new Date();
+      return String(date.getHours()).padStart(2, "0") + ":" + String(date.getMinutes()).padStart(2, "0");
+    }
+
+    function minutesToLabel(minutes) {
+      const value = Number(minutes || 0);
+      const hours = Math.floor(value / 60);
+      const mins = value % 60;
+      if (hours && mins) return `${hours}h ${mins}m`;
+      if (hours) return `${hours}h`;
+      return `${mins}m`;
+    }
+
+    function prettyDate(dateText) {
+      if (!dateText) return "No date";
+      const date = new Date(dateText + "T12:00:00");
+      return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+    }
+
+    function safeText(value) {
+      return String(value || "").replace(/[<>&"']/g, (char) => ({
+        "<": "&lt;", ">": "&gt;", "&": "&amp;", '"': "&quot;", "'": "&#039;"
+      })[char]);
+    }
+
+    function showToast(message) {
+      el.toast.textContent = message;
+      el.toast.classList.add("show");
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => el.toast.classList.remove("show"), 2800);
+    }
+
+    function setSync(message) {
+      el.syncState.textContent = message;
+      el.authHelp.textContent = message;
+    }
+
+    async function initFirebase() {
+      try {
+        const [appModule, authModule, firestoreModule] = await Promise.all([
+          import(`https://www.gstatic.com/firebasejs/${FIREBASE_VERSION}/firebase-app.js`),
+          import(`https://www.gstatic.com/firebasejs/${FIREBASE_VERSION}/firebase-auth.js`),
+          import(`https://www.gstatic.com/firebasejs/${FIREBASE_VERSION}/firebase-firestore.js`)
+        ]);
+
+        const app = appModule.initializeApp(APP_CONFIG.firebaseConfig);
+        const auth = authModule.getAuth(app);
+        const db = firestoreModule.getFirestore(app);
+
+        state.fb = { authModule, firestoreModule, auth, db };
+        state.firebaseReady = true;
+        setSync("Firebase ready. Login with Google or Email.");
+
+        authModule.onAuthStateChanged(auth, async (user) => {
+          if (!user) {
+            if (!state.currentUser?.isDemo) showAuth();
+            return;
+          }
+          state.currentUser = {
+            uid: user.uid,
+            email: user.email || "",
+            displayName: user.displayName || "",
+            photoURL: user.photoURL || "",
+            isDemo: false
+          };
+          await loadCloudProfileAndTasks();
+        });
+      } catch (error) {
+        console.error(error);
+        setSync("Cloud initialization failed. Offline mode active.");
+      }
+    }
+
+    function showAuth() {
+      if (state.unsubscribeTasks) state.unsubscribeTasks();
+      state.currentUser = null;
+      state.profile = null;
+      state.tasks = [];
+      el.authScreen.classList.remove("hidden");
+      el.appScreen.classList.add("hidden");
+    }
+
+    function showApp() {
+      el.authScreen.classList.add("hidden");
+      el.appScreen.classList.remove("hidden");
+      renderAll();
+    }
+
+    async function loginGoogle() {
+      if (!state.firebaseReady) { showToast("Firebase not initialized."); return; }
+      try {
+        const provider = new state.fb.authModule.GoogleAuthProvider();
+        await state.fb.authModule.signInWithPopup(state.fb.auth, provider);
+      } catch (error) {
+        console.error(error);
+        showToast(error.message || "Google login failed.");
+      }
+    }
+
+    async function loginEmail(isSignup) {
+      if (!state.firebaseReady) { showToast("Firebase not initialized."); return; }
+      const email = el.authEmail.value.trim();
+      const password = el.authPassword.value;
+      if (!email || password.length < 6) { showToast("Enter email and 6+ char password."); return; }
+      try {
+        if (isSignup) {
+          await state.fb.authModule.createUserWithEmailAndPassword(state.fb.auth, email, password);
+        } else {
+          await state.fb.authModule.signInWithEmailAndPassword(state.fb.auth, email, password);
+        }
+      } catch (error) {
+        showToast(error.message || "Authentication error.");
+      }
+    }
+
+    async function logout() {
+      if (state.currentUser?.isDemo || !state.firebaseReady) { showAuth(); return; }
+      await state.fb.authModule.signOut(state.fb.auth);
+      showAuth();
+    }
+
+    async function startDemo() {
+      state.currentUser = { uid: DEMO_UID, email: "demo@apex.local", displayName: "Demo Student", photoURL: "", isDemo: true };
+      loadLocalProfileAndTasks();
+      if (!state.profile) openProfileModal(true);
+      showApp();
+      setSync("Demo mode active (local storage).");
+    }
+
+    async function loadCloudProfileAndTasks() {
+      const { doc, getDoc, collection, query, orderBy, onSnapshot } = state.fb.firestoreModule;
+      const uid = state.currentUser.uid;
+      const userRef = doc(state.fb.db, "users", uid);
+      const profileSnap = await getDoc(userRef);
+      state.profile = profileSnap.exists() ? profileSnap.data() : null;
+
+      if (state.unsubscribeTasks) state.unsubscribeTasks();
+      const tasksRef = collection(state.fb.db, "users", uid, "tasks");
+      const tasksQuery = query(tasksRef, orderBy("date", "asc"), orderBy("time", "asc"));
+      
+      state.unsubscribeTasks = onSnapshot(tasksQuery, (snapshot) => {
+        state.tasks = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+        renderAll();
+      }, (err) => console.error(err));
+
+      if (!state.profile) openProfileModal(true);
+      showApp();
+      setSync("Cloud Sync Active");
+    }
+
+    function localKey(name) { return `apex_v1_${state.currentUser?.uid || DEMO_UID}_${name}`; }
+    function loadLocalProfileAndTasks() {
+      state.profile = JSON.parse(localStorage.getItem(localKey("profile")) || "null");
+      state.tasks = JSON.parse(localStorage.getItem(localKey("tasks")) || "[]");
+    }
+    function saveLocalProfile() { localStorage.setItem(localKey("profile"), JSON.stringify(state.profile)); }
+    function saveLocalTasks() { localStorage.setItem(localKey("tasks"), JSON.stringify(state.tasks)); renderAll(); }
+
+    async function saveProfile(profile) {
+      state.profile = profile;
+      document.querySelector(".phone").dataset.theme = profile.theme || "focus";
+      if (!state.currentUser?.isDemo && state.firebaseReady) {
+        const { doc, setDoc, serverTimestamp } = state.fb.firestoreModule;
+        await setDoc(doc(state.fb.db, "users", state.currentUser.uid), {
+          ...profile, email: state.currentUser.email, updatedAt: serverTimestamp()
+        }, { merge: true });
+      } else {
+        saveLocalProfile();
+      }
+      el.profileModal.classList.remove("show");
+      showApp();
+      showToast("Profile updated successfully!");
+    }
+
+    async function saveTask() {
+      const title = el.taskTitle.value.trim();
+      if (!title) { showToast("Please write a task title."); return; }
+      const hours = Math.max(0, Number(el.taskHours.value || 0));
+      const minutes = Math.max(0, Number(el.taskMinutes.value || 0));
+      const durationMinutes = Math.max(5, hours * 60 + minutes);
+      
+      const task = {
+        title,
+        subject: el.taskSubject.value.trim() || "General",
+        priority: el.taskPriority.value,
+        date: el.taskDate.value || todayKey(),
+        time: el.taskTime.value || timeNowValue(),
+        durationMinutes,
+        notes: el.taskNotes.value.trim(),
+        completed: false,
+        missed: false,
+        notified: false
+      };
+
+      if (!state.currentUser?.isDemo && state.firebaseReady) {
+        const { collection, addDoc, serverTimestamp } = state.fb.firestoreModule;
+        await addDoc(collection(state.fb.db, "users", state.currentUser.uid, "tasks"), {
+          ...task, createdAt: serverTimestamp(), updatedAt: serverTimestamp()
+        });
+      } else {
+        state.tasks.push({ id: crypto.randomUUID(), ...task });
+        saveLocalTasks();
+      }
+      clearTaskForm();
+      showToast("Study target added!");
+    }
+
+    function clearTaskForm() {
+      el.taskTitle.value = "";
+      el.taskSubject.value = "";
+      el.taskDate.value = todayKey();
+      el.taskTime.value = timeNowValue();
+      el.taskHours.value = "1";
+      el.taskMinutes.value = "0";
+      el.taskNotes.value = "";
+    }
+
+    async function updateTask(id, patch) {
+      if (!state.currentUser?.isDemo && state.firebaseReady) {
+        const { doc, updateDoc, serverTimestamp } = state.fb.firestoreModule;
+        await updateDoc(doc(state.fb.db, "users", state.currentUser.uid, "tasks", id), { ...patch, updatedAt: serverTimestamp() });
+      } else {
+        state.tasks = state.tasks.map((t) => t.id === id ? { ...t, ...patch } : t);
+        saveLocalTasks();
+      }
+    }
+
+    async function deleteTask(id) {
+      if (!confirm("Delete this task?")) return;
+      if (!state.currentUser?.isDemo && state.firebaseReady) {
+        const { doc, deleteDoc } = state.fb.firestoreModule;
+        await deleteDoc(doc(state.fb.db, "users", state.currentUser.uid, "tasks", id));
+      } else {
+        state.tasks = state.tasks.filter((t) => t.id !== id);
+        saveLocalTasks();
+      }
+      showToast("Task deleted.");
+    }
+
+    async function markTask(id, completed) {
+      await updateTask(id, { completed, missed: !completed });
+      el.honestyModal.classList.remove("show");
+      showToast(completed ? "Great job! GP & Streak updated." : "Marked incomplete.");
+    }
+
+    function calculateStats() {
+      const completed = state.tasks.filter((t) => t.completed);
+      const pending = state.tasks.filter((t) => !t.completed && !t.missed);
+      const missed = state.tasks.filter((t) => t.missed);
+      const today = todayKey();
+      const todayTasks = state.tasks.filter((t) => t.date === today);
+      const todayDone = todayTasks.filter((t) => t.completed);
+      const studyMinutes = completed.reduce((acc, t) => acc + Number(t.durationMinutes || 0), 0);
+      const streak = calculateStreak(completed);
+      const gp = completed.length * 10 + streak * 5;
+      return { completed, pending, missed, todayTasks, todayDone, studyMinutes, streak, gp };
+    }
+
+    function calculateStreak(completedTasks) {
+      const completeDays = new Set(completedTasks.map((t) => t.date).filter(Boolean));
+      let cursor = new Date(todayKey() + "T12:00:00");
+      let streak = 0;
+      while (completeDays.has(todayKey(cursor))) {
+        streak += 1;
+        cursor.setDate(cursor.getDate() - 1);
+      }
+      return streak;
+    }
+
+    function renderAll() {
+      renderProfile();
+      renderStats();
+      renderTasks();
+    }
+
+    function renderProfile() {
+      const p = state.profile || {};
+      const name = p.name || state.currentUser?.displayName || "Student";
+      const initial = (name[0] || "A").toUpperCase();
+      document.querySelector(".phone").dataset.theme = p.theme || "focus";
+      el.userName.textContent = name;
+      el.userLine.textContent = `${p.grade || "Grade"} - ${p.exam || "Exam"} Target`;
+      el.profileNameText.textContent = name;
+      el.profileIdText.textContent = "@" + (p.customId || "apex_student");
+      renderAvatar(el.profileQuickBtn, initial, p.photoURL);
+      renderAvatar(el.profileAvatarBig, initial, p.photoURL);
+    }
+
+    function renderAvatar(target, initial, photo) {
+      target.innerHTML = "";
+      if (photo) {
+        const img = document.createElement("img");
+        img.src = photo;
+        img.onerror = () => target.textContent = initial;
+        target.appendChild(img);
+      } else {
+        target.textContent = initial;
+      }
+    }
+
+    function renderStats() {
+      const st = calculateStats();
+      el.gpValue.textContent = st.gp;
+      el.streakValue.textContent = st.streak;
+      el.todayValue.textContent = `${st.todayDone.length}/${st.todayTasks.length}`;
+      el.completedCount.textContent = st.completed.length;
+      el.pendingCount.textContent = st.pending.length;
+      el.studyHours.textContent = minutesToLabel(st.studyMinutes);
+      el.missedCount.textContent = st.missed.length;
+      el.todayDate.textContent = prettyDate(todayKey());
+    }
+
+    function renderTasks() {
+      const list = state.tasks.filter((t) => {
+        if (state.filter === "today") return t.date === todayKey();
+        if (state.filter === "pending") return !t.completed && !t.missed;
+        if (state.filter === "done") return t.completed;
+        return true;
+      });
+
+      el.taskList.innerHTML = "";
+      if (!list.length) {
+        el.taskList.innerHTML = `<div class="empty"><strong>No tasks found</strong><span class="subtle">Add your study targets above.</span></div>`;
+        return;
+      }
+
+      list.forEach((t) => {
+        const card = document.createElement("article");
+        card.className = `task-card ${t.completed ? "completed" : ""} ${t.missed ? "missed" : ""}`;
+        card.innerHTML = `
+          <div class="row between">
+            <div class="stack" style="gap:4px; flex:1;">
+              <div class="task-title">${safeText(t.title)}</div>
+              <div class="task-meta">
+                <span>📚 ${safeText(t.subject)}</span>
+                <span>📅 ${safeText(prettyDate(t.date))}</span>
+                <span>⏰ ${safeText(t.time)}</span>
+                <span>⏳ ${minutesToLabel(t.durationMinutes)}</span>
+              </div>
+            </div>
+            <span class="pill ${t.completed ? "good" : t.missed ? "bad" : "gold"}">${t.completed ? "Done" : t.missed ? "Missed" : "Pending"}</span>
+          </div>
+          ${t.notes ? `<p class="subtle">${safeText(t.notes)}</p>` : ""}
+          <div class="row between">
+            <span class="pill">${t.priority}</span>
+            <div class="task-actions">
+              <button class="icon-btn good" data-action="done" data-id="${t.id}" title="Complete">✔</button>
+              <button class="icon-btn bad" data-action="missed" data-id="${t.id}" title="Missed">✖</button>
+              <button class="icon-btn" data-action="delete" data-id="${t.id}" title="Delete">🗑</button>
+            </div>
+          </div>
+        `;
+        el.taskList.appendChild(card);
+      });
+    }
+
+    function openProfileModal(req = false) {
+      const p = state.profile || {};
+      el.profileName.value = p.name || state.currentUser?.displayName || "";
+      el.profileCustomId.value = p.customId || "";
+      el.profileGrade.value = p.grade || "";
+      el.profileExam.value = p.exam || "";
+      el.profileTheme.value = p.theme || "focus";
+      el.profilePhoto.value = p.photoURL || "";
+      el.closeProfileModal.classList.toggle("hidden", req);
+      el.profileModal.classList.add("show");
+    }
+
+    function checkReminders() {
+      const now = new Date();
+      const due = state.tasks.find((t) => {
+        if (t.completed || t.missed || t.notified) return false;
+        if (!t.date || !t.time) return false;
+        return new Date(`${t.date}T${t.time}:00`) <= now;
+      });
+
+      if (due) {
+        updateTask(due.id, { notified: true });
+        if ("Notification" in window && Notification.permission === "granted") {
+          new Notification("Apex Study Reminder", { body: `Time for: ${due.title}` });
+        }
+        state.dueTaskId = due.id;
+        el.honestyTask.textContent = `${due.title} (${due.subject})`;
+        el.honestyModal.classList.add("show");
+      }
+    }
+
+    function bindEvents() {
+      el.googleBtn.addEventListener("click", loginGoogle);
+      el.emailLoginBtn.addEventListener("click", () => loginEmail(false));
+      el.emailSignupBtn.addEventListener("click", () => loginEmail(true));
+      el.demoBtn.addEventListener("click", startDemo);
+      el.logoutBtn.addEventListener("click", logout);
+      el.notifyBtn.addEventListener("click", () => Notification.requestPermission().then((p) => showToast(p === "granted" ? "Notifications enabled!" : "Permission denied.")));
+      el.guideTopBtn.addEventListener("click", () => window.open(APP_CONFIG.youtubeGuideUrl, "_blank"));
+      el.saveTaskBtn.addEventListener("click", saveTask);
+      el.clearTaskBtn.addEventListener("click", clearTaskForm);
+      el.editProfileBtn.addEventListener("click", () => openProfileModal(false));
+      el.closeProfileModal.addEventListener("click", () => el.profileModal.classList.remove("show"));
+      el.resetGuideBtn.addEventListener("click", () => openProfileModal(true));
+      el.profileQuickBtn.addEventListener("click", () => switchTab("profile"));
+
+      el.honestYesBtn.addEventListener("click", () => markTask(state.dueTaskId, true));
+      el.honestNoBtn.addEventListener("click", () => markTask(state.dueTaskId, false));
+
+      document.querySelectorAll(".chip").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          state.filter = btn.dataset.filter;
+          document.querySelectorAll(".chip").forEach((c) => c.classList.toggle("chip.active", c === btn));
+          renderTasks();
+        });
+      });
+
+      document.querySelectorAll(".nav-btn").forEach((btn) => {
+        btn.addEventListener("click", () => switchTab(btn.dataset.tab));
+      });
+
+      el.taskList.addEventListener("click", (e) => {
+        const btn = e.target.closest("button[data-action]");
+        if (!btn) return;
+        const id = btn.dataset.id;
+        if (btn.dataset.action === "done") markTask(id, true);
+        if (btn.dataset.action === "missed") markTask(id, false);
+        if (btn.dataset.action === "delete") deleteTask(id);
+      });
+
+      el.profileForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        saveProfile({
+          name: el.profileName.value.trim(),
+          customId: el.profileCustomId.value.trim(),
+          grade: el.profileGrade.value,
+          exam: el.profileExam.value,
+          theme: el.profileTheme.value,
+          photoURL: el.profilePhoto.value.trim()
+        });
+      });
+    }
+
+    function switchTab(tab) {
+      document.querySelectorAll(".view").forEach((v) => v.classList.remove("active"));
+      document.querySelector(`#${tab}View`).classList.add("active");
+      document.querySelectorAll(".nav-btn").forEach((b) => b.classList.toggle("active", b.dataset.tab === tab));
+    }
+
+    function boot() {
+      bindEvents();
+      clearTaskForm();
+      showAuth();
+      initFirebase();
+      window.setInterval(checkReminders, 25000);
+    }
+
+    boot();
+  </script>
+</body>
+</html>
