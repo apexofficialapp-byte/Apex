@@ -6,23 +6,8 @@
   <meta name="theme-color" content="#0d5c63">
   <title>Apex V1.1 - Study To-Do</title>
 
-  <!-- Embedded Web App Manifest for PWABuilder -->
-  <link rel="manifest" href="data:application/manifest+json;charset=utf-8,{
-    %22name%22: %22Apex Study To-Do%22,
-    %22short_name%22: %22Apex%22,
-    %22start_url%22: %22./index.html%22,
-    %22display%22: %22standalone%22,
-    %22background_color%22: %22%230d5c63%22,
-    %22theme_color%22: %22%230d5c63%22,
-    %22description%22: %22Advanced Study To-Do & Exam Prep Engine%22,
-    %22icons%22: [
-      {
-        %22src%22: %22https://raw.githubusercontent.com/ionic-team/cordova-res/master/samples/icon-foreground.png%22,
-        %22sizes%22: %22512x512%22,
-        %22type%22: %22image/png%22
-      }
-    ]
-  }">
+  <!-- External Web App Manifest Link -->
+  <link rel="manifest" href="manifest.json">
 
   <style>
     :root {
@@ -250,7 +235,7 @@
         <div class="brand">
           <div class="brand-mark">A</div>
           <h1>Apex V1.1</h1>
-          <p class="subtle">Advanced Study To-Do & Exam Prep Engine[cite: 1].</p>
+          <p class="subtle">Advanced Study To-Do & Exam Prep Engine.</p>
         </div>
         <div class="panel stack">
           <button id="googleBtn" class="btn primary" type="button">Continue with Google (Firebase)</button>
