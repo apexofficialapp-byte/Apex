@@ -1,813 +1,550 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apex - NEET & JEE Exam Prep (Mayuresh Kandale)</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1020">
+<meta name="description" content="APEX — Your Exam Partner. Student productivity and exam preparation.">
+<title>APEX — Your Exam Partner</title>
+<style>
+:root{
+  --bg:#f5f7fb;--surface:#fff;--surface2:#eef2f8;--text:#101828;--muted:#667085;
+  --primary:#5b5ce2;--primary2:#4445c7;--success:#12b76a;--danger:#f04438;--warning:#f79009;
+  --border:#e4e7ec;--shadow:0 10px 30px rgba(16,24,40,.07);--radius:20px;
+}
+[data-theme=dark]{
+ --bg:#090d18;--surface:#111827;--surface2:#1a2233;--text:#f2f4f7;--muted:#98a2b3;
+ --border:#293246;--shadow:0 10px 30px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}.hidden{display:none!important}
+#app{min-height:100vh}.screen{max-width:1100px;margin:auto;padding:20px 16px 100px}
+.auth-wrap{min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at top,#e9e9ff,transparent 45%),var(--bg)}
+.auth-card{width:min(440px,100%);background:var(--surface);padding:28px;border:1px solid var(--border);border-radius:28px;box-shadow:var(--shadow)}
+.logo{font-weight:900;letter-spacing:-1px;font-size:32px}.tag{color:var(--muted);margin-top:4px}
+.field{display:flex;flex-direction:column;gap:7px;margin:13px 0}.field label{font-size:13px;font-weight:700}.field input,.field select,.field textarea{
+ width:100%;padding:13px 14px;border:1px solid var(--border);border-radius:13px;background:var(--surface);color:var(--text);outline:none}
+.field textarea{min-height:110px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(91,92,226,.12)}
+.btn{padding:12px 16px;border-radius:13px;font-weight:800;transition:.15s}.btn:active{transform:scale(.98)}
+.primary{background:var(--primary);color:#fff}.secondary{background:var(--surface2);color:var(--text)}.danger{background:#fee4e2;color:#b42318}.success{background:#d1fadf;color:#067647}.ghost{background:transparent;color:var(--muted)}
+.row{display:flex;gap:10px;align-items:center}.between{display:flex;justify-content:space-between;gap:12px;align-items:center}.wrap{flex-wrap:wrap}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}.brand-mini{font-weight:900;font-size:23px}.avatar{
+ width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--primary);color:#fff;font-weight:900;overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}.iconbtn{width:42px;height:42px;border-radius:13px;background:var(--surface);border:1px solid var(--border);color:var(--text)}
+.greeting{font-size:28px;letter-spacing:-1px;margin:4px 0}.muted{color:var(--muted)}.small{font-size:12px}.section{margin:22px 0}.section h2{font-size:18px;margin:0 0 12px}
+.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.stat .num{font-size:26px;font-weight:900;margin-top:5px}.stat .label{font-size:12px;color:var(--muted);font-weight:700}
+.quick{display:flex;align-items:center;gap:12px}.quick .qicon{width:45px;height:45px;border-radius:14px;display:grid;place-items:center;background:var(--surface2);font-size:21px}
+.progress{height:8px;background:var(--surface2);border-radius:99px;overflow:hidden}.progress>i{display:block;height:100%;background:var(--primary);border-radius:inherit}
+.task{display:flex;gap:12px;align-items:flex-start}.check{width:24px;height:24px;border:2px solid var(--border);border-radius:8px;flex:none;background:transparent}.check.done{background:var(--success);border-color:var(--success);color:#fff}
+.task-title{font-weight:800}.strike{text-decoration:line-through;opacity:.6}.badge{display:inline-flex;padding:5px 8px;border-radius:99px;background:var(--surface2);font-size:11px;font-weight:800}.badge.high{background:#fee4e2;color:#b42318}.badge.med{background:#fef0c7;color:#93370d}.badge.low{background:#d1fadf;color:#067647}
+.list{display:flex;flex-direction:column;gap:10px}.empty{text-align:center;padding:30px 12px;color:var(--muted)}.tabs{display:flex;gap:8px;overflow:auto;padding-bottom:4px}.tab{padding:9px 13px;border-radius:99px;background:var(--surface2);white-space:nowrap;font-weight:750;color:var(--muted)}.tab.active{background:var(--primary);color:#fff}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(14px);border-top:1px solid var(--border);z-index:20;padding:8px max(8px,env(safe-area-inset-left)) max(8px,env(safe-area-inset-bottom))}
+.nav{max-width:700px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr)}.nav button{background:none;color:var(--muted);padding:6px 2px;font-size:11px;font-weight:800}.nav button.active{color:var(--primary)}.nav .ni{font-size:21px;display:block;margin-bottom:2px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:50;display:grid;place-items:end center;padding:12px}.modalbox{width:min(620px,100%);max-height:92vh;overflow:auto;background:var(--surface);border-radius:24px;padding:20px;border:1px solid var(--border)}
+.toast{position:fixed;left:50%;bottom:85px;transform:translateX(-50%);background:#101828;color:#fff;padding:11px 15px;border-radius:12px;z-index:80;box-shadow:var(--shadow);font-size:13px}
+header.page{margin-bottom:18px}.page h1{font-size:28px;letter-spacing:-1px;margin:0}.actions{display:flex;gap:8px;flex-wrap:wrap}
+.item-actions{display:flex;gap:6px;margin-left:auto}.item-actions button{padding:7px 9px;border-radius:9px;background:var(--surface2);color:var(--text);font-size:12px}
+.calendar-note{font-size:12px;color:var(--muted);margin-top:4px}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--border);font-size:13px}
+@media(max-width:720px){.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g2{grid-template-columns:1fr}.screen{padding-top:14px}.greeting{font-size:25px}}
+@media(min-width:900px){.bottom{position:sticky;top:0;bottom:auto;border:0;background:transparent;backdrop-filter:none;padding:0;margin:-20px auto 10px}.nav{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:5px;box-shadow:var(--shadow)}}
+</style>
 </head>
-<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
-
-    <!-- App Container -->
-    <div id="app" class="max-w-md mx-auto w-full flex-1 flex flex-col justify-between p-4 relative shadow-2xl bg-slate-950 border-x border-slate-800">
-
-        <!-- TOP BAR / HEADER (Visible on Dashboard) -->
-        <header id="main-header" class="hidden flex justify-between items-center bg-slate-900 p-3 rounded-xl border border-slate-800 mb-4 shadow-sm">
-            <div class="flex items-center gap-2">
-                <button onclick="openProfileDrawer()" class="w-9 h-9 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-white shadow-md hover:bg-indigo-500 transition">
-                    <i class="fa-solid fa-user"></i>
-                </button>
-                <div class="flex items-center gap-2 text-xs font-semibold">
-                    <span class="bg-amber-500/20 text-amber-400 px-2 py-1 rounded-md border border-amber-500/30">
-                        <i class="fa-solid fa-coins mr-1"></i><span id="header-gp">0</span> GP
-                    </span>
-                    <span class="bg-rose-500/20 text-rose-400 px-2 py-1 rounded-md border border-rose-500/30">
-                        <i class="fa-solid fa-fire mr-1"></i><span id="header-streak">1</span>d Streak
-                    </span>
-                </div>
-            </div>
-            <div class="flex items-center gap-2">
-                <button onclick="openNotificationDrawer()" class="relative p-2 text-slate-400 hover:text-white transition">
-                    <i class="fa-solid fa-bell text-lg"></i>
-                    <span class="absolute top-1 right-1 w-2 h-2 bg-indigo-500 rounded-full animate-pulse"></span>
-                </button>
-            </div>
-        </header>
-
-        <!-- 1. AUTH SCREEN (Sign Up / Login with Custom ID) -->
-        <div id="auth-view" class="my-auto flex flex-col gap-4 py-8">
-            <div class="text-center mb-4">
-                <h1 class="text-3xl font-extrabold tracking-tight text-indigo-400">APEX</h1>
-                <p class="text-xs text-slate-400 mt-1">Consistency is the key to success</p>
-                <p class="text-[10px] text-slate-500 mt-0.5">Founder: Mayuresh Kandale</p>
-            </div>
-
-            <!-- Sign Up Form (Default) -->
-            <div id="signup-card" class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl space-y-4">
-                <h2 class="text-lg font-bold text-slate-200 border-b border-slate-800 pb-2 flex justify-between items-center">
-                    <span>Create Account</span>
-                    <span class="text-xs text-indigo-400 font-normal">Step 1</span>
-                </h2>
-                <div>
-                    <label class="text-xs text-slate-400 block mb-1">1) Name</label>
-                    <input type="text" id="su-name" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm text-slate-200 focus:outline-none focus:border-indigo-500" placeholder="Enter your full name">
-                </div>
-                <div>
-                    <label class="text-xs text-slate-400 block mb-1">2) Custom ID (Min 8 chars)</label>
-                    <input type="text" id="su-customid" minlength="8" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm text-slate-200 focus:outline-none focus:border-indigo-500" placeholder="e.g. mayuresh123">
-                </div>
-                <div>
-                    <label class="text-xs text-slate-400 block mb-1">3) Password</label>
-                    <input type="password" id="su-pass" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm text-slate-200 focus:outline-none focus:border-indigo-500" placeholder="••••••••">
-                </div>
-                <div>
-                    <label class="text-xs text-slate-400 block mb-1">4) Exam</label>
-                    <select id="su-exam" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm text-slate-200 focus:outline-none focus:border-indigo-500">
-                        <option value="NEET">NEET</option>
-                        <option value="JEE">JEE</option>
-                        <option value="Other">Other Competitive Exam</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="text-xs text-slate-400 block mb-1">Gender</label>
-                    <select id="su-gender" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm text-slate-200 focus:outline-none focus:border-indigo-500">
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <button onclick="handleSignup()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 rounded-xl transition shadow-lg shadow-indigo-600/20">
-                    Sign Up
-                </button>
-                <p class="text-center text-xs text-slate-400 pt-2">
-                    Already have an account? <span onclick="toggleAuthMode()" class="text-indigo-400 cursor-pointer font-medium hover:underline">Login</span>
-                </p>
-            </div>
-
-            <!-- Login Form (Hidden initially) -->
-            <div id="login-card" class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl space-y-4 hidden">
-                <h2 class="text-lg font-bold text-slate-200 border-b border-slate-800 pb-2">Welcome Back</h2>
-                <div>
-                    <label class="text-xs text-slate-400 block mb-1">Custom ID</label>
-                    <input type="text" id="li-customid" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm text-slate-200 focus:outline-none focus:border-indigo-500" placeholder="Enter your custom ID">
-                </div>
-                <div>
-                    <label class="text-xs text-slate-400 block mb-1">Password</label>
-                    <input type="password" id="li-pass" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm text-slate-200 focus:outline-none focus:border-indigo-500" placeholder="••••••••">
-                </div>
-                <button onclick="handleLogin()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 rounded-xl transition shadow-lg shadow-indigo-600/20">
-                    Login
-                </button>
-                <p class="text-center text-xs text-slate-400 pt-2">
-                    Don't have an account? <span onclick="toggleAuthMode()" class="text-indigo-400 cursor-pointer font-medium hover:underline">Sign Up</span>
-                </p>
-            </div>
-        </div>
-
-        <!-- 2. REFERRAL CODE POPUP SCREEN -->
-        <div id="referral-view" class="my-auto flex flex-col gap-4 py-8 hidden">
-            <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl space-y-4 text-center">
-                <div class="w-12 h-12 bg-indigo-500/10 text-indigo-400 rounded-full flex items-center justify-center mx-auto text-xl border border-indigo-500/20">
-                    <i class="fa-solid fa-gift"></i>
-                </div>
-                <h2 class="text-lg font-bold text-slate-200">Enter Referral Code</h2>
-                <p class="text-xs text-slate-400">Enter friend's referral code to unlock premium backlog features or skip for now. (You can add it later from profile drawer).</p>
-                <input type="text" id="ref-code-input" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm text-slate-200 text-center uppercase tracking-widest focus:outline-none focus:border-indigo-500" placeholder="REF-XXXX">
-                <div class="flex gap-2 pt-2">
-                    <button onclick="submitReferral(true)" class="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-2.5 rounded-xl text-sm transition">
-                        Skip
-                    </button>
-                    <button onclick="submitReferral(false)" class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2.5 rounded-xl text-sm transition shadow-md">
-                        Submit
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3. GUIDANCE TOUR POPUP -->
-        <div id="tour-view" class="my-auto flex flex-col gap-4 py-8 hidden">
-            <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-xl space-y-4">
-                <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                    <h3 class="font-bold text-slate-200 text-sm"><i class="fa-solid fa-graduation-cap text-indigo-400 mr-2"></i>App Usage Guide</h3>
-                    <button onclick="closeTour()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                <p class="text-xs text-slate-300">Take a quick 2-minute app usage guide to maximize your NEET/JEE score!</p>
-                <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-center">
-                    <i class="fa-brands fa-youtube text-red-500 text-3xl mb-2"></i>
-                    <p class="text-xs text-indigo-400 underline cursor-pointer truncate">https://youtube.com/@apex_neet_jee</p>
-                </div>
-                <button onclick="closeTour()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2.5 rounded-xl text-sm transition">
-                    Got it, Let's Start!
-                </button>
-            </div>
-        </div>
-
-        <!-- 4. DASHBOARD MAIN APP VIEW -->
-        <div id="dashboard-view" class="flex-1 flex flex-col justify-between hidden overflow-y-auto">
-            
-            <!-- Tab Contents Container -->
-            <div class="flex-1 pb-20 space-y-4 p-2">
-                
-                <!-- TAB 1: TO-DO LIST (Default) -->
-                <div id="tab-todo" class="space-y-4 tab-content">
-                    <div class="flex justify-between items-center bg-slate-900/50 p-3 rounded-xl border border-slate-800/80">
-                        <div>
-                            <h2 class="font-bold text-sm text-slate-200">Today's To-Do List</h2>
-                            <p class="text-[10px] text-slate-400" id="current-date-display"></p>
-                        </div>
-                        <div class="flex gap-2">
-                            <button onclick="openAiBreakdownModal()" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white px-2.5 py-1.5 rounded-lg text-xs font-semibold shadow transition flex items-center gap-1">
-                                <i class="fa-solid fa-wand-magic-sparkles"></i> AI Breakdown
-                            </button>
-                            <button onclick="openAddTaskModal()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-3 py-1.5 rounded-lg text-xs font-semibold shadow transition">
-                                <i class="fa-solid fa-plus mr-1"></i> Add
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Tasks List -->
-                    <div id="tasks-list" class="space-y-2.5">
-                        <!-- Dynamic Tasks inserted here -->
-                    </div>
-                </div>
-
-                <!-- TAB 2: BACKLOG MANAGEMENT -->
-                <div id="tab-backlog" class="space-y-4 tab-content hidden">
-                    <div class="bg-rose-950/20 border border-rose-900/30 p-3 rounded-xl">
-                        <h2 class="font-bold text-sm text-rose-400 flex items-center"><i class="fa-solid fa-triangle-exclamation mr-2"></i>Backlog Section</h2>
-                        <p class="text-[10px] text-slate-400 mt-0.5">Tasks marked with [X] appear here automatically for revision.</p>
-                    </div>
-                    <div id="backlog-list" class="space-y-2.5">
-                        <!-- Dynamic Backlog Tasks -->
-                    </div>
-                </div>
-
-                <!-- TAB 3: AI MENTOR & DOUBT SOLVER -->
-                <div id="tab-mentor" class="space-y-4 tab-content hidden">
-                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3 flex flex-col h-[70vh]">
-                        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
-                            <div>
-                                <h3 class="font-bold text-sm text-indigo-400 flex items-center"><i class="fa-solid fa-robot mr-2"></i>Gemini AI Study Mentor</h3>
-                                <p class="text-[10px] text-slate-400">Ask physics, chemistry, biology or strategy doubts instantly.</p>
-                            </div>
-                            <span class="bg-indigo-500/20 text-indigo-300 text-[10px] px-2 py-0.5 rounded-full border border-indigo-500/30">Gemini 3 Flash</span>
-                        </div>
-                        
-                        <!-- Chat History Container -->
-                        <div id="chat-messages" class="flex-1 overflow-y-auto space-y-3 p-2 bg-slate-950 rounded-xl border border-slate-800 text-xs">
-                            <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 max-w-[85%] text-slate-300">
-                                <p class="font-semibold text-indigo-400 mb-1">AI Mentor:</p>
-                                Hi! I am your AI NEET/JEE coach powered by Gemini. Ask me any numerical doubt, concept clarification, or study strategy question!
-                            </div>
-                        </div>
-
-                        <!-- Chat Input Box -->
-                        <div class="flex gap-2 pt-1">
-                            <input type="text" id="chat-input" onkeypress="handleChatKey(event)" placeholder="Ask a doubt (e.g., Explain Lenz's Law)..." class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
-                            <button onclick="sendChatMessage()" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-xs font-semibold shadow transition">
-                                <i class="fa-solid fa-paper-plane"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- TAB 4: STUDY TRACKER & STATS -->
-                <div id="tab-stats" class="space-y-4 tab-content hidden">
-                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
-                        <div class="flex justify-between items-center">
-                            <h3 class="font-bold text-xs text-slate-400 uppercase tracking-wider">AI Exam Strategy Planner</h3>
-                            <button onclick="generateAiStrategy()" class="text-[10px] bg-indigo-600/20 text-indigo-400 hover:bg-indigo-600/30 px-2.5 py-1 rounded-lg border border-indigo-500/30 transition">
-                                <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Generate Plan
-                            </button>
-                        </div>
-                        <div id="ai-strategy-box" class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-xs text-slate-300 min-h-[80px]">
-                            Click 'Generate Plan' to get a customized AI revision schedule based on your NEET/JEE goal.
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
-                        <h3 class="font-bold text-xs text-slate-400 uppercase tracking-wider">Day Summary</h3>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-center">
-                                <span class="block text-xl font-bold text-indigo-400" id="stat-studied">0 hrs</span>
-                                <span class="text-[10px] text-slate-400">Total Studied</span>
-                            </div>
-                            <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-center">
-                                <span class="block text-xl font-bold text-emerald-400" id="stat-completed">0</span>
-                                <span class="text-[10px] text-slate-400">Tasks Finished</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- TAB 5: GAMIFICATION & COMMUNITY -->
-                <div id="tab-gamification" class="space-y-4 tab-content hidden">
-                    <div class="bg-gradient-to-r from-amber-900/30 to-amber-700/10 border border-amber-600/30 p-4 rounded-xl text-center">
-                        <div class="text-3xl font-black text-amber-400 mb-1" id="gp-balance">0 GP</div>
-                        <p class="text-xs text-slate-300">Gold Points earned by completing tasks on time!</p>
-                    </div>
-                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-3">
-                        <h3 class="font-bold text-xs text-slate-400 uppercase tracking-wider">Rewards Shop</h3>
-                        <div class="flex justify-between items-center p-2.5 bg-slate-950 rounded-lg border border-slate-800/60">
-                            <div>
-                                <p class="text-xs font-bold text-slate-200">Unlock Streak Shield</p>
-                                <p class="text-[10px] text-slate-400">Protects streak for 1 missed day</p>
-                            </div>
-                            <button onclick="redeemReward(50)" class="bg-amber-600 hover:bg-amber-500 text-white px-3 py-1 rounded text-xs font-semibold">50 GP</button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- BOTTOM NAVIGATION BAR (5 Tabs updated to include AI Mentor) -->
-            <nav class="absolute bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 flex justify-around items-center h-16 px-2 rounded-b-2xl shadow-lg z-20">
-                <button onclick="switchTab('todo')" id="nav-btn-todo" class="flex flex-col items-center justify-center flex-1 text-indigo-400 transition">
-                    <i class="fa-solid fa-list-check text-base"></i>
-                    <span class="text-[10px] mt-1 font-medium">To-Do</span>
-                </button>
-                <button onclick="switchTab('backlog')" id="nav-btn-backlog" class="flex flex-col items-center justify-center flex-1 text-slate-400 hover:text-slate-200 transition">
-                    <i class="fa-solid fa-box-archive text-base"></i>
-                    <span class="text-[10px] mt-1 font-medium">Backlog</span>
-                </button>
-                <button onclick="switchTab('mentor')" id="nav-btn-mentor" class="flex flex-col items-center justify-center flex-1 text-slate-400 hover:text-slate-200 transition">
-                    <i class="fa-solid fa-robot text-base text-purple-400"></i>
-                    <span class="text-[10px] mt-1 font-medium">AI Mentor</span>
-                </button>
-                <button onclick="switchTab('stats')" id="nav-btn-stats" class="flex flex-col items-center justify-center flex-1 text-slate-400 hover:text-slate-200 transition">
-                    <i class="fa-solid fa-chart-pie text-base"></i>
-                    <span class="text-[10px] mt-1 font-medium">Stats</span>
-                </button>
-                <button onclick="switchTab('gamification')" id="nav-btn-gamification" class="flex flex-col items-center justify-center flex-1 text-slate-400 hover:text-slate-200 transition">
-                    <i class="fa-solid fa-coins text-base"></i>
-                    <span class="text-[10px] mt-1 font-medium">GP</span>
-                </button>
-            </nav>
-        </div>
-
-        <!-- AI BREAKDOWN MODAL -->
-        <div id="ai-breakdown-modal" class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-            <div class="bg-slate-900 w-full max-w-sm rounded-2xl border border-slate-800 p-5 space-y-4 shadow-2xl">
-                <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                    <h3 class="font-bold text-slate-200 text-sm flex items-center"><i class="fa-solid fa-wand-magic-sparkles text-purple-400 mr-2"></i>AI Task Breakdown</h3>
-                    <button onclick="closeAiBreakdownModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                <p class="text-[11px] text-slate-400">Enter a major chapter or topic name, and Gemini AI will break it down into micro-tasks with estimated hours!</p>
-                <div>
-                    <label class="text-xs text-slate-400 block mb-1">Topic / Chapter</label>
-                    <input type="text" id="ai-topic-input" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm text-slate-200 focus:outline-none focus:border-indigo-500" placeholder="e.g. Organic Chemistry Name Reactions">
-                </div>
-                <button onclick="generateAiTasks()" id="ai-breakdown-btn" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-semibold py-2.5 rounded-xl text-sm transition shadow-md">
-                    Generate Micro-Tasks
-                </button>
-            </div>
-        </div>
-
-        <!-- PROFILE DRAWER SIDEBAR -->
-        <div id="profile-drawer" class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex hidden">
-            <div class="bg-slate-900 w-4/5 max-w-xs h-full border-r border-slate-800 p-5 flex flex-col justify-between shadow-2xl">
-                <div class="space-y-6">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-4">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold">
-                                <i class="fa-solid fa-user"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-sm text-slate-200" id="drawer-name">Mayuresh Kandale</h4>
-                                <p class="text-[10px] text-slate-400" id="drawer-id">ID: @mayuresh123</p>
-                            </div>
-                        </div>
-                        <button onclick="closeProfileDrawer()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
-                    </div>
-
-                    <div class="space-y-2 text-xs">
-                        <div class="p-2.5 bg-slate-950 rounded-lg border border-slate-800 flex justify-between items-center cursor-pointer hover:border-slate-700">
-                            <span><i class="fa-solid fa-camera mr-2 text-indigo-400"></i> Change Profile Photo</span>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
-                        </div>
-                        <div class="p-2.5 bg-slate-950 rounded-lg border border-slate-800 flex justify-between items-center cursor-pointer hover:border-slate-700">
-                            <span><i class="fa-solid fa-palette mr-2 text-indigo-400"></i> Theme (Dark Mode)</span>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
-                        </div>
-                        <div class="p-2.5 bg-slate-950 rounded-lg border border-slate-800 flex justify-between items-center cursor-pointer hover:border-slate-700" onclick="promptReferralAgain()">
-                            <span><i class="fa-solid fa-gift mr-2 text-indigo-400"></i> Enter Referral Code (Once)</span>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
-                        </div>
-                        <div class="p-2.5 bg-slate-950 rounded-lg border border-slate-800 flex justify-between items-center cursor-pointer hover:border-slate-700">
-                            <span><i class="fa-solid fa-gear mr-2 text-indigo-400"></i> Settings</span>
-                            <i class="fa-solid fa-chevron-right text-[10px] text-slate-500"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="space-y-3 pt-4 border-t border-slate-800">
-                    <div class="text-[10px] text-slate-500 text-center">
-                        <p>Version v1.0</p>
-                        <p class="font-medium text-slate-400 mt-0.5">Founder: Mayuresh Kandale</p>
-                    </div>
-                    <button onclick="logout()" class="w-full bg-rose-600/20 hover:bg-rose-600/30 text-rose-400 border border-rose-500/30 font-semibold py-2 rounded-xl text-xs transition">
-                        Logout
-                    </button>
-                </div>
-            </div>
-            <div class="flex-1" onclick="closeProfileDrawer()"></div>
-        </div>
-
-        <!-- NOTIFICATION DRAWER -->
-        <div id="notification-drawer" class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex hidden">
-            <div class="bg-slate-900 w-4/5 max-w-xs h-full border-r border-slate-800 p-5 flex flex-col justify-between shadow-2xl ml-auto">
-                <div class="space-y-4">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                        <h4 class="font-bold text-sm text-slate-200"><i class="fa-solid fa-bell text-indigo-400 mr-2"></i>Admin Updates</h4>
-                        <button onclick="closeNotificationDrawer()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
-                    </div>
-                    <div class="space-y-3 text-xs">
-                        <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-1">
-                            <span class="text-[10px] text-indigo-400 font-semibold">New Version Updated</span>
-                            <p class="text-slate-300">New features added. Tap link to download APK.</p>
-                            <a href="#" class="text-[10px] text-indigo-400 underline block pt-1">https://apex-exams.app/download</a>
-                        </div>
-                        <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-1">
-                            <span class="text-[10px] text-amber-400 font-semibold">Streak Challenge</span>
-                            <p class="text-slate-300">Maintain 7 days streak to earn 100 bonus GP points!</p>
-                        </div>
-                    </div>
-                </div>
-                <button onclick="closeNotificationDrawer()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-2 rounded-xl text-xs transition">
-                    Close
-                </button>
-            </div>
-            <div class="flex-1" onclick="closeNotificationDrawer()"></div>
-        </div>
-
-        <!-- ADD TASK MODAL -->
-        <div id="add-task-modal" class="absolute inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-            <div class="bg-slate-900 w-full max-w-sm rounded-2xl border border-slate-800 p-5 space-y-4 shadow-2xl">
-                <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                    <h3 class="font-bold text-slate-200 text-sm">Add New Study Task</h3>
-                    <button onclick="closeAddTaskModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                <div>
-                    <label class="text-xs text-slate-400 block mb-1">Task / Chapter Name</label>
-                    <input type="text" id="new-task-title" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm text-slate-200 focus:outline-none focus:border-indigo-500" placeholder="e.g. Chemical Bonding Revision">
-                </div>
-                <div>
-                    <label class="text-xs text-slate-400 block mb-1">Study Time (Hours)</label>
-                    <input type="number" id="new-task-hours" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-sm text-slate-200 focus:outline-none focus:border-indigo-500" placeholder="e.g. 2">
-                </div>
-                <button onclick="saveNewTask()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2.5 rounded-xl text-sm transition shadow-md">
-                    Save Task
-                </button>
-            </div>
-        </div>
-
-    </div>
-
-    <script>
-        // App State
-        let currentUser = {
-            name: "Mayuresh Kandale",
-            customId: "mayuresh123",
-            gp: 120,
-            streak: 5,
-            exam: "NEET"
-        };
-
-        let tasks = [
-            { id: 1, title: "Physics: Mechanics Numericals", hours: 2, completed: true },
-            { id: 2, title: "Chemistry: Coordination Compounds", hours: 1.5, completed: false }
-        ];
-
-        let backlogTasks = [
-            { id: 101, title: "Biology: Plant Physiology", hours: 2, completed: false }
-        ];
-
-        // Initialize App on Load
-        window.onload = function() {
-            document.getElementById('current-date-display').innerText = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
-            renderTasks();
-        };
-
-        // Authentication Toggle & Actions
-        function toggleAuthMode() {
-            document.getElementById('signup-card').classList.toggle('hidden');
-            document.getElementById('login-card').classList.toggle('hidden');
-        }
-
-        function handleSignup() {
-            const name = document.getElementById('su-name').value;
-            const customId = document.getElementById('su-customid').value;
-            const pass = document.getElementById('su-pass').value;
-
-            if (!name || customId.length < 8 || !pass) {
-                alert("Please fill all fields correctly. Custom ID must be at least 8 characters.");
-                return;
-            }
-
-            currentUser.name = name;
-            currentUser.customId = customId;
-            currentUser.exam = document.getElementById('su-exam').value;
-
-            // Move to Referral Screen per blueprint
-            document.getElementById('auth-view').classList.add('hidden');
-            document.getElementById('referral-view').classList.remove('hidden');
-        }
-
-        function handleLogin() {
-            const customId = document.getElementById('li-customid').value;
-            const pass = document.getElementById('li-pass').value;
-
-            if (!customId || !pass) {
-                alert("Please enter Custom ID and Password.");
-                return;
-            }
-
-            currentUser.customId = customId;
-            startMainApp(false); // Direct login skips referral as per design
-        }
-
-        function submitReferral(isSkipped) {
-            document.getElementById('referral-view').classList.add('hidden');
-            // If signed up, show guidance tour popup next
-            document.getElementById('tour-view').classList.remove('hidden');
-        }
-
-        function closeTour() {
-            document.getElementById('tour-view').classList.add('hidden');
-            startMainApp(true);
-        }
-
-        function startMainApp(isNewSignup) {
-            document.getElementById('auth-view').classList.add('hidden');
-            document.getElementById('referral-view').classList.add('hidden');
-            document.getElementById('tour-view').classList.add('hidden');
-            document.getElementById('dashboard-view').classList.remove('hidden');
-            document.getElementById('main-header').classList.remove('hidden');
-
-            document.getElementById('drawer-name').innerText = currentUser.name;
-            document.getElementById('drawer-id').innerText = `@${currentUser.customId}`;
-            
-            updateHeaderStats();
-            renderTasks();
-        }
-
-        function promptReferralAgain() {
-            closeProfileDrawer();
-            const code = prompt("Enter Referral Code:");
-            if(code) {
-                alert("Referral code applied successfully! Premium features unlocked.");
-                currentUser.gp += 30;
-                updateHeaderStats();
-            }
-        }
-
-        function logout() {
-            closeProfileDrawer();
-            document.getElementById('dashboard-view').classList.add('hidden');
-            document.getElementById('main-header').classList.add('hidden');
-            document.getElementById('auth-view').classList.remove('hidden');
-        }
-
-        // Tab Navigation
-        function switchTab(tabName) {
-            const tabs = ['todo', 'backlog', 'mentor', 'stats', 'gamification'];
-            tabs.forEach(t => {
-                document.getElementById(`tab-${t}`).classList.add('hidden');
-                document.getElementById(`nav-btn-${t}`).className = "flex flex-col items-center justify-center flex-1 text-slate-400 hover:text-slate-200 transition";
-            });
-
-            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
-            document.getElementById(`nav-btn-${tabName}`).className = "flex flex-col items-center justify-center flex-1 text-indigo-400 transition";
-        }
-
-        // Gemini API integration functions
-        async function callGeminiApi(promptText, systemPrompt = "You are an expert AI mentor for NEET and JEE aspirants. Provide concise, clear, and high-yielding academic guidance or structured breakdowns.") {
-            const apiKey = "";
-            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-            
-            const payload = {
-                contents: [{ parts: [{ text: promptText }] }],
-                systemInstruction: { parts: [{ text: systemPrompt }] }
-            };
-
-            let delay = 1000;
-            for (let attempt = 0; attempt < 4; attempt++) {
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-                    const result = await response.json();
-                    const candidate = result.candidates?.[0];
-                    if (candidate && candidate.content?.parts?.[0]?.text) {
-                        return candidate.content.parts[0].text;
-                    }
-                } catch (err) {
-                    // Exponential backoff retry
-                }
-                await new Promise(resolve => setTimeout(resolve, delay));
-                delay *= 2;
-            }
-            return "Sorry, I am unable to connect to Gemini AI right now. Please check your network.";
-        }
-
-        async function sendChatMessage() {
-            const inputEl = document.getElementById('chat-input');
-            const message = inputEl.value.trim();
-            if (!message) return;
-
-            const chatContainer = document.getElementById('chat-messages');
-            chatContainer.innerHTML += `
-                <div class="bg-indigo-950/40 p-3 rounded-xl border border-indigo-900/40 max-w-[85%] ml-auto text-slate-200">
-                    <p class="font-semibold text-indigo-300 mb-1">You:</p>
-                    ${escapeHtml(message)}
-                </div>
-            `;
-            inputEl.value = '';
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-
-            // Loading state
-            const loadingId = 'loading-' + Date.now();
-            chatContainer.innerHTML += `
-                <div id="${loadingId}" class="bg-slate-900 p-3 rounded-xl border border-slate-800 max-w-[85%] text-slate-400 animate-pulse">
-                    <i class="fa-solid fa-spinner fa-spin mr-2"></i> Thinking...
-                </div>
-            `;
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-
-            const aiResponse = await callGeminiApi(message);
-            document.getElementById(loadingId).remove();
-
-            chatContainer.innerHTML += `
-                <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 max-w-[85%] text-slate-300">
-                    <p class="font-semibold text-indigo-400 mb-1">AI Mentor:</p>
-                    ${escapeHtml(aiResponse).replace(/\n/g, '<br>')}
-                </div>
-            `;
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-        }
-
-        function handleChatKey(e) {
-            if (e.key === 'Enter') sendChatMessage();
-        }
-
-        function openAiBreakdownModal() {
-            document.getElementById('ai-breakdown-modal').classList.remove('hidden');
-        }
-
-        function closeAiBreakdownModal() {
-            document.getElementById('ai-breakdown-modal').classList.add('hidden');
-        }
-
-        async function generateAiTasks() {
-            const topic = document.getElementById('ai-topic-input').value.trim();
-            if (!topic) {
-                alert("Please enter a topic name.");
-                return;
-            }
-
-            const btn = document.getElementById('ai-breakdown-btn');
-            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i> Generating Tasks...`;
-            btn.disabled = true;
-
-            const prompt = `Break down the NEET/JEE topic "${topic}" into 3 precise micro-tasks with title and recommended study hours. Return strictly valid JSON array of objects with keys "title" (string) and "hours" (number). Example format: [{"title": "Task 1", "hours": 1.5}]`;
-            
-            const responseText = await callGeminiApi(prompt, "You are a JSON-only response generator for study task breakdowns.");
-            btn.innerHTML = `Generate Micro-Tasks`;
-            btn.disabled = false;
-
-            try {
-                // Clean markdown code blocks if any
-                let cleanJson = responseText.replace(/```json/g, '').replace(/```/g, '').trim();
-                const parsedTasks = JSON.parse(cleanJson);
-                
-                parsedTasks.forEach(t => {
-                    tasks.push({
-                        id: Date.now() + Math.random(),
-                        title: t.title,
-                        hours: parseFloat(t.hours) || 1,
-                        completed: false
-                    });
-                });
-
-                closeAiBreakdownModal();
-                renderTasks();
-                alert(`Successfully added ${parsedTasks.length} AI-generated tasks to your To-Do list!`);
-            } catch (e) {
-                // Fallback parsing or standard string injection
-                tasks.push({
-                    id: Date.now(),
-                    title: `${topic} (AI Revision)`,
-                    hours: 2,
-                    completed: false
-                });
-                closeAiBreakdownModal();
-                renderTasks();
-                alert("Added AI study task successfully!");
-            }
-        }
-
-        async function generateAiStrategy() {
-            const box = document.getElementById('ai-strategy-box');
-            box.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i> Analyzing your target (${currentUser.exam}) and generating optimal revision schedule...`;
-
-            const prompt = `Create a 3-point high-impact daily revision strategy for a ${currentUser.exam} aspirant to secure top rank. Keep it crisp, motivational, and bulleted.`;
-            const strategy = await callGeminiApi(prompt);
-            box.innerHTML = escapeHtml(strategy).replace(/\n/g, '<br>');
-        }
-
-        function escapeHtml(text) {
-            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
-            return text.replace(/[&<>"']/g, m => map[m]);
-        }
-
-        // Task & Backlog Management
-        function renderTasks() {
-            const container = document.getElementById('tasks-list');
-            container.innerHTML = '';
-
-            if (tasks.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-500 text-center py-6">No tasks added for today. Click 'Add Task' to begin.</p>`;
-            }
-
-            tasks.forEach(task => {
-                container.innerHTML += `
-                    <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 flex justify-between items-center shadow-sm">
-                        <div class="flex items-center gap-3">
-                            <button onclick="toggleTask(${task.id})" class="w-6 h-6 rounded-md border ${task.completed ? 'bg-emerald-600 border-emerald-500 text-white' : 'border-slate-700 text-transparent'} flex items-center justify-center text-xs transition">
-                                <i class="fa-solid fa-check"></i>
-                            </button>
-                            <div>
-                                <h4 class="text-xs font-bold text-slate-200 ${task.completed ? 'line-through text-slate-500' : ''}">${task.title}</h4>
-                                <p class="text-[10px] text-slate-400"><i class="fa-regular fa-clock mr-1"></i> ${task.hours} hrs scheduled</p>
-                            </div>
-                        </div>
-                        <button onclick="moveToBacklog(${task.id})" class="w-7 h-7 rounded-lg bg-rose-950/30 text-rose-400 border border-rose-900/30 flex items-center justify-center text-xs hover:bg-rose-900/40 transition" title="Mark as Incomplete / Send to Backlog">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </div>
-                `;
-            });
-
-            // Render Backlog
-            const backlogContainer = document.getElementById('backlog-list');
-            backlogContainer.innerHTML = '';
-            if (backlogTasks.length === 0) {
-                backlogContainer.innerHTML = `<p class="text-xs text-slate-500 text-center py-6">No backlogs pending! Great job.</p>`;
-            } else {
-                backlogTasks.forEach(task => {
-                    backlogContainer.innerHTML += `
-                        <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 flex justify-between items-center shadow-sm">
-                            <div>
-                                <h4 class="text-xs font-bold text-slate-200">${task.title}</h4>
-                                <p class="text-[10px] text-slate-400">${task.hours} hrs</p>
-                            </div>
-                            <button onclick="restoreFromBacklog(${task.id})" class="bg-indigo-600 hover:bg-indigo-500 text-white px-2.5 py-1 rounded-lg text-[10px] font-semibold transition">
-                                Restore to Today
-                            </button>
-                        </div>
-                    `;
-                });
-            }
-
-            // Update Stats
-            let totalStudied = tasks.reduce((acc, t) => t.completed ? acc + t.hours : acc, 0);
-            let completedCount = tasks.filter(t => t.completed).length;
-            document.getElementById('stat-studied').innerText = `${totalStudied} hrs`;
-            document.getElementById('stat-completed').innerText = completedCount;
-            document.getElementById('gp-balance').innerText = `${currentUser.gp} GP`;
-        }
-
-        function toggleTask(id) {
-            const task = tasks.find(t => t.id === id);
-            if(task) {
-                task.completed = !task.completed;
-                if(task.completed) {
-                    currentUser.gp += 10; // Reward GP for completion
-                } else {
-                    currentUser.gp = Math.max(0, currentUser.gp - 10);
-                }
-                updateHeaderStats();
-                renderTasks();
-            }
-        }
-
-        function moveToBacklog(id) {
-            const index = tasks.findIndex(t => t.id === id);
-            if(index !== -1) {
-                const [removed] = tasks.splice(index, 1);
-                removed.completed = false;
-                backlogTasks.push(removed);
-                renderTasks();
-            }
-        }
-
-        function restoreFromBacklog(id) {
-            const index = backlogTasks.findIndex(t => t.id === id);
-            if(index !== -1) {
-                const [restored] = backlogTasks.splice(index, 1);
-                tasks.push(restored);
-                renderTasks();
-            }
-        }
-
-        function openAddTaskModal() {
-            document.getElementById('add-task-modal').classList.remove('hidden');
-        }
-
-        function closeAddTaskModal() {
-            document.getElementById('add-task-modal').classList.add('hidden');
-        }
-
-        function saveNewTask() {
-            const title = document.getElementById('new-task-title').value;
-            const hours = parseFloat(document.getElementById('new-task-hours').value);
-
-            if(!title || isNaN(hours)) {
-                alert("Please enter valid task details.");
-                return;
-            }
-
-            tasks.push({
-                id: Date.now(),
-                title,
-                hours,
-                completed: false
-            });
-
-            document.getElementById('new-task-title').value = '';
-            document.getElementById('new-task-hours').value = '';
-            closeAddTaskModal();
-            renderTasks();
-        }
-
-        function redeemReward(cost) {
-            if(currentUser.gp >= cost) {
-                currentUser.gp -= cost;
-                updateHeaderStats();
-                alert("Reward redeemed successfully!");
-                renderTasks();
-            } else {
-                alert("Not enough GP points!");
-            }
-        }
-
-        function updateHeaderStats() {
-            document.getElementById('header-gp').innerText = currentUser.gp;
-            document.getElementById('header-streak').innerText = currentUser.streak;
-        }
-
-        // Drawers
-        function openProfileDrawer() { document.getElementById('profile-drawer').classList.remove('hidden'); }
-        function closeProfileDrawer() { document.getElementById('profile-drawer').classList.add('hidden'); }
-        function openNotificationDrawer() { document.getElementById('notification-drawer').classList.remove('hidden'); }
-        function closeNotificationDrawer() { document.getElementById('notification-drawer').classList.add('hidden'); }
-    </script>
+<body>
+<div id="app"></div>
+<div id="modal" class="modal hidden"></div>
+<div id="toast" class="toast hidden"></div>
+<script>
+"use strict";
+
+/* ============================================================
+   APEX — SINGLE FILE LOCAL-FIRST APPLICATION
+   No Google Login/OAuth/dependencies.
+   Core data lives in localStorage. Passwords are PBKDF2 hashes,
+   never plaintext. A production cloud backend is required for
+   multi-device sync, email password reset, push notifications,
+   and secure server-side admin authorization.
+============================================================ */
+
+const KEY="APEX_V1_STATE";
+const VERSION="1.0.0";
+const uid=()=>crypto.randomUUID?crypto.randomUUID():"id-"+Date.now()+"-"+Math.random().toString(36).slice(2);
+const nowISO=()=>new Date().toISOString();
+const localDate=d=>{const x=d?new Date(d):new Date();return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,"0")}-${String(x.getDate()).padStart(2,"0")}`};
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmtMin=m=>{m=Math.max(0,Math.round(m||0));return `${Math.floor(m/60)}h ${m%60}m`};
+const dateText=d=>new Intl.DateTimeFormat(undefined,{day:"numeric",month:"short",year:"numeric"}).format(new Date(d+"T00:00:00"));
+const timeText=d=>new Intl.DateTimeFormat(undefined,{hour:"numeric",minute:"2-digit"}).format(new Date(d));
+const subjectList=exam=>exam==="NEET"?["Physics","Chemistry","Biology"]:["Physics","Chemistry","Mathematics"];
+
+let state=load();
+let page="home";
+let studySubject=null;
+
+function defaultState(){
+ return {
+  version:VERSION,sessionUserId:null,theme:"system",
+  users:[],tasks:[],backlog:[],sessions:[],notes:[],tests:[],attempts:[],
+  xp:[],activities:[],achievements:[],notifications:[],referrals:[],
+  curriculum:[
+   {id:uid(),exam:"JEE",name:"Physics",chapters:[
+    {id:uid(),name:"Units & Measurements",topics:["Dimensions","Errors","Significant Figures"]},
+    {id:uid(),name:"Kinematics",topics:["Motion in Straight Line","Motion in Plane"]},
+    {id:uid(),name:"Newton's Laws of Motion",topics:["NLM","Friction","Circular Motion"]},
+    {id:uid(),name:"Work, Energy & Power",topics:["Work","Energy","Power"]}
+   ]},
+   {id:uid(),exam:"JEE",name:"Chemistry",chapters:[
+    {id:uid(),name:"Some Basic Concepts",topics:["Mole Concept","Stoichiometry"]},
+    {id:uid(),name:"Atomic Structure",topics:["Bohr Model","Quantum Numbers"]},
+    {id:uid(),name:"Chemical Bonding",topics:["VSEPR","Hybridisation","MOT"]}
+   ]},
+   {id:uid(),exam:"JEE",name:"Mathematics",chapters:[
+    {id:uid(),name:"Sets",topics:["Set Operations","Intervals"]},
+    {id:uid(),name:"Logarithms",topics:["Laws","Equations"]},
+    {id:uid(),name:"Quadratic Equations",topics:["Roots","Graphs"]}
+   ]},
+   {id:uid(),exam:"NEET",name:"Physics",chapters:[{id:uid(),name:"Units & Measurements",topics:["Dimensions","Errors"]},{id:uid(),name:"Kinematics",topics:["Motion","Vectors"]}]},
+   {id:uid(),exam:"NEET",name:"Chemistry",chapters:[{id:uid(),name:"Some Basic Concepts",topics:["Mole Concept"]},{id:uid(),name:"Atomic Structure",topics:["Quantum Numbers"]}]},
+   {id:uid(),exam:"NEET",name:"Biology",chapters:[{id:uid(),name:"The Living World",topics:["Taxonomy","Nomenclature"]},{id:uid(),name:"Cell: The Unit of Life",topics:["Cell Structure","Organelles"]}]}
+  ],
+  settings:{notifications:true,reminderMinutes:10},
+  app:{guideVersion:0}
+ };
+}
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||defaultState()}catch{return defaultState()}}
+function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+function user(){return state.users.find(u=>u.id===state.sessionUserId)}
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.remove("hidden");clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.classList.add("hidden"),2200)}
+function modal(html){const m=document.getElementById("modal");m.innerHTML=`<div class="modalbox">${html}</div>`;m.classList.remove("hidden")}
+function closeModal(){document.getElementById("modal").classList.add("hidden")}
+function setTheme(){
+ let t=state.theme;if(t==="system")t=matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light";
+ document.documentElement.dataset.theme=t;
+}
+setTheme();
+
+async function derive(password,salt){
+ const enc=new TextEncoder();
+ const key=await crypto.subtle.importKey("raw",enc.encode(password),"PBKDF2",false,["deriveBits"]);
+ const bits=await crypto.subtle.deriveBits({name:"PBKDF2",salt:enc.encode(salt),iterations:150000,hash:"SHA-256"},key,256);
+ return [...new Uint8Array(bits)].map(x=>x.toString(16).padStart(2,"0")).join("");
+}
+async function hashPassword(p,s){return derive(p,s)}
+function validEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)}
+function passwordOK(p){return p.length>=8}
+function greeting(){const h=new Date().getHours();return h<12?"Good morning":h<17?"Good afternoon":"Good evening"}
+function currentUserData(){const u=user();return u||null}
+
+function signOut(){state.sessionUserId=null;save();page="home";render()}
+function startApp(){if(!state.sessionUserId)renderAuth();else render()}
+
+function renderAuth(){
+ document.getElementById("app").innerHTML=`
+ <div class="auth-wrap"><div class="auth-card">
+  <div class="logo">APEX</div><div class="tag">Your Exam Partner.</div>
+  <div style="height:20px"></div>
+  <div class="tabs"><button class="tab active" id="loginTab">Login</button><button class="tab" id="signupTab">Sign Up</button></div>
+  <div id="authForm"></div>
+  <p class="small muted" style="margin-top:18px">Local-first build • No Google Sign-In</p>
+ </div></div>`;
+ document.getElementById("loginTab").onclick=()=>authForm("login");
+ document.getElementById("signupTab").onclick=()=>authForm("signup");
+ authForm("login");
+}
+function authForm(type){
+ document.querySelectorAll(".tabs .tab").forEach((b,i)=>b.classList.toggle("active",(type==="login"&&i===0)||(type==="signup"&&i===1)));
+ const box=document.getElementById("authForm");
+ if(type==="login")box.innerHTML=`
+  <form id="loginForm">
+   <div class="field"><label>Email or username</label><input id="loginId" required autocomplete="username"></div>
+   <div class="field"><label>Password</label><input id="loginPass" type="password" required autocomplete="current-password"></div>
+   <button class="btn primary" style="width:100%">Login</button>
+   <button type="button" class="btn ghost" style="width:100%;margin-top:5px" id="forgot">Forgot password?</button>
+  </form>`;
+ else box.innerHTML=`
+  <form id="signupForm">
+   <div class="field"><label>Full name</label><input id="full" required maxlength="80"></div>
+   <div class="field"><label>Custom User ID</label><input id="uname" required pattern="[A-Za-z0-9_]{3,24}" maxlength="24"></div>
+   <div class="field"><label>Email</label><input id="email" type="email" required></div>
+   <div class="field"><label>Password</label><input id="pass" type="password" minlength="8" required autocomplete="new-password"><span class="small muted">At least 8 characters.</span></div>
+   <div class="field"><label>Exam</label><select id="exam"><option>JEE</option><option>NEET</option></select></div>
+   <div class="field"><label>Grade / Class</label><input id="grade" required placeholder="11th"></div>
+   <div class="field"><label>Profile photo (optional)</label><input id="photo" type="file" accept="image/*"></div>
+   <button class="btn primary" style="width:100%">Create account</button>
+  </form>`;
+ if(type==="login"){
+  document.getElementById("loginForm").onsubmit=async e=>{e.preventDefault();await login()};
+  document.getElementById("forgot").onclick=forgotPassword;
+ }else document.getElementById("signupForm").onsubmit=async e=>{e.preventDefault();await signup()};
+}
+async function signup(){
+ const full=fullEl().value.trim(),uname=el("uname").value.trim(),email=el("email").value.trim().toLowerCase(),pass=el("pass").value,exam=el("exam").value,grade=el("grade").value.trim();
+ if(!validEmail(email)||!passwordOK(pass))return toast("Use a valid email and 8+ character password.");
+ if(state.users.some(u=>u.email===email))return toast("An account with this email already exists.");
+ if(state.users.some(u=>u.username.toLowerCase()===uname.toLowerCase()))return toast("That User ID is already taken.");
+ let photo="";
+ const file=el("photo").files[0];
+ if(file){if(file.size>1500000)return toast("Profile photo must be under 1.5 MB.");photo=await readDataURL(file)}
+ const salt=uid(),hash=await hashPassword(pass,salt);
+ const u={id:uid(),fullName:full,username:uname,email,passwordHash:hash,passwordSalt:salt,exam,grade,photo,createdAt:nowISO(),updatedAt:nowISO(),onboarded:false};
+ state.users.push(u);state.sessionUserId=u.id;save();
+ showReferral();
+}
+async function login(){
+ const id=el("loginId").value.trim().toLowerCase(),pass=el("loginPass").value;
+ const u=state.users.find(x=>x.email===id||x.username.toLowerCase()===id);
+ if(!u)return toast("Account not found.");
+ if(!(await hashPassword(pass,u.passwordSalt)===u.passwordHash))return toast("Incorrect password. Please try again.");
+ state.sessionUserId=u.id;u.lastLoginAt=nowISO();save();render();
+}
+function forgotPassword(){
+ modal(`<h2>Forgot password</h2>
+ <p class="muted">This single-file offline build cannot securely email a password-reset link. A production deployment must connect this flow to a backend email service.</p>
+ <p>You can still use <b>Change Password</b> after logging in on a device where the session is already available.</p>
+ <button class="btn secondary" onclick="closeModal()">Close</button>`);
+}
+function showReferral(){
+ modal(`<h2>Have a referral code?</h2><p class="muted">Optional. You can skip this and continue normally.</p>
+ <div class="field"><label>Referral code</label><input id="refCode" maxlength="32" placeholder="Enter code"></div>
+ <div class="actions"><button class="btn primary" onclick="applyReferral()">Apply</button><button class="btn secondary" onclick="skipReferral()">Skip</button></div>`);
+}
+function applyReferral(){
+ const code=el("refCode").value.trim().toUpperCase();
+ if(!code)return toast("Enter a referral code.");
+ // No fake referral validation: local build only accepts codes configured in state.referrals as admin-created records.
+ const r=state.referrals.find(x=>x.code===code&&x.active!==false&&(!x.expiresAt||x.expiresAt>=localDate()));
+ if(!r)return toast("Referral code not found.");
+ const u=user();if(r.usedBy?.includes(u.id))return toast("This referral was already used.");
+ r.usedBy=r.usedBy||[];r.usedBy.push(u.id);u.referralCode=code;save();closeModal();showGuide();
+}
+function skipReferral(){user().referralSkipped=true;save();closeModal();showGuide()}
+function showGuide(){
+ modal(`<h2>Take the APEX app usage guide in 2 minutes.</h2>
+ <div class="list">
+ ${["✅ To-Do — plan and complete daily work","📚 Study — browse exam subjects and chapters","📝 Tests — attempt tests and review performance","📦 Backlog — turn pending lectures/DPPs into actionable work","📈 Progress — see real activity and study time","🏆 Gamification — earn XP for meaningful activity","👤 Profile — manage your account and preferences","🔔 Notifications — receive local reminders and announcements"].map(x=>`<div class="card">${x}</div>`).join("")}
+ </div><div class="actions" style="margin-top:14px"><button class="btn primary" onclick="finishGuide()">Start / Finish Guide</button><button class="btn secondary" onclick="finishGuide()">Skip</button></div>`);
+}
+function finishGuide(){user().onboarded=true;state.app.guideVersion=1;save();closeModal();render()}
+
+function el(id){return document.getElementById(id)} function fullEl(){return el("full")}
+function readDataURL(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file)})}
+
+function render(){
+ if(!user())return renderAuth();
+ setTheme();
+ document.getElementById("app").innerHTML=`<div class="screen" id="screen"></div><div class="bottom"><div class="nav">
+ ${nav("home","⌂","Home")}${nav("study","📚","Study")}${nav("tests","📝","Tests")}${nav("notes","🗒","Notes")}${nav("profile","👤","Profile")}
+ </div></div>`;
+ document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{page=b.dataset.page;render()});
+ if(page==="home")homePage();if(page==="study")studyPage();if(page==="tests")testsPage();if(page==="notes")notesPage();if(page==="profile")profilePage();
+}
+function nav(p,i,t){return `<button data-page="${p}" class="${page===p?"active":""}"><span class="ni">${i}</span>${t}</button>`}
+function header(title,sub=""){return `<header class="page"><div class="between"><div><h1>${title}</h1>${sub?`<div class="muted">${sub}</div>`:""}</div><div class="row"><button class="iconbtn" onclick="notificationPage()">🔔</button><div class="avatar" onclick="page='profile';render()">${user().photo?`<img src="${user().photo}">`:esc(user().fullName[0].toUpperCase())}</div></div></div></header>`}
+
+function todayTasks(){return state.tasks.filter(t=>t.userId===user().id&&t.date===localDate())}
+function xpTotal(){return state.xp.filter(x=>x.userId===user().id).reduce((a,x)=>a+x.amount,0)}
+function activityFor(d){return state.activities.find(a=>a.userId===user().id&&a.date===d)}
+function currentStreak(){
+ let d=new Date(),n=0;
+ while(true){const s=localDate(d),a=activityFor(s);if(!a||a.meaningful<=0)break;n++;d.setDate(d.getDate()-1)}
+ return n
+}
+function bestStreak(){
+ const dates=state.activities.filter(a=>a.userId===user().id&&a.meaningful>0).map(a=>a.date).sort();
+ let best=0,cur=0,prev="";
+ for(const d of dates){if(prev){const x=new Date(prev+"T00:00:00"),y=new Date(d+"T00:00:00");const diff=Math.round((y-x)/86400000);cur=diff===1?cur+1:1}else cur=1;best=Math.max(best,cur);prev=d}return best
+}
+function markMeaningful(date,delta){
+ let a=activityFor(date);if(!a){a={id:uid(),userId:user().id,date,meaningful:0,studyMinutes:0,tasksCompleted:0,backlogCompleted:0,testsCompleted:0};state.activities.push(a)}
+ a.meaningful=Math.max(0,a.meaningful+delta);save()
+}
+function award(source,sourceId,amount){
+ const key=`${user().id}:${source}:${sourceId}`;
+ if(state.xp.some(x=>x.key===key))return false;
+ state.xp.push({id:uid(),userId:user().id,source,sourceId,amount,key,createdAt:nowISO()});return true
+}
+
+function homePage(){
+ const tasks=todayTasks(),done=tasks.filter(t=>t.status==="COMPLETED").length,mins=state.sessions.filter(s=>s.userId===user().id&&s.date===localDate()).reduce((a,s)=>a+s.minutes,0);
+ const backlog=state.backlog.filter(b=>b.userId===user().id),remaining=backlog.reduce((a,b)=>a+Math.max(0,b.lecturesTotal-b.lecturesCompleted)+Math.max(0,b.dppsTotal-b.dppsCompleted)+Math.max(0,b.homeworkTotal-b.homeworkCompleted),0);
+ const pct=tasks.length?Math.round(done/tasks.length*100):0;
+ el("screen").innerHTML=`
+ ${header("Home")}
+ <div class="section"><div class="greeting">${greeting()}, ${esc(user().fullName.split(" ")[0])} 👋</div><div class="muted">Keep going. Your goals are closer than you think.</div></div>
+ <div class="grid g4">
+  ${stat("🔥",currentStreak(),"Current streak")}${stat("⭐",xpTotal(),"XP points")}${stat("⏱",fmtMin(mins),"Study today")}${stat("✓",`${done}/${tasks.length}`,"Tasks done")}
+ </div>
+ <div class="section card"><div class="between"><div><b>Today's progress</b><div class="small muted">${done} completed • ${tasks.length-done} remaining</div></div><b>${pct}%</b></div><div class="progress" style="margin-top:12px"><i style="width:${pct}%"></i></div></div>
+ <div class="section"><div class="between"><h2>Quick actions</h2></div><div class="grid g2">
+ ${quick("✓","To-Do","Plan today's work",()=>todoPage())}${quick("📚","Study","Subjects & chapters",()=>{page="study";render()})}
+ ${quick("📝","Tests","Practice & history",()=>{page="tests";render()})}${quick("📦","Backlog",`${remaining} work items remaining`,()=>backlogPage())}
+ ${quick("📈","Progress","See your real activity",()=>progressPage())}${quick("🏆","Gamification",`${xpTotal()} XP • best ${bestStreak()} days`,()=>gamificationPage())}
+ </div></div>
+ <div class="section"><div class="between"><h2>Today's tasks</h2><button class="btn secondary" onclick="todoPage()">View all</button></div>
+ ${tasks.length?`<div class="list">${tasks.slice(0,5).map(taskCard).join("")}</div>`:`<div class="card empty">No tasks planned for today.<br><button class="btn primary" style="margin-top:12px" onclick="openTask()">Add your first task</button></div>`}</div>`;
+}
+function stat(i,n,l){return `<div class="card stat"><div>${i}</div><div class="num">${esc(n)}</div><div class="label">${l}</div></div>`}
+function quick(i,t,s,fn){return `<button class="card quick" onclick="(${fn.toString()})()"><span class="qicon">${i}</span><span style="text-align:left"><b>${t}</b><br><span class="small muted">${s}</span></span></button>`}
+
+function taskCard(t){
+ return `<div class="card task"><button class="check ${t.status==="COMPLETED"?"done":""}" onclick="toggleTask('${t.id}')">${t.status==="COMPLETED"?"✓":""}</button>
+ <div style="flex:1"><div class="task-title ${t.status==="COMPLETED"?"strike":""}">${esc(t.title)}</div>
+ <div class="small muted">${esc(t.subject||"General")} ${t.startTime?`• ${esc(t.startTime)}${t.endTime?"–"+esc(t.endTime):""}`:""} • ${t.estimatedMinutes||0} min</div>
+ ${t.notes?`<div class="small calendar-note">${esc(t.notes)}</div>`:""}</div>
+ <div class="item-actions"><button onclick="openTask('${t.id}')">Edit</button><button onclick="deleteTask('${t.id}')">Delete</button></div></div>`
+}
+function todoPage(){
+ const list=state.tasks.filter(t=>t.userId===user().id).sort((a,b)=>(a.date+a.startTime).localeCompare(b.date+b.startTime));
+ el("screen").innerHTML=`${header("To-Do","Plan, schedule and complete meaningful work")}
+ <div class="actions" style="margin-bottom:12px"><button class="btn primary" onclick="openTask()">+ Add task</button><button class="btn secondary" onclick="showTaskFilters()">Filter / Sort</button></div>
+ <div id="todoList" class="list">${list.length?list.map(taskCard).join(""):`<div class="card empty">Your task list is empty.</div>`}</div>`;
+}
+function showTaskFilters(){
+ modal(`<h2>Task filters</h2><div class="field"><label>Date</label><select id="filterDate"><option value="all">All</option><option value="today">Today</option><option value="upcoming">Upcoming</option><option value="completed">Completed</option><option value="pending">Pending</option></select></div><div class="field"><label>Subject</label><select id="filterSub"><option value="all">All subjects</option>${subjectList(user().exam).map(s=>`<option>${s}</option>`).join("")}</select></div><div class="actions"><button class="btn primary" onclick="applyFilters()">Apply</button><button class="btn secondary" onclick="closeModal()">Cancel</button></div>`)
+}
+function applyFilters(){
+ const d=el("filterDate").value,s=el("filterSub").value,today=localDate();
+ let list=state.tasks.filter(t=>t.userId===user().id);
+ if(d==="today")list=list.filter(t=>t.date===today);if(d==="upcoming")list=list.filter(t=>t.date>today);if(d==="completed")list=list.filter(t=>t.status==="COMPLETED");if(d==="pending")list=list.filter(t=>t.status!=="COMPLETED");if(s!=="all")list=list.filter(t=>t.subject===s);
+ closeModal();el("todoList").innerHTML=list.length?list.map(taskCard).join(""):`<div class="card empty">No tasks match those filters.</div>`;
+}
+function openTask(id=""){
+ const t=id?state.tasks.find(x=>x.id===id):null;
+ modal(`<h2>${t?"Edit task":"Add task"}</h2><form id="taskForm">
+ <div class="field"><label>Task title</label><input id="tt" required maxlength="120" value="${esc(t?.title)}"></div>
+ <div class="grid g2"><div class="field"><label>Subject</label><select id="ts"><option value="">General</option>${subjectList(user().exam).map(s=>`<option ${t?.subject===s?"selected":""}>${s}</option>`).join("")}</select></div>
+ <div class="field"><label>Chapter / topic</label><input id="tc" value="${esc(t?.chapter)}"></div></div>
+ <div class="grid g2"><div class="field"><label>Date</label><input id="td" type="date" required value="${t?.date||localDate()}"></div>
+ <div class="field"><label>Start time</label><input id="tst" type="time" value="${t?.startTime||""}"></div></div>
+ <div class="grid g2"><div class="field"><label>End time</label><input id="tet" type="time" value="${t?.endTime||""}"></div>
+ <div class="field"><label>Estimated duration (minutes)</label><input id="tm" type="number" min="1" max="1440" value="${t?.estimatedMinutes||60}"></div></div>
+ <div class="field"><label>Priority</label><select id="tp"><option ${t?.priority==="HIGH"?"selected":""}>HIGH</option><option ${!t||t?.priority==="MEDIUM"?"selected":""}>MEDIUM</option><option ${t?.priority==="LOW"?"selected":""}>LOW</option></select></div>
+ <div class="field"><label>Notes</label><textarea id="tn">${esc(t?.notes)}</textarea></div>
+ <div class="actions"><button class="btn primary">Save task</button><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button></div>
+ </form>`);
+ el("taskForm").onsubmit=e=>{e.preventDefault();saveTask(id)}
+}
+function saveTask(id){
+ const obj={title:el("tt").value.trim(),subject:el("ts").value,chapter:el("tc").value.trim(),date:el("td").value,startTime:el("tst").value,endTime:el("tet").value,estimatedMinutes:+el("tm").value||0,priority:el("tp").value,notes:el("tn").value.trim()};
+ if(!obj.title||!obj.date)return toast("Title and date are required.");
+ if(obj.startTime&&obj.endTime&&obj.endTime<obj.startTime)return toast("End time must be after start time.");
+ if(id){Object.assign(state.tasks.find(t=>t.id===id),obj,{updatedAt:nowISO()})}else state.tasks.push({id:uid(),userId:user().id,status:"PENDING",createdAt:nowISO(),updatedAt:nowISO(),...obj});
+ save();closeModal();toast("Task saved");page==="home"?render():todoPage();
+}
+function toggleTask(id){
+ const t=state.tasks.find(x=>x.id===id);if(!t)return;
+ if(t.status==="COMPLETED"){t.status="PENDING";t.completedAt=null;markMeaningful(localDate(),-1);save();toast("Task marked incomplete");render()}
+ else{
+  modal(`<h2>Have you completed your task?</h2><p class="muted">${esc(t.title)}</p><div class="actions"><button class="btn success" onclick="confirmComplete('${id}')">✓ Yes</button><button class="btn secondary" onclick="closeModal()">✕ No</button></div>`);
+ }
+}
+function confirmComplete(id){
+ const t=state.tasks.find(x=>x.id===id);if(!t)return;closeModal();t.status="COMPLETED";t.completedAt=nowISO();t.updatedAt=nowISO();markMeaningful(t.date,1);
+ if(award("TASK_COMPLETED",t.id,10))toast("+10 XP • Task completed");save();render();
+}
+function deleteTask(id){if(confirm("Delete this task?")){state.tasks=state.tasks.filter(t=>t.id!==id);save();toast("Task deleted");render()}}
+function backlogPage(){
+ const list=state.backlog.filter(b=>b.userId===user().id),remaining=bRemainingAll(list),completed=list.filter(b=>b.status==="COMPLETED").length;
+ el("screen").innerHTML=`${header("Backlog","Turn pending work into actionable study")}
+ <div class="grid g4">${stat("📦",remaining,"Work units remaining")}${stat("🔴",list.filter(b=>b.priority==="HIGH"&&b.status!=="COMPLETED").length,"High priority")}${stat("✓",completed,"Items completed")}${stat("📋",list.length,"Total items")}</div>
+ <div class="actions" style="margin:14px 0"><button class="btn primary" onclick="openBacklog()">+ Add backlog</button></div>
+ <div class="list">${list.length?list.map(backlogCard).join(""):`<div class="card empty">No backlog items yet.</div>`}</div>`;
+}
+function bRemaining(b){return Math.max(0,(b.lecturesTotal||0)-(b.lecturesCompleted||0))+Math.max(0,(b.dppsTotal||0)-(b.dppsCompleted||0))+Math.max(0,(b.homeworkTotal||0)-(b.homeworkCompleted||0))}
+function bRemainingAll(l){return l.reduce((a,b)=>a+bRemaining(b),0)}
+function backlogCard(b){
+ const total=(b.lecturesTotal||0)+(b.dppsTotal||0)+(b.homeworkTotal||0),done=(b.lecturesCompleted||0)+(b.dppsCompleted||0)+(b.homeworkCompleted||0),pct=total?Math.round(done/total*100):0;
+ return `<div class="card"><div class="between"><div><b>${esc(b.chapter||b.topic||"Backlog")}</b><div class="small muted">${esc(b.subject)}${b.topic?" • "+esc(b.topic):""}</div></div><span class="badge ${b.priority==="HIGH"?"high":b.priority==="LOW"?"low":"med"}">${b.priority}</span></div>
+ <div class="small muted" style="margin:12px 0">Lectures ${b.lecturesCompleted||0}/${b.lecturesTotal||0} • DPPs ${b.dppsCompleted||0}/${b.dppsTotal||0} • HW ${b.homeworkCompleted||0}/${b.homeworkTotal||0}</div>
+ <div class="progress"><i style="width:${pct}%"></i></div><div class="between small" style="margin-top:8px"><span>${pct}% complete</span><span>${bRemaining(b)} remaining</span></div>
+ <div class="actions" style="margin-top:12px"><button class="btn primary" onclick="progressBacklog('${b.id}')">Update progress</button><button class="btn secondary" onclick="openBacklog('${b.id}')">Edit</button><button class="btn danger" onclick="deleteBacklog('${b.id}')">Delete</button></div></div>`
+}
+function openBacklog(id=""){
+ const b=id?state.backlog.find(x=>x.id===id):null;
+ modal(`<h2>${b?"Edit backlog":"Add backlog item"}</h2><form id="backForm">
+ <div class="grid g2"><div class="field"><label>Subject</label><select id="bs">${subjectList(user().exam).map(s=>`<option ${b?.subject===s?"selected":""}>${s}</option>`).join("")}</select></div>
+ <div class="field"><label>Chapter</label><input id="bc" required value="${esc(b?.chapter)}"></div></div>
+ <div class="field"><label>Topic (optional)</label><input id="bt" value="${esc(b?.topic)}"></div>
+ <div class="grid g3"><div class="field"><label>Lectures</label><input id="bl" type="number" min="0" value="${b?.lecturesTotal||0}"></div><div class="field"><label>DPPs</label><input id="bd" type="number" min="0" value="${b?.dppsTotal||0}"></div><div class="field"><label>Homework</label><input id="bh" type="number" min="0" value="${b?.homeworkTotal||0}"></div></div>
+ <div class="grid g2"><div class="field"><label>Estimated minutes</label><input id="bem" type="number" min="0" value="${b?.estimatedMinutes||0}"></div><div class="field"><label>Deadline</label><input id="bdeadline" type="date" value="${b?.deadline||""}"></div></div>
+ <div class="field"><label>Priority</label><select id="bp"><option ${b?.priority==="HIGH"?"selected":""}>HIGH</option><option ${!b||b?.priority==="MEDIUM"?"selected":""}>MEDIUM</option><option ${b?.priority==="LOW"?"selected":""}>LOW</option></select></div>
+ <div class="actions"><button class="btn primary">Save backlog</button><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button></div></form>`);
+ el("backForm").onsubmit=e=>{e.preventDefault();saveBacklog(id)}
+}
+function saveBacklog(id){
+ const o={subject:el("bs").value,chapter:el("bc").value.trim(),topic:el("bt").value.trim(),lecturesTotal:+el("bl").value||0,dppsTotal:+el("bd").value||0,homeworkTotal:+el("bh").value||0,estimatedMinutes:+el("bem").value||0,deadline:el("bdeadline").value,priority:el("bp").value};
+ if(!o.chapter)return toast("Chapter is required.");
+ if(id){Object.assign(state.backlog.find(x=>x.id===id),o,{updatedAt:nowISO()})}
+ else state.backlog.push({id:uid(),userId:user().id,lecturesCompleted:0,dppsCompleted:0,homeworkCompleted:0,status:"PENDING",createdAt:nowISO(),updatedAt:nowISO(),...o});
+ save();closeModal();toast("Backlog saved");backlogPage();
+}
+function progressBacklog(id){
+ const b=state.backlog.find(x=>x.id===id);
+ modal(`<h2>Update progress</h2><p class="muted">${esc(b.chapter)}</p>
+ <div class="grid g3">${["lectures","dpps","homework"].map((x,i)=>`<div class="field"><label>${x.toUpperCase()} done</label><input id="p${i}" type="number" min="0" max="${b[x+"Total"]||0}" value="${b[x+"Completed"]||0}"></div>`).join("")}</div>
+ <div class="actions"><button class="btn primary" onclick="saveBackProgress('${id}')">Save</button><button class="btn secondary" onclick="closeModal()">Cancel</button></div>`);
+}
+function saveBackProgress(id){
+ const b=state.backlog.find(x=>x.id===id),before=bRemaining(b);
+ b.lecturesCompleted=Math.min(b.lecturesTotal,+el("p0").value||0);b.dppsCompleted=Math.min(b.dppsTotal,+el("p1").value||0);b.homeworkCompleted=Math.min(b.homeworkTotal,+el("p2").value||0);
+ b.status=bRemaining(b)===0?"COMPLETED":"PENDING";b.updatedAt=nowISO();
+ const after=bRemaining(b),completedDelta=Math.max(0,before-after);
+ if(completedDelta){markMeaningful(localDate(),1);award("BACKLOG_PROGRESS",b.id+"-"+(before-after),30)}
+ save();closeModal();toast(b.status==="COMPLETED"?"+30 XP • Backlog completed":"Backlog updated");backlogPage();
+}
+function deleteBacklog(id){if(confirm("Delete this backlog item?")){state.backlog=state.backlog.filter(b=>b.id!==id);save();backlogPage()}}
+
+function studyPage(){
+ const subs=subjectList(user().exam),curr=state.curriculum.filter(x=>x.exam===user().exam);
+ if(studySubject){
+  const s=curr.find(x=>x.id===studySubject);
+  el("screen").innerHTML=`${header(s.name,"Chapter and topic map")}<button class="btn secondary" onclick="studySubject=null;studyPage()">← All subjects</button>
+  <div class="section list">${s.chapters.map(c=>{const total=c.topics.length||1;const related=state.backlog.filter(b=>b.userId===user().id&&b.subject===s.name&&b.chapter===c.name);const done=related.reduce((a,b)=>a+(b.lecturesCompleted||0)+(b.dppsCompleted||0)+(b.homeworkCompleted||0),0);const planned=related.reduce((a,b)=>a+(b.lecturesTotal||0)+(b.dppsTotal||0)+(b.homeworkTotal||0),0);const pct=planned?Math.round(done/planned*100):0;return `<div class="card"><div class="between"><div><b>${esc(c.name)}</b><div class="small muted">${c.topics.map(esc).join(" • ")}</div></div><span class="badge">${pct}%</span></div><div class="progress" style="margin-top:10px"><i style="width:${pct}%"></i></div><div class="actions" style="margin-top:10px"><button class="btn secondary" onclick="openTaskFor('${esc(s.name)}','${esc(c.name)}')">+ Study task</button><button class="btn secondary" onclick="openBacklogFor('${esc(s.name)}','${esc(c.name)}')">+ Backlog</button></div></div>`}).join("")}</div>`;
+  return;
+ }
+ el("screen").innerHTML=`${header("Study",`${user().exam} • Subject → Chapter → Topic`)}
+ <div class="grid g2">${curr.map(s=>`<button class="card quick" onclick="studySubject='${s.id}';studyPage()"><span class="qicon">📚</span><span style="text-align:left"><b>${esc(s.name)}</b><br><span class="small muted">${s.chapters.length} chapters • notes • practice</span></span></button>`).join("")}</div>
+ <div class="section card"><b>Curriculum model</b><p class="muted small">APEX keeps exam content configurable. Chapters can be linked to tasks, backlog, notes and future tests without changing the app shell.</p></div>`;
+}
+function openTaskFor(subject,chapter){openTask();setTimeout(()=>{if(el("ts"))el("ts").value=subject;if(el("tc"))el("tc").value=chapter},0)}
+function openBacklogFor(subject,chapter){openBacklog();setTimeout(()=>{if(el("bs"))el("bs").value=subject;if(el("bc"))el("bc").value=chapter},0)}
+
+function testsPage(){
+ const attempts=state.attempts.filter(a=>a.userId===user().id);
+ el("screen").innerHTML=`${header("Tests","Practice, submit and review performance")}
+ <div class="grid g3">${stat("📝",state.tests.length,"Available tests")}${stat("🎯",attempts.length,"Attempts")}${stat("📊",attempts.length?Math.round(attempts.reduce((a,x)=>a+x.accuracy,0)/attempts.length)+"%":"—","Average accuracy")}</div>
+ <div class="section"><div class="between"><h2>Tests</h2><button class="btn secondary" onclick="addSampleTest()">Add sample test</button></div>
+ <div class="list">${state.tests.length?state.tests.map(testCard).join(""):`<div class="card empty">No tests have been loaded yet. The test engine is ready for real question data.</div>`}</div></div>
+ <div class="section"><h2>Test history</h2><div class="list">${attempts.length?attempts.slice().reverse().map(a=>`<div class="card between"><div><b>${esc(state.tests.find(t=>t.id===a.testId)?.title||"Test")}</b><div class="small muted">${dateText(localDate(a.submittedAt))}</div></div><b>${a.score}/${a.maxScore} • ${a.accuracy}%</b></div>`).join(""):`<div class="card empty">No attempts yet.</div>`}</div></div>`;
+}
+function testCard(t){return `<div class="card between"><div><b>${esc(t.title)}</b><div class="small muted">${esc(t.type)} • ${t.questions.length} questions • ${t.durationMinutes} min</div></div><button class="btn primary" onclick="startTest('${t.id}')">Start</button></div>`}
+function addSampleTest(){
+ const t={id:uid(),title:"JEE Physics — NLM Quick Test",type:"Chapter-wise",durationMinutes:10,marksPerCorrect:4,negativePerWrong:1,questions:[
+  {id:uid(),text:"If net force on a body is zero, its acceleration is:",options:["Zero","Always 9.8 m/s²","Infinite","Cannot be determined"],answer:0,topic:"NLM"},
+  {id:uid(),text:"The SI unit of force is:",options:["Joule","Newton","Watt","Pascal"],answer:1,topic:"NLM"},
+  {id:uid(),text:"Newton's second law relates force to:",options:["Mass × acceleration","Mass × velocity","Energy × time","Power × distance"],answer:0,topic:"NLM"}
+ ],createdAt:nowISO()};state.tests.push(t);save();toast("Test added");testsPage();
+}
+function startTest(id){
+ const t=state.tests.find(x=>x.id===id),answers={},started=Date.now();
+ modal(`<div class="between"><h2>${esc(t.title)}</h2><span class="badge" id="timer">--:--</span></div><p class="muted small">Choose one answer for each question. Submit when finished.</p>
+ <div id="questionBox" class="list">${t.questions.map((q,i)=>`<div class="card"><b>Q${i+1}. ${esc(q.text)}</b><div style="margin-top:10px" class="list">${q.options.map((o,j)=>`<label class="card" style="padding:10px"><input type="radio" name="q${i}" value="${j}"> ${esc(o)}</label>`).join("")}</div></div>`).join("")}</div>
+ <button class="btn primary" style="margin-top:14px;width:100%" onclick="submitTest('${id}',${started})">Submit test</button>`);
+ let sec=t.durationMinutes*60;window.__timer=setInterval(()=>{sec--;if(el("timer"))el("timer").textContent=`${String(Math.floor(sec/60)).padStart(2,"0")}:${String(sec%60).padStart(2,"0")}`;if(sec<=0){clearInterval(window.__timer);if(el("timer"))el("timer").textContent="Time";}},1000);
+}
+function submitTest(id,started){
+ clearInterval(window.__timer);const t=state.tests.find(x=>x.id===id);let correct=0,wrong=0,un=0,topics={};
+ t.questions.forEach((q,i)=>{const a=document.querySelector(`input[name=q${i}]:checked`);if(!a){un++;return}const ok=+a.value===q.answer;if(ok)correct++;else wrong++;topics[q.topic]=(topics[q.topic]||0)+(ok?1:-1)});
+ const score=correct*t.marksPerCorrect-wrong*t.negativePerWrong,maxScore=t.questions.length*t.marksPerCorrect,accuracy=t.questions.length?Math.round(correct/t.questions.length*100):0;
+ const a={id:uid(),userId:user().id,testId:id,startedAt:new Date(started).toISOString(),submittedAt:nowISO(),score,maxScore,correct,wrong,unattempted:un,accuracy,timeTakenSeconds:Math.round((Date.now()-started)/1000),topics};
+ state.attempts.push(a);markMeaningful(localDate(),1);award("TEST_COMPLETED",a.id,20);save();closeModal();
+ modal(`<h2>Test result</h2><div class="grid g2">${stat("🎯",score+"/"+maxScore,"Score")}${stat("✓",correct,"Correct")}${stat("✕",wrong,"Incorrect")}${stat("—",un,"Unattempted")}</div><div class="card" style="margin-top:12px"><b>Accuracy ${accuracy}%</b><div class="progress" style="margin-top:8px"><i style="width:${accuracy}%"></i></div><p class="small muted">Time taken: ${fmtMin(Math.round(a.timeTakenSeconds/60))}</p></div><button class="btn primary" style="margin-top:12px" onclick="closeModal();testsPage()">Done</button>`);
+}
+function notificationPage(){
+ const ns=state.notifications.filter(n=>!n.userId||n.userId===user().id).slice().reverse();
+ modal(`<div class="between"><h2>Notifications</h2><button class="iconbtn" onclick="closeModal()">×</button></div>${ns.length?`<div class="list">${ns.map(n=>`<div class="card"><b>${esc(n.title)}</b><div class="small muted">${esc(n.body)}</div><div class="small calendar-note">${new Date(n.createdAt).toLocaleString()}</div></div>`).join("")}`:`<div class="empty">No notifications.</div>`}`);
+}
+
+function notesPage(){
+ const notes=state.notes.filter(n=>n.userId===user().id);
+ el("screen").innerHTML=`${header("Notes","Capture revision points without clutter")}
+ <div class="actions"><button class="btn primary" onclick="openNote()">+ New note</button><input id="noteSearch" placeholder="Search notes..." style="flex:1;min-width:150px;padding:12px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--text)" oninput="filterNotes()"></div>
+ <div id="notesList" class="list" style="margin-top:14px">${renderNotes(notes)}</div>`;
+}
+function renderNotes(ns){return ns.length?ns.map(n=>`<div class="card"><div class="between"><div><b>${esc(n.title)}</b><div class="small muted">${esc(n.subject||"General")} ${n.chapter?"• "+esc(n.chapter):""}</div></div><div class="item-actions"><button onclick="openNote('${n.id}')">Edit</button><button onclick="deleteNote('${n.id}')">Delete</button></div></div><p style="white-space:pre-wrap">${esc(n.content)}</p></div>`).join(""):`<div class="card empty">No notes yet.</div>`}
+function filterNotes(){const q=el("noteSearch").value.toLowerCase();el("notesList").innerHTML=renderNotes(state.notes.filter(n=>n.userId===user().id&&(n.title+" "+n.content+" "+n.subject+" "+n.chapter).toLowerCase().includes(q)))}
+function openNote(id=""){
+ const n=id?state.notes.find(x=>x.id===id):null;
+ modal(`<h2>${n?"Edit note":"New note"}</h2><form id="noteForm"><div class="field"><label>Title</label><input id="nt" required value="${esc(n?.title)}"></div><div class="grid g2"><div class="field"><label>Subject</label><select id="ns"><option value="">General</option>${subjectList(user().exam).map(s=>`<option ${n?.subject===s?"selected":""}>${s}</option>`).join("")}</select></div><div class="field"><label>Chapter</label><input id="nc" value="${esc(n?.chapter)}"></div></div><div class="field"><label>Note</label><textarea id="nn" required>${esc(n?.content)}</textarea></div><div class="actions"><button class="btn primary">Save note</button><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button></div></form>`);
+ el("noteForm").onsubmit=e=>{e.preventDefault();const o={title:el("nt").value.trim(),subject:el("ns").value,chapter:el("nc").value.trim(),content:el("nn").value.trim()};if(id)Object.assign(state.notes.find(x=>x.id===id),o,{updatedAt:nowISO()});else state.notes.push({id:uid(),userId:user().id,createdAt:nowISO(),updatedAt:nowISO(),...o});save();closeModal();notesPage();toast("Note saved")}
+}
+function deleteNote(id){if(confirm("Delete this note?")){state.notes=state.notes.filter(n=>n.id!==id);save();notesPage()}}
+
+function progressPage(){
+ const uidv=user().id,acts=state.activities.filter(a=>a.userId===uidv).sort((a,b)=>b.date.localeCompare(a.date));
+ const taskAll=state.tasks.filter(t=>t.userId===uidv),completed=taskAll.filter(t=>t.status==="COMPLETED").length;
+ const study=state.sessions.filter(s=>s.userId===uidv),study7=study.filter(s=>{const d=new Date(s.date+"T00:00:00"),x=new Date();return (x-d)/86400000<7}).reduce((a,s)=>a+s.minutes,0);
+ const study30=study.filter(s=>{const d=new Date(s.date+"T00:00:00"),x=new Date();return (x-d)/86400000<30}).reduce((a,s)=>a+s.minutes,0);
+ const tests=state.attempts.filter(a=>a.userId===uidv);
+ el("screen").innerHTML=`${header("Progress","Analytics based only on your recorded activity")}
+ <div class="grid g3">${stat("⏱",fmtMin(study7),"Study time • 7 days")}${stat("📅",fmtMin(study30),"Study time • 30 days")}${stat("✓",completed,"Tasks completed")}${stat("📦",state.backlog.filter(b=>b.userId===uidv&&b.status==="COMPLETED").length,"Backlog completed")}${stat("📝",tests.length,"Tests attempted")}${stat("🔥",currentStreak(),"Current streak")}</div>
+ <div class="section card"><div class="between"><b>Recent activity</b><span class="small muted">${acts.length} active days recorded</span></div><div style="margin-top:12px">${acts.slice(0,14).map(a=>`<div class="between" style="padding:9px 0;border-bottom:1px solid var(--border)"><span>${dateText(a.date)}</span><span class="small muted">${a.tasksCompleted||0} tasks • ${a.studyMinutes||0}m study • ${a.meaningful} meaningful</span></div>`).join("")||`<div class="empty">Start studying to create your first activity record.</div>`}</div></div>
+ <div class="section card"><b>Study time</b><div class="small muted" style="margin:7px 0">You can record a completed session below.</div><button class="btn primary" onclick="recordStudy()">+ Record study session</button></div>`;
+}
+function recordStudy(){
+ modal(`<h2>Record study session</h2><form id="studyForm"><div class="grid g2"><div class="field"><label>Date</label><input id="sd" type="date" value="${localDate()}" required></div><div class="field"><label>Minutes</label><input id="sm" type="number" min="1" max="1440" value="60" required></div></div><div class="field"><label>Subject</label><select id="ss">${subjectList(user().exam).map(s=>`<option>${s}</option>`).join("")}</select></div><div class="field"><label>Chapter / topic</label><input id="sch"></div><div class="actions"><button class="btn primary">Save session</button><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button></div></form>`);
+ el("studyForm").onsubmit=e=>{e.preventDefault();const date=el("sd").value,mins=+el("sm").value;state.sessions.push({id:uid(),userId:user().id,date,minutes:mins,subject:el("ss").value,chapter:el("sch").value.trim(),createdAt:nowISO()});let a=activityFor(date);if(!a){a={id:uid(),userId:user().id,date,meaningful:0,studyMinutes:0,tasksCompleted:0,backlogCompleted:0,testsCompleted:0};state.activities.push(a)}a.meaningful++;a.studyMinutes+=mins;award("STUDY_SESSION",state.sessions.at(-1).id,20);save();closeModal();toast("+20 XP • Study session recorded");progressPage()}
+}
+function gamificationPage(){
+ const xp=xpTotal(),st=currentStreak(),best=bestStreak(),tasks=state.tasks.filter(t=>t.userId===user().id&&t.status==="COMPLETED").length,backs=state.backlog.filter(b=>b.userId===user().id&&b.status==="COMPLETED").length,tests=state.attempts.filter(a=>a.userId===user().id).length;
+ const ach=[["🔥","7-day streak",st>=7],["📚","10 chapters / backlog items completed",backs>=10],["🎯","100 tasks completed",tasks>=100],["🏆","10 tests completed",tests>=10]];
+ el("screen").innerHTML=`${header("Gamification","Earn XP from meaningful academic actions")}
+ <div class="grid g3">${stat("⭐",xp,"XP")}${stat("🔥",st,"Current streak")}${stat("🏅",best,"Best streak")}</div>
+ <div class="section card"><b>Achievements</b><div class="list" style="margin-top:10px">${ach.map(a=>`<div class="between card" style="box-shadow:none"><span>${a[0]} ${a[1]}</span><span class="badge">${a[2]?"Unlocked":"Locked"}</span></div>`).join("")}</div></div>
+ <div class="section card"><b>XP rules</b><p class="small muted">Task +10 • Study session +20 • Test +20 • Completed backlog item +30. XP awards are idempotent so repeating the same event does not repeatedly award points.</p></div>`;
+}
+
+function profilePage(){
+ el("screen").innerHTML=`${header("Profile","Your APEX account")}
+ <div class="card"><div class="row"><div class="avatar" style="width:70px;height:70px">${user().photo?`<img src="${user().photo}">`:esc(user().fullName[0].toUpperCase())}</div><div><h2 style="margin:0">${esc(user().fullName)}</h2><div class="muted">@${esc(user().username)}</div><div class="small muted">${esc(user().exam)} • ${esc(user().grade)}</div></div></div></div>
+ <div class="section grid g2">
+ ${profileAction("✏️","Edit profile","Update name, grade or photo",editProfile)}${profileAction("⚙️","Settings","Theme and preferences",settingsPage)}
+ ${profileAction("🔐","Change password","Update your local password",changePassword)}${profileAction("🔔","Notifications","Reminder preferences",notificationSettings)}
+ ${profileAction("📈","Progress","Your study statistics",progressPage)}${profileAction("🏆","Achievements","XP and streaks",gamificationPage)}
+ ${profileAction("🔗","Referral code","Your referral status",()=>modal(`<h2>Referral</h2><p class="muted">${user().referralCode?`Used code: <b>${esc(user().referralCode)}</b>`:"No referral code used."}</p><button class="btn secondary" onclick="closeModal()">Close</button>`))}
+ ${profileAction("🆘","Help & Support","Offline build information",helpPage)}
+ </div><button class="btn danger" style="width:100%" onclick="signOut()">Logout</button>`;
+}
+function profileAction(i,t,s,fn){return `<button class="card quick" onclick="(${fn.toString()})()"><span class="qicon">${i}</span><span style="text-align:left"><b>${t}</b><br><span class="small muted">${s}</span></span></button>`}
+function editProfile(){
+ modal(`<h2>Edit profile</h2><form id="pf"><div class="field"><label>Full name</label><input id="pn" value="${esc(user().fullName)}" required></div><div class="field"><label>Grade</label><input id="pg" value="${esc(user().grade)}" required></div><div class="field"><label>Profile photo</label><input id="pp" type="file" accept="image/*"></div><div class="actions"><button class="btn primary">Save</button><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button></div></form>`);
+ el("pf").onsubmit=async e=>{e.preventDefault();user().fullName=el("pn").value.trim();user().grade=el("pg").value.trim();const f=el("pp").files[0];if(f){if(f.size>1500000)return toast("Photo must be under 1.5 MB.");user().photo=await readDataURL(f)}user().updatedAt=nowISO();save();closeModal();profilePage();toast("Profile updated")}
+}
+function changePassword(){
+ modal(`<h2>Change password</h2><form id="cp"><div class="field"><label>Current password</label><input id="oldp" type="password" required></div><div class="field"><label>New password</label><input id="newp" type="password" minlength="8" required></div><div class="actions"><button class="btn primary">Change password</button><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button></div></form>`);
+ el("cp").onsubmit=async e=>{e.preventDefault();if(!(await hashPassword(el("oldp").value,user().passwordSalt)===user().passwordHash))return toast("Incorrect current password.");if(!passwordOK(el("newp").value))return toast("New password must be 8+ characters.");user().passwordSalt=uid();user().passwordHash=await hashPassword(el("newp").value,user().passwordSalt);user().updatedAt=nowISO();save();closeModal();toast("Password changed")}
+}
+function settingsPage(){
+ modal(`<h2>Settings</h2><div class="list">
+ <div class="card"><b>Theme</b><div class="actions" style="margin-top:10px">${["light","dark","system"].map(t=>`<button class="btn ${state.theme===t?"primary":"secondary"}" onclick="state.theme='${t}';save();setTheme();settingsPage()">${t[0].toUpperCase()+t.slice(1)}</button>`).join("")}</div></div>
+ <div class="card"><b>Notifications</b><div class="small muted">Local reminders can work while this page/app is available. Reliable Android background push requires a native notification service/backend.</div><button class="btn secondary" style="margin-top:10px" onclick="notificationSettings()">Configure</button></div>
+ <div class="card"><b>Privacy & Security</b><p class="small muted">APEX stores local data in this browser/app wrapper. Passwords are stored as PBKDF2-derived hashes, not plaintext. Do not treat client-only admin controls as secure.</p></div>
+ <div class="card"><b>App version</b><div class="small muted">APEX ${VERSION}</div></div>
+ </div><button class="btn secondary" onclick="closeModal()">Close</button>`);
+}
+function notificationSettings(){
+ modal(`<h2>Notification settings</h2><form id="nf"><label class="row"><input id="nen" type="checkbox" ${state.settings.notifications?"checked":""}> Enable reminders</label><div class="field"><label>Reminder before task (minutes)</label><input id="nmin" type="number" min="0" max="120" value="${state.settings.reminderMinutes}"></div><button class="btn primary">Save</button></form>`);
+ el("nf").onsubmit=e=>{e.preventDefault();state.settings.notifications=el("nen").checked;state.settings.reminderMinutes=Math.max(0,+el("nmin").value||0);save();closeModal();toast("Notification settings saved")}
+}
+function helpPage(){
+ modal(`<h2>APEX Help & Support</h2><p>Core productivity data is local-first in this single-file edition.</p><p class="small muted">For a production release, connect a backend for secure multi-device synchronization, email password reset, server-side admin RBAC, cloud attachments and reliable push notifications.</p><button class="btn secondary" onclick="closeModal()">Close</button>`)
+}
+
+/* Scheduled local reminder checker. It avoids repeat spam by storing reminder keys. */
+setInterval(()=>{
+ if(!state.sessionUserId||!state.settings.notifications)return;
+ const now=new Date(), today=localDate(now);
+ state.tasks.filter(t=>t.userId===user().id&&t.date===today&&t.status!=="COMPLETED"&&t.startTime).forEach(t=>{
+  const [h,m]=t.startTime.split(":").map(Number),target=new Date();target.setHours(h,m,0,0);
+  const diff=Math.round((target-now)/60000),key=`rem:${t.id}:${today}`;
+  if(diff<=state.settings.reminderMinutes&&diff>=0&&!localStorage.getItem(key)){
+   localStorage.setItem(key,"1");state.notifications.push({id:uid(),userId:user().id,title:`${t.subject||"Study"} — ${t.title}`,body:"Your scheduled study session is starting.",createdAt:nowISO()});save();toast(`🔔 ${t.title}`);
+   if("Notification"in window&&Notification.permission==="granted")new Notification(`APEX • ${t.subject||"Study"}`,{body:`${t.title} is starting.`});
+  }
+ })
+},30000);
+
+function requestNotifications(){if("Notification"in window&&Notification.permission==="default")Notification.requestPermission().catch(()=>{})}
+
+/* Admin is intentionally not implemented as a fake client-side password area.
+   A secure admin panel must use server-side RBAC. The local data model can be
+   migrated to the backend later. */
+window.APEX={state,save,version:VERSION};
+
+document.addEventListener("click",e=>{if(e.target.matches(".modal"))closeModal()});
+startApp();
+</script>
 </body>
 </html>
