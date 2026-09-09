@@ -1,150 +1,2357 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" class="dark">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b1020">
-<title>APEX — Your Exam Partner</title>
-<style>
-:root{--bg:#f5f7fb;--card:#fff;--text:#101828;--muted:#667085;--primary:#5b5cf0;--primary2:#7c3aed;--line:#e5e7eb;--ok:#12b76a;--danger:#ef4444;--shadow:0 10px 30px #10182812}
-*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text)}
-button,input,select,textarea{font:inherit}button{border:0;cursor:pointer}.hidden{display:none!important}
-#app{min-height:100vh}.screen{min-height:100vh}.center{display:grid;place-items:center;padding:24px}
-.splash{background:linear-gradient(145deg,#0b1020,#25236b);color:white;text-align:center}.logo{width:74px;height:74px;border-radius:22px;background:linear-gradient(135deg,#fff,#b8b8ff);color:#24245f;display:grid;place-items:center;font-size:34px;font-weight:900;margin:auto;box-shadow:0 18px 50px #0005}
-.splash h1{font-size:40px;margin:18px 0 4px}.splash p{opacity:.8}.loader{margin:30px auto 0;width:150px;height:5px;border-radius:99px;background:#ffffff25;overflow:hidden}.loader i{display:block;width:45%;height:100%;background:white;border-radius:99px;animation:load 1.3s infinite}@keyframes load{to{transform:translateX(240%)}} 
-.auth{max-width:430px;width:100%}.auth-card,.card{background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}.auth-card{padding:28px}.brand{text-align:center;margin-bottom:22px}.brand b{font-size:28px}.tabs{display:flex;background:#f1f3f8;padding:4px;border-radius:12px;margin-bottom:18px}.tabs button{flex:1;padding:10px;border-radius:9px;background:transparent}.tabs .active{background:white;box-shadow:0 2px 8px #00000012;font-weight:700}.field{margin:12px 0}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:12px 13px;outline:none;background:#fff}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px #5b5cf015}.primary{width:100%;padding:13px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--primary2));color:white;font-weight:800;margin-top:8px}.ghost{background:#f2f4f7;padding:10px 13px;border-radius:10px}.danger{color:var(--danger)}.small{font-size:12px;color:var(--muted)}
-.app-shell{max-width:1100px;margin:auto;min-height:100vh;padding-bottom:88px}.topbar{height:66px;background:var(--card);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 18px;position:sticky;top:0;z-index:20}.topbar .title{font-weight:900;font-size:20px}.iconbtn{width:40px;height:40px;border-radius:12px;background:#f2f4f7}.content{padding:18px}.page{display:none}.page.active{display:block}.hero{padding:22px;border-radius:24px;background:linear-gradient(135deg,#15194d,#5b5cf0);color:white;box-shadow:var(--shadow);margin-bottom:16px}.hero h2{margin:0 0 5px;font-size:25px}.hero p{margin:0;opacity:.82}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.chip{background:#ffffff1a;border:1px solid #ffffff25;padding:8px 10px;border-radius:999px;font-size:12px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.card{padding:16px}.stat b{font-size:24px}.stat span{display:block;color:var(--muted);font-size:12px;margin-top:3px}.section-title{display:flex;justify-content:space-between;align-items:center;margin:22px 2px 10px}.section-title h3{margin:0}.list{display:grid;gap:10px}.row{display:flex;align-items:center;gap:12px}.task{display:flex;align-items:center;gap:12px}.check{width:24px;height:24px;border:2px solid #cbd5e1;border-radius:7px;background:white}.check.done{background:var(--ok);border-color:var(--ok);color:white}.task-main{flex:1}.task-main b{display:block}.task-main small{color:var(--muted)}.progress{height:8px;background:#edf0f5;border-radius:99px;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--primary2));border-radius:99px}.feature{display:flex;align-items:center;gap:12px}.feature .ico{width:44px;height:44px;border-radius:14px;background:#eef0ff;display:grid;place-items:center;font-size:21px}.bottom{position:fixed;bottom:0;left:0;right:0;height:72px;background:#ffffffed;backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;justify-content:center;z-index:30}.bottom-inner{width:min(1100px,100%);display:grid;grid-template-columns:repeat(5,1fr)}.nav{background:transparent;color:#667085;font-size:11px}.nav.active{color:var(--primary);font-weight:800}.nav span{display:block;font-size:21px;margin-bottom:2px}.modal{position:fixed;inset:0;background:#10182880;display:grid;place-items:center;padding:18px;z-index:50}.modal-box{width:min(460px,100%);background:white;border-radius:24px;padding:22px;box-shadow:0 30px 80px #0004}.modal-box h2{margin-top:0}.actions{display:flex;gap:10px;margin-top:16px}.actions button{flex:1}.notice{padding:12px;border-radius:12px;background:#eef4ff;color:#344054;font-size:13px;margin:10px 0}.toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);background:#111827;color:white;padding:11px 15px;border-radius:12px;z-index:80;box-shadow:var(--shadow);font-size:13px}.avatar{width:48px;height:48px;border-radius:50%;background:#e9e8ff;display:grid;place-items:center;font-weight:900;color:#4f46e5}.empty{text-align:center;padding:30px;color:var(--muted)}@media(min-width:760px){.grid{grid-template-columns:repeat(4,1fr)}.content{padding:28px}.bottom{position:fixed}.auth-card{padding:34px}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>APEX JEE | Founded by Mayuresh Kandale</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <!-- Google Fonts - Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            apexDark: '#050706',
+            apexCard: '#0A100E',
+            apexBrown: '#17120E',
+            apexOrange: '#FF963C',
+            apexOrangeHover: '#e08332',
+            apexTeal: '#0d2818',
+            apexGreen: '#10b981',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #050706;
+      color: #e5e7eb;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Custom Glassmorphism */
+    .glass-card {
+      background: rgba(10, 16, 14, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 150, 60, 0.15);
+    }
+
+    .glass-card-hover:hover {
+      border-color: rgba(255, 150, 60, 0.4);
+      box-shadow: 0 4px 20px -2px rgba(255, 150, 60, 0.15);
+    }
+
+    .apex-gradient-text {
+      background: linear-gradient(135deg, #FF963C 0%, #FFC187 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .apex-gradient-bg {
+      background: linear-gradient(135deg, #FF963C 0%, #d97706 100%);
+    }
+
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #050706;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #17120E;
+      border-radius: 4px;
+      border: 1px solid rgba(255,150,60,0.2);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #FF963C;
+    }
+
+    /* Flashcard 3D Flip */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    .transform-style-3d {
+      transform-style: preserve-3d;
+    }
+    .backface-hidden {
+      backface-visibility: hidden;
+    }
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+
+    /* Active Nav Tab */
+    .nav-active {
+      color: #FF963C !important;
+      border-color: #FF963C !important;
+    }
+    .mobile-nav-active {
+      color: #FF963C !important;
+      background: rgba(255, 150, 60, 0.1);
+    }
+
+    /* Pulse Glow */
+    .glow-orange {
+      box-shadow: 0 0 15px rgba(255, 150, 60, 0.3);
+    }
+  </style>
 </head>
-<body>
-<div id="app"></div>
-<script>
-const KEY='apex_v1';
-const state=JSON.parse(localStorage.getItem(KEY)||'null')||{
- users:[],session:null,tasks:[],backlog:[],notes:[],study:[],tests:[],xp:0,streak:0,lastActive:null,
- settings:{theme:'light',notifications:true},onboarded:false,referral:null
-};
-const save=()=>localStorage.setItem(KEY,JSON.stringify(state));
-const $=s=>document.querySelector(s);
-const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-const uid=()=>Math.random().toString(36).slice(2)+Date.now().toString(36);
-const user=()=>state.users.find(u=>u.id===state.session);
-const toast=m=>{let t=document.createElement('div');t.className='toast';t.textContent=m;document.body.append(t);setTimeout(()=>t.remove(),2200)};
-function app(){ if(!state.session) return auth(); shell(); }
-function auth(){
- $('#app').innerHTML=`<div class="screen center"><div class="auth-card auth">
- <div class="brand"><div class="logo" style="width:58px;height:58px;font-size:27px">A</div><b>APEX</b><div class="small">Your Exam Partner.</div></div>
- <div class="tabs"><button class="active" id="loginTab">Login</button><button id="signupTab">Sign Up</button></div>
- <form id="authForm">
- <div id="signupFields"></div>
- <div class="field"><label>Email or User ID</label><input id="loginId" required autocomplete="username"></div>
- <div class="field"><label>Password</label><input id="loginPass" type="password" required autocomplete="current-password"></div>
- <button class="primary">Login</button>
- </form>
- <p class="small" style="text-align:center;margin-top:15px">Google Login has been completely removed.</p>
- </div></div>`;
- let signup=false;
- $('#loginTab').onclick=()=>setMode(false); $('#signupTab').onclick=()=>setMode(true);
- function setMode(v){
-   signup=v;$('#loginTab').classList.toggle('active',!v);$('#signupTab').classList.toggle('active',v);
-   $('#signupFields').innerHTML=v?`<div class="field"><label>Full name</label><input id="name" required></div>
-   <div class="field"><label>Custom User ID</label><input id="custom" required></div>
-   <div class="field"><label>Exam</label><select id="exam"><option>JEE</option><option>NEET</option></select></div>
-   <div class="field"><label>Grade</label><input id="grade" placeholder="e.g. 11"></div>`:'';
-   $('#authForm').querySelector('button').textContent=v?'Create account':'Login';
- }
- $('#authForm').onsubmit=e=>{e.preventDefault();
-   const id=$('#loginId').value.trim(), pass=$('#loginPass').value;
-   if(signup){
-     const name=$('#name').value.trim(), custom=$('#custom').value.trim(), exam=$('#exam').value, grade=$('#grade').value.trim();
-     if(!name||!custom)return toast('Fill all required fields');
-     if(state.users.some(u=>u.custom.toLowerCase()===custom.toLowerCase()||u.email.toLowerCase()===id.toLowerCase()))return toast('User ID/email already exists');
-     const u={id:uid(),name,custom,email:id,pass,exam,grade,createdAt:Date.now()};
-     state.users.push(u);state.session=u.id;state.xp=0;state.streak=0;save();showReferral();return;
-   }
-   const u=state.users.find(x=>x.email.toLowerCase()===id.toLowerCase()||x.custom.toLowerCase()===id.toLowerCase());
-   if(!u||u.pass!==pass)return toast('Incorrect login details');
-   state.session=u.id;save();app();
- };
-}
-function shell(){
- $('#app').innerHTML=`<div class="app-shell"><header class="topbar"><div class="row"><button class="iconbtn" onclick="showProfile()">☰</button><div class="title">APEX</div></div><button class="iconbtn" onclick="showNotifications()">🔔</button></header>
- <main class="content">
- <section id="home" class="page active"></section><section id="study" class="page"></section><section id="tests" class="page"></section><section id="notes" class="page"></section><section id="profile" class="page"></section>
- </main></div>
- <nav class="bottom"><div class="bottom-inner">
- ${[['home','🏠','Home'],['study','📚','Study'],['tests','📝','Tests'],['notes','📒','Notes'],['profile','👤','Profile']].map(x=>`<button class="nav ${x[0]=='home'?'active':''}" data-page="${x[0]}"><span>${x[1]}</span>${x[2]}</button>`).join('')}
- </div></nav>`;
- document.querySelectorAll('.nav').forEach(b=>b.onclick=()=>go(b.dataset.page));
- renderAll();
-}
-function go(p){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===p));document.querySelectorAll('.nav').forEach(x=>x.classList.toggle('active',x.dataset.page===p));renderAll();}
-function renderAll(){renderHome();renderStudy();renderTests();renderNotes();renderProfile();}
-function renderHome(){
- const u=user(),today=new Date().toISOString().slice(0,10),ts=state.tasks.filter(t=>t.date===today),done=ts.filter(t=>t.done).length;
- const bl=state.backlog.filter(x=>!x.done).length,mins=state.study.filter(x=>x.date===today).reduce((a,x)=>a+x.minutes,0);
- $('#home').innerHTML=`<div class="hero"><h2>Hello, ${esc(u.name.split(' ')[0])} 👋</h2><p>Keep going. Your goals are closer than you think.</p><div class="chips"><span class="chip">${u.exam}</span><span class="chip">🔥 ${state.streak} day streak</span><span class="chip">⭐ ${state.xp} XP</span></div></div>
- <div class="grid3"><div class="card stat"><b>${done}/${ts.length}</b><span>Today's tasks</span></div><div class="card stat"><b>${Math.floor(mins/60)}h ${mins%60}m</b><span>Study today</span></div><div class="card stat"><b>${bl}</b><span>Backlog left</span></div></div>
- <div class="section-title"><h3>Quick access</h3></div><div class="grid">${[['📋','To-Do','todo'],['📚','Backlog','backlog'],['🎯','Progress','progress'],['🏆','Gamification','game']].map(x=>`<button class="card feature" onclick="quick('${x[2]}')"><span class="ico">${x[0]}</span><span><b>${x[1]}</b><small class="small">Open ${x[1].toLowerCase()}</small></span></button>`).join('')}</div>
- <div class="section-title"><h3>Today's tasks</h3><button class="ghost" onclick="quick('todo')">+ Add</button></div>
- <div class="list">${ts.length?ts.map(taskHTML).join(''):'<div class="card empty">No tasks for today. Add your first study task.</div>'}</div>`;
-}
-function taskHTML(t){return `<div class="card task"><button class="check ${t.done?'done':''}" onclick="toggleTask('${t.id}')">${t.done?'✓':''}</button><div class="task-main"><b>${esc(t.title)}</b><small>${esc(t.subject||'General')} · ${esc(t.time||'Any time')}</small></div><button class="iconbtn" onclick="deleteTask('${t.id}')">⋯</button></div>`}
-function quick(type){
- if(type==='todo'){modal(`<h2>Today's To-Do</h2><div class="field"><label>Task</label><input id="mTitle" placeholder="e.g. Complete NLM lecture"></div><div class="field"><label>Subject</label><input id="mSubject" placeholder="Physics"></div><div class="field"><label>Date</label><input id="mDate" type="date" value="${new Date().toISOString().slice(0,10)}"></div><div class="field"><label>Time</label><input id="mTime" type="time"></div><div class="actions"><button class="ghost" onclick="closeModal()">Cancel</button><button class="primary" onclick="addTask()">Add task</button></div>`);return}
- if(type==='backlog'){modal(`<h2>Add backlog</h2><div class="field"><label>Chapter/topic</label><input id="bTitle" placeholder="e.g. NLM"></div><div class="field"><label>Subject</label><input id="bSubject" placeholder="Physics"></div><div class="field"><label>Items remaining</label><input id="bCount" type="number" min="1" value="1"></div><div class="actions"><button class="ghost" onclick="closeModal()">Cancel</button><button class="primary" onclick="addBacklog()">Add</button></div>`);return}
- if(type==='progress'){modal(`<h2>Progress</h2><div class="grid3"><div class="card stat"><b>${state.tasks.filter(t=>t.done).length}</b><span>Tasks completed</span></div><div class="card stat"><b>${state.tests.length}</b><span>Tests logged</span></div><div class="card stat"><b>${state.xp}</b><span>XP</span></div></div><div class="actions"><button class="primary" onclick="closeModal()">Done</button></div>`);return}
- if(type==='game'){modal(`<h2>Gamification</h2><p>⭐ ${state.xp} XP · 🔥 ${state.streak} day streak</p><div class="notice">Earn XP by completing meaningful study activities. Repeatedly toggling a task won't award points twice.</div><div class="actions"><button class="primary" onclick="closeModal()">Keep going 🚀</button></div>`)}
-}
-function addTask(){let title=$('#mTitle').value.trim();if(!title)return toast('Enter a task');state.tasks.push({id:uid(),title,subject:$('#mSubject').value.trim(),date:$('#mDate').value,time:$('#mTime').value,done:false,xp:false});save();closeModal();renderAll();toast('Task added')}
-function toggleTask(id){let t=state.tasks.find(x=>x.id===id);if(!t)return;t.done=!t.done;if(t.done&&!t.xp){state.xp+=10;t.xp=true;activity();toast('+10 XP')}save();renderAll()}
-function deleteTask(id){state.tasks=state.tasks.filter(x=>x.id!==id);save();renderAll();toast('Task removed')}
-function addBacklog(){let title=$('#bTitle').value.trim();if(!title)return toast('Enter a chapter/topic');state.backlog.push({id:uid(),title,subject:$('#bSubject').value.trim(),count:+$('#bCount').value||1,done:false});save();closeModal();renderAll();toast('Backlog added')}
-function activity(){let d=new Date().toISOString().slice(0,10);if(state.lastActive!==d){let y=new Date();y.setDate(y.getDate()-1);let yd=y.toISOString().slice(0,10);state.streak=state.lastActive===yd?state.streak+1:1;state.lastActive=d}}
-function renderStudy(){
- const bl=state.backlog.filter(x=>!x.done);
- $('#study').innerHTML=`<div class="section-title"><h2>Study</h2><button class="primary" style="width:auto" onclick="startStudy()">+ Session</button></div>
- <div class="grid"><div class="card"><b>Physics</b><div class="progress" style="margin-top:12px"><i style="width:42%"></i></div><small class="small">42% tracked</small></div><div class="card"><b>Chemistry</b><div class="progress" style="margin-top:12px"><i style="width:31%"></i></div><small class="small">31% tracked</small></div><div class="card"><b>Mathematics</b><div class="progress" style="margin-top:12px"><i style="width:28%"></i></div><small class="small">28% tracked</small></div></div>
- <div class="section-title"><h3>Backlog</h3><button class="ghost" onclick="quick('backlog')">+ Add</button></div>
- <div class="list">${bl.length?bl.map(x=>`<div class="card task"><button class="check" onclick="finishBacklog('${x.id}')"></button><div class="task-main"><b>${esc(x.title)}</b><small>${esc(x.subject)} · ${x.count} item(s) remaining</small></div></div>`).join(''):'<div class="card empty">No backlog 🎉</div>'}</div>`;
-}
-function finishBacklog(id){let x=state.backlog.find(b=>b.id===id);if(!x)return;x.done=true;state.xp+=30;activity();save();renderAll();toast('+30 XP — backlog cleared')}
-function startStudy(){modal(`<h2>Study session</h2><div class="field"><label>Subject</label><input id="sSub" placeholder="Physics"></div><div class="field"><label>Minutes studied</label><input id="sMin" type="number" min="1" value="60"></div><div class="actions"><button class="ghost" onclick="closeModal()">Cancel</button><button class="primary" onclick="saveStudy()">Save session</button></div>`)}
-function saveStudy(){let m=+$('#sMin').value;if(!m||m<1)return toast('Enter valid minutes');state.study.push({id:uid(),subject:$('#sSub').value.trim(),minutes:m,date:new Date().toISOString().slice(0,10)});state.xp+=20;activity();save();closeModal();renderAll();toast('+20 XP — study session saved')}
-function renderTests(){
- $('#tests').innerHTML=`<div class="section-title"><h2>Tests</h2><button class="primary" style="width:auto" onclick="logTest()">+ Log test</button></div>
- <div class="grid3"><div class="card stat"><b>${state.tests.length}</b><span>Tests</span></div><div class="card stat"><b>${state.tests.length?Math.round(state.tests.reduce((a,x)=>a+x.accuracy,0)/state.tests.length):0}%</b><span>Average accuracy</span></div><div class="card stat"><b>${state.tests.reduce((a,x)=>a+x.score,0)}</b><span>Total score</span></div></div>
- <div class="section-title"><h3>Test history</h3></div><div class="list">${state.tests.length?state.tests.slice().reverse().map(t=>`<div class="card"><div class="row"><div class="avatar">🎯</div><div style="flex:1"><b>${esc(t.name)}</b><small class="small">${esc(t.subject)} · ${t.score} marks · ${t.accuracy}% accuracy</small></div></div></div>`).join(''):'<div class="card empty">No tests logged yet.</div>'}</div>`;
-}
-function logTest(){modal(`<h2>Log a test</h2><div class="field"><label>Test name</label><input id="tName" placeholder="Chapter test"></div><div class="field"><label>Subject</label><input id="tSub" placeholder="Physics"></div><div class="field"><label>Score</label><input id="tScore" type="number" min="0" value="0"></div><div class="field"><label>Accuracy %</label><input id="tAcc" type="number" min="0" max="100" value="0"></div><div class="actions"><button class="ghost" onclick="closeModal()">Cancel</button><button class="primary" onclick="saveTest()">Save</button></div>`)}
-function saveTest(){let name=$('#tName').value.trim();if(!name)return toast('Enter test name');state.tests.push({id:uid(),name,subject:$('#tSub').value.trim(),score:+$('#tScore').value||0,accuracy:+$('#tAcc').value||0});state.xp+=15;save();closeModal();renderAll();toast('+15 XP — test saved')}
-function renderNotes(){
- $('#notes').innerHTML=`<div class="section-title"><h2>Notes</h2><button class="primary" style="width:auto" onclick="addNote()">+ Note</button></div>
- <div class="field"><input id="noteSearch" placeholder="Search notes..." oninput="renderNoteList()"></div><div id="noteList" class="list"></div>`;
- renderNoteList();
-}
-function renderNoteList(){let q=($('#noteSearch')?.value||'').toLowerCase();let a=state.notes.filter(n=>(n.title+n.body).toLowerCase().includes(q));$('#noteList').innerHTML=a.length?a.map(n=>`<div class="card"><b>${esc(n.title)}</b><p class="small">${esc(n.body)}</p><button class="ghost danger" onclick="deleteNote('${n.id}')">Delete</button></div>`).join(''):'<div class="card empty">No notes found.</div>'}
-function addNote(){modal(`<h2>New note</h2><div class="field"><label>Title</label><input id="nTitle"></div><div class="field"><label>Note</label><textarea id="nBody" rows="6"></textarea></div><div class="actions"><button class="ghost" onclick="closeModal()">Cancel</button><button class="primary" onclick="saveNote()">Save</button></div>`)}
-function saveNote(){let title=$('#nTitle').value.trim(),body=$('#nBody').value.trim();if(!title)return toast('Enter a title');state.notes.push({id:uid(),title,body});save();closeModal();renderNotes();toast('Note saved')}
-function deleteNote(id){state.notes=state.notes.filter(n=>n.id!==id);save();renderNotes()}
-function renderProfile(){const u=user();$('#profile').innerHTML=`<div class="section-title"><h2>Profile</h2></div><div class="card"><div class="row"><div class="avatar">${esc(u.name[0]?.toUpperCase()||'A')}</div><div><h3 style="margin:0">${esc(u.name)}</h3><small class="small">@${esc(u.custom)} · ${esc(u.exam)} · Grade ${esc(u.grade||'-')}</small></div></div></div>
- <div class="section-title"><h3>Account</h3></div><div class="list"><button class="card row" onclick="editProfile()">✏️ <b>Edit profile</b></button><button class="card row" onclick="settings()">⚙️ <b>Settings</b></button><button class="card row" onclick="showNotifications()">🔔 <b>Notifications</b></button><button class="card row" onclick="logout()">🚪 <b class="danger">Logout</b></button></div>
- <div class="section-title"><h3>Your stats</h3></div><div class="grid3"><div class="card stat"><b>${state.xp}</b><span>XP</span></div><div class="card stat"><b>${state.streak}</b><span>Best/current streak</span></div><div class="card stat"><b>${state.tasks.filter(t=>t.done).length}</b><span>Tasks done</span></div></div>`}
-function editProfile(){let u=user();modal(`<h2>Edit profile</h2><div class="field"><label>Name</label><input id="pName" value="${esc(u.name)}"></div><div class="field"><label>Grade</label><input id="pGrade" value="${esc(u.grade||'')}"></div><div class="actions"><button class="ghost" onclick="closeModal()">Cancel</button><button class="primary" onclick="saveProfile()">Save</button></div>`)}
-function saveProfile(){let u=user();u.name=$('#pName').value.trim()||u.name;u.grade=$('#pGrade').value.trim();save();closeModal();renderAll();toast('Profile updated')}
-function settings(){modal(`<h2>Settings</h2><div class="field"><label>Theme</label><select id="theme"><option value="light">Light</option><option value="dark">Dark</option></select></div><label class="row"><input id="notif" type="checkbox" ${state.settings.notifications?'checked':''}> Notifications</label><div class="actions"><button class="ghost" onclick="closeModal()">Cancel</button><button class="primary" onclick="saveSettings()">Save</button></div>`);$('#theme').value=state.settings.theme}
-function saveSettings(){state.settings.theme=$('#theme').value;state.settings.notifications=$('#notif').checked;document.body.style.filter='';save();closeModal();toast('Settings saved')}
-function showProfile(){go('profile')}
-function showNotifications(){modal(`<h2>Notifications</h2><div class="notice"><b>Welcome to APEX 🚀</b><br>Your productivity dashboard is ready.</div><div class="notice">Official announcements will appear here when an authorized APEX admin publishes them.</div><div class="actions"><button class="primary" onclick="closeModal()">Done</button></div>`)}
-function logout(){state.session=null;save();app()}
-function modal(html){let m=document.createElement('div');m.className='modal';m.id='modal';m.innerHTML=`<div class="modal-box">${html}</div>`;document.body.append(m)}
-function closeModal(){document.getElementById('modal')?.remove()}
-function showReferral(){modal(`<h2>Have a referral code?</h2><p class="small">Optional. You can skip this and continue using APEX.</p><div class="field"><input id="ref" placeholder="Enter referral code"></div><div class="actions"><button class="ghost" onclick="skipReferral()">Skip</button><button class="primary" onclick="applyReferral()">Apply</button></div>`)}
-function skipReferral(){closeModal();showGuide()}
-function applyReferral(){let r=$('#ref').value.trim();if(!r)return toast('Enter a code or skip');state.referral=r;save();closeModal();toast('Referral saved');showGuide()}
-function showGuide(){modal(`<h2>APEX app guide</h2><p>Take a quick tour of To-Do, Study, Tests, Backlog, Progress, Gamification, Notes and Profile.</p><div class="notice">You can skip this guide and open it later from Help & Support.</div><div class="actions"><button class="ghost" onclick="finishGuide()">Skip</button><button class="primary" onclick="finishGuide()">Start APEX 🚀</button></div>`)}
-function finishGuide(){state.onboarded=true;save();closeModal();app()}
-setTimeout(()=>{if(!state.session){$('#app').innerHTML=`<div class="screen center splash"><div><div class="logo">A</div><h1>APEX</h1><p>Your Exam Partner.</p><div class="loader"><i></i></div></div></div>`;setTimeout(app,1200)}else app()},200);
-</script>
+<body class="min-h-screen flex flex-col justify-between selection:bg-apexOrange selection:text-black">
+
+  <!-- Top Header Navigation -->
+  <header id="main-header" class="hidden sticky top-0 z-40 w-full glass-card border-b border-amber-900/30 px-4 py-3">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <!-- Logo & Founder -->
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="AppRouter.navigate('home')">
+        <div class="w-10 h-10 rounded-xl apex-gradient-bg flex items-center justify-center text-black font-extrabold text-xl shadow-lg glow-orange">
+          A
+        </div>
+        <div>
+          <h1 class="text-xl font-extrabold tracking-wider text-white flex items-center gap-1.5">
+            APEX <span class="apex-gradient-text">JEE</span>
+            <span id="header-premium-badge" class="hidden text-[10px] bg-amber-500/20 text-amber-400 border border-amber-500/40 px-1.5 py-0.5 rounded font-semibold uppercase tracking-widest">
+              PRO
+            </span>
+          </h1>
+          <p class="text-[10px] text-gray-400 font-medium">Founded by <span class="text-amber-200/80">Mayuresh Kandale</span></p>
+        </div>
+      </div>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+        <button onclick="AppRouter.navigate('home')" id="nav-btn-home" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition">
+          <i class="fa-solid fa-house mr-1.5"></i>Home
+        </button>
+        <button onclick="AppRouter.navigate('todo')" id="nav-btn-todo" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition">
+          <i class="fa-solid fa-list-check mr-1.5"></i>To-Do
+        </button>
+        <button onclick="AppRouter.navigate('content')" id="nav-btn-content" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition flex items-center">
+          <i class="fa-solid fa-book-open mr-1.5"></i>Content
+          <i class="fa-solid fa-lock text-xs text-amber-500/80 ml-1.5 lock-icon"></i>
+        </button>
+        <button onclick="AppRouter.navigate('flashcards')" id="nav-btn-flashcards" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition flex items-center">
+          <i class="fa-solid fa-clone mr-1.5"></i>Flashcards
+          <i class="fa-solid fa-lock text-xs text-amber-500/80 ml-1.5 lock-icon"></i>
+        </button>
+        <button onclick="AppRouter.navigate('backlog')" id="nav-btn-backlog" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition flex items-center">
+          <i class="fa-solid fa-clock-rotate-left mr-1.5"></i>Backlog
+          <i class="fa-solid fa-lock text-xs text-amber-500/80 ml-1.5 lock-icon"></i>
+        </button>
+        <button onclick="AppRouter.navigate('errorbook')" id="nav-btn-errorbook" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition flex items-center">
+          <i class="fa-solid fa-book-skull mr-1.5"></i>Error Book
+          <i class="fa-solid fa-lock text-xs text-amber-500/80 ml-1.5 lock-icon"></i>
+        </button>
+        <button onclick="AppRouter.navigate('progress')" id="nav-btn-progress" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition flex items-center">
+          <i class="fa-solid fa-chart-line mr-1.5"></i>Progress
+          <i class="fa-solid fa-lock text-xs text-amber-500/80 ml-1.5 lock-icon"></i>
+        </button>
+        <button onclick="AppRouter.navigate('surprise')" id="nav-btn-surprise" class="px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition flex items-center">
+          <i class="fa-solid fa-dice mr-1.5"></i>Surprise
+          <i class="fa-solid fa-lock text-xs text-amber-500/80 ml-1.5 lock-icon"></i>
+        </button>
+      </nav>
+
+      <!-- Profile & Settings Action -->
+      <div class="flex items-center space-x-3">
+        <button onclick="AppRouter.navigate('settings')" class="flex items-center space-x-2 bg-apexBrown/80 hover:bg-amber-950/60 border border-amber-900/40 px-3 py-1.5 rounded-xl transition text-xs font-semibold text-gray-200">
+          <i class="fa-solid fa-user-circle text-apexOrange text-base"></i>
+          <span id="header-user-name" class="max-w-[100px] truncate">Student</span>
+          <i class="fa-solid fa-gear text-gray-400"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main View Container -->
+  <main id="app-container" class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 mb-20 md:mb-6">
+    <!-- Screen views dynamically injected / toggled here -->
+    
+    <!-- Auth Screen (Default when logged out) -->
+    <section id="view-auth" class="min-h-[80vh] flex items-center justify-center py-6">
+      <div class="w-full max-w-md glass-card p-6 md:p-8 rounded-2xl border border-amber-900/40 shadow-2xl relative overflow-hidden">
+        <div class="absolute -top-12 -right-12 w-36 h-36 bg-apexOrange/10 rounded-full blur-2xl"></div>
+        
+        <div class="text-center mb-8">
+          <div class="inline-flex w-16 h-16 rounded-2xl apex-gradient-bg items-center justify-center text-black font-extrabold text-3xl mb-3 shadow-lg glow-orange">
+            A
+          </div>
+          <h2 class="text-2xl font-black text-white tracking-wide">APEX <span class="apex-gradient-text">JEE</span></h2>
+          <p class="text-xs text-gray-400 mt-1 font-medium">Elevate Your JEE Main & Advanced Preparation</p>
+          <div class="mt-2 text-[11px] text-amber-500/80 bg-amber-950/40 border border-amber-900/30 px-3 py-1 rounded-full inline-block">
+            Founded by <span class="font-semibold text-amber-300">Mayuresh Kandale</span>
+          </div>
+        </div>
+
+        <!-- Auth Tabs -->
+        <div class="flex border-b border-gray-800 mb-6">
+          <button id="auth-tab-login" onclick="AuthSystem.switchTab('login')" class="flex-1 py-2 text-center text-sm font-semibold border-b-2 border-apexOrange text-apexOrange transition">
+            Log In
+          </button>
+          <button id="auth-tab-signup" onclick="AuthSystem.switchTab('signup')" class="flex-1 py-2 text-center text-sm font-semibold border-b-2 border-transparent text-gray-400 hover:text-white transition">
+            Sign Up
+          </button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="form-login" onsubmit="AuthSystem.handleLogin(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">Username or Email</label>
+            <input type="text" id="login-username" required class="w-full bg-black/60 border border-gray-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-apexOrange transition" placeholder="Enter your username">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">Password</label>
+            <input type="password" id="login-password" required class="w-full bg-black/60 border border-gray-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-apexOrange transition" placeholder="••••••••">
+          </div>
+          <button type="submit" class="w-full apex-gradient-bg text-black font-bold py-3 rounded-xl shadow-lg hover:opacity-90 transition transform active:scale-95 text-sm mt-2">
+            Log In to APEX JEE
+          </button>
+        </form>
+
+        <!-- Signup Form -->
+        <form id="form-signup" onsubmit="AuthSystem.handleSignup(event)" class="space-y-4 hidden">
+          <div>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">Full Name</label>
+            <input type="text" id="signup-name" required class="w-full bg-black/60 border border-gray-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-apexOrange transition" placeholder="e.g. Mayuresh Kandale">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">Username / Email</label>
+            <input type="text" id="signup-username" required class="w-full bg-black/60 border border-gray-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-apexOrange transition" placeholder="Choose a unique username">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">Password</label>
+            <input type="password" id="signup-password" required minlength="4" class="w-full bg-black/60 border border-gray-800 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-apexOrange transition" placeholder="At least 4 characters">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-amber-400 mb-1 flex justify-between">
+              <span>Referral Code (Optional)</span>
+              <span class="text-[10px] text-gray-400">Have a code from a friend?</span>
+            </label>
+            <input type="text" id="signup-referral" class="w-full bg-black/60 border border-amber-900/50 uppercase rounded-xl px-4 py-2.5 text-sm text-amber-300 placeholder-gray-600 focus:outline-none focus:border-apexOrange transition" placeholder="e.g. APEX7890">
+          </div>
+          <button type="submit" class="w-full apex-gradient-bg text-black font-bold py-3 rounded-xl shadow-lg hover:opacity-90 transition transform active:scale-95 text-sm mt-2">
+            Create Free Account
+          </button>
+        </form>
+
+        <div id="auth-error-msg" class="hidden mt-4 p-3 bg-red-950/60 border border-red-800/80 rounded-xl text-red-300 text-xs text-center font-medium"></div>
+      </div>
+    </section>
+
+    <!-- HOME DASHBOARD VIEW -->
+    <section id="view-home" class="hidden space-y-6">
+      <!-- Welcome Header -->
+      <div class="glass-card p-6 rounded-2xl border border-amber-900/30 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 relative overflow-hidden">
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <h2 class="text-2xl md:text-3xl font-extrabold text-white">Hello, <span id="dash-user-name" class="apex-gradient-text">Student</span> 👋</h2>
+            <span id="dash-badge-status" class="text-xs bg-gray-800 text-gray-300 border border-gray-700 px-2 py-0.5 rounded-full font-semibold">FREE PLAN</span>
+          </div>
+          <p class="text-xs md:text-sm text-gray-400">Target JEE Main & Advanced | Keep pushing your daily goals.</p>
+        </div>
+        <div class="flex items-center gap-3 w-full md:w-auto">
+          <button onclick="TaskSystem.openAddTaskModal()" class="flex-1 md:flex-none apex-gradient-bg text-black font-bold px-4 py-2.5 rounded-xl shadow-lg hover:opacity-90 transition flex items-center justify-center gap-2 text-sm">
+            <i class="fa-solid fa-plus"></i> Add Task
+          </button>
+          <button onclick="AppRouter.navigate('surprise')" class="bg-amber-950/60 hover:bg-amber-900/60 border border-amber-800/50 text-amber-300 font-semibold px-4 py-2.5 rounded-xl transition flex items-center justify-center gap-2 text-sm">
+            <i class="fa-solid fa-dice text-apexOrange"></i> Daily Surprise
+          </button>
+        </div>
+      </div>
+
+      <!-- Real Dynamic Metrics Grid -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+        <!-- Today Tasks -->
+        <div class="glass-card p-4 rounded-xl border border-amber-900/30">
+          <div class="flex items-center justify-between text-gray-400 mb-2">
+            <span class="text-xs font-semibold">Today's Planned</span>
+            <i class="fa-solid fa-list-check text-apexOrange"></i>
+          </div>
+          <div id="stat-today-total" class="text-2xl md:text-3xl font-black text-white">0</div>
+          <div class="text-[11px] text-gray-400 mt-1 flex items-center gap-1">
+            <span id="stat-today-completed" class="text-emerald-400 font-semibold">0</span> completed
+          </div>
+        </div>
+
+        <!-- Completion Rate -->
+        <div class="glass-card p-4 rounded-xl border border-amber-900/30">
+          <div class="flex items-center justify-between text-gray-400 mb-2">
+            <span class="text-xs font-semibold">Daily Progress</span>
+            <i class="fa-solid fa-chart-pie text-emerald-400"></i>
+          </div>
+          <div id="stat-completion-pct" class="text-2xl md:text-3xl font-black text-white">0%</div>
+          <div class="w-full bg-gray-800 h-1.5 rounded-full mt-2 overflow-hidden">
+            <div id="stat-completion-bar" class="bg-emerald-400 h-full w-0 transition-all duration-500"></div>
+          </div>
+        </div>
+
+        <!-- Current Streak -->
+        <div class="glass-card p-4 rounded-xl border border-amber-900/30">
+          <div class="flex items-center justify-between text-gray-400 mb-2">
+            <span class="text-xs font-semibold">Study Streak</span>
+            <i class="fa-solid fa-fire text-amber-500"></i>
+          </div>
+          <div id="stat-streak-days" class="text-2xl md:text-3xl font-black text-white">0 Days</div>
+          <div class="text-[11px] text-gray-400 mt-1">Calculated from activity</div>
+        </div>
+
+        <!-- Backlog Pending -->
+        <div class="glass-card p-4 rounded-xl border border-amber-900/30">
+          <div class="flex items-center justify-between text-gray-400 mb-2">
+            <span class="text-xs font-semibold">Backlog Items</span>
+            <i class="fa-solid fa-triangle-exclamation text-rose-500"></i>
+          </div>
+          <div id="stat-backlog-count" class="text-2xl md:text-3xl font-black text-white">0</div>
+          <div class="text-[11px] text-gray-400 mt-1">Pending past tasks</div>
+        </div>
+      </div>
+
+      <!-- Quick Task Overview & Shortcut Section -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Today's Task Quick List -->
+        <div class="lg:col-span-2 glass-card p-5 rounded-2xl border border-amber-900/30 space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+              <i class="fa-solid fa-calendar-day text-apexOrange"></i> Today's Action Plan
+            </h3>
+            <button onclick="AppRouter.navigate('todo')" class="text-xs font-medium text-apexOrange hover:underline">
+              View All Tasks →
+            </button>
+          </div>
+
+          <div id="dash-today-tasks-container" class="space-y-2 max-h-[300px] overflow-y-auto pr-1">
+            <!-- Dynamic Injection or Empty State -->
+          </div>
+        </div>
+
+        <!-- Subject Progress Breakdown Widget -->
+        <div class="glass-card p-5 rounded-2xl border border-amber-900/30 space-y-4">
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <i class="fa-solid fa-graduation-cap text-apexOrange"></i> Syllabus Summary
+          </h3>
+
+          <div class="space-y-3">
+            <div>
+              <div class="flex justify-between text-xs font-semibold mb-1">
+                <span class="text-cyan-400"><i class="fa-solid fa-atom mr-1"></i> Physics</span>
+                <span id="dash-pct-physics" class="text-gray-300">0%</span>
+              </div>
+              <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                <div id="dash-bar-physics" class="bg-cyan-400 h-full w-0 transition-all duration-500"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-semibold mb-1">
+                <span class="text-emerald-400"><i class="fa-solid fa-flask mr-1"></i> Chemistry</span>
+                <span id="dash-pct-chemistry" class="text-gray-300">0%</span>
+              </div>
+              <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                <div id="dash-bar-chemistry" class="bg-emerald-400 h-full w-0 transition-all duration-500"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-xs font-semibold mb-1">
+                <span class="text-amber-400"><i class="fa-solid fa-calculator mr-1"></i> Mathematics</span>
+                <span id="dash-pct-math" class="text-gray-300">0%</span>
+              </div>
+              <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                <div id="dash-bar-math" class="bg-amber-400 h-full w-0 transition-all duration-500"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-gray-800/80">
+            <button onclick="AppRouter.navigate('progress')" class="w-full py-2 bg-apexBrown/60 hover:bg-amber-950/80 border border-amber-900/40 rounded-xl text-xs font-semibold text-amber-300 transition flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-chart-line"></i> Deep Analytics
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TO-DO LIST VIEW -->
+    <section id="view-todo" class="hidden space-y-6">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h2 class="text-2xl font-black text-white flex items-center gap-2">
+            <i class="fa-solid fa-list-check text-apexOrange"></i> Task Planner
+          </h2>
+          <p class="text-xs text-gray-400">Manage daily study objectives, chapter practice & PYQs.</p>
+        </div>
+        <button onclick="TaskSystem.openAddTaskModal()" class="apex-gradient-bg text-black font-bold px-4 py-2.5 rounded-xl shadow-lg hover:opacity-90 transition flex items-center gap-2 text-sm">
+          <i class="fa-solid fa-plus"></i> Add New Task
+        </button>
+      </div>
+
+      <!-- Filters, Search & Sorting Toolbar -->
+      <div class="glass-card p-4 rounded-xl border border-amber-900/30 space-y-3">
+        <div class="flex flex-col md:flex-row gap-3 items-center justify-between">
+          <!-- Search Bar -->
+          <div class="relative w-full md:w-72">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-500 text-xs"></i>
+            <input type="text" id="todo-search-input" oninput="TaskSystem.renderTasks()" placeholder="Search title or chapter..." class="w-full bg-black/60 border border-gray-800 rounded-xl pl-9 pr-3 py-2 text-xs text-white focus:outline-none focus:border-apexOrange">
+          </div>
+
+          <!-- Subject Tabs -->
+          <div class="flex flex-wrap gap-1.5 w-full md:w-auto">
+            <button onclick="TaskSystem.setSubjectFilter('All')" id="todo-filter-subj-All" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-apexOrange text-black">All Subjects</button>
+            <button onclick="TaskSystem.setSubjectFilter('Physics')" id="todo-filter-subj-Physics" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300 hover:text-white">Physics</button>
+            <button onclick="TaskSystem.setSubjectFilter('Chemistry')" id="todo-filter-subj-Chemistry" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300 hover:text-white">Chemistry</button>
+            <button onclick="TaskSystem.setSubjectFilter('Mathematics')" id="todo-filter-subj-Mathematics" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300 hover:text-white">Maths</button>
+          </div>
+
+          <!-- Sort Dropdown -->
+          <div class="w-full md:w-auto flex items-center gap-2">
+            <span class="text-xs text-gray-400 font-medium">Sort:</span>
+            <select id="todo-sort-select" onchange="TaskSystem.renderTasks()" class="bg-black/60 border border-gray-800 rounded-xl px-3 py-1.5 text-xs text-gray-200 focus:outline-none focus:border-apexOrange">
+              <option value="newest">Newest First</option>
+              <option value="oldest">Oldest First</option>
+              <option value="priority">High Priority</option>
+              <option value="time">Time Estimate</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Status Filter Tabs -->
+        <div class="flex border-t border-gray-800/60 pt-3 gap-2 overflow-x-auto">
+          <button onclick="TaskSystem.setStatusFilter('all')" id="todo-status-all" class="px-3 py-1 rounded-full text-xs font-medium bg-amber-500/20 text-amber-300 border border-amber-500/30">All Tasks</button>
+          <button onclick="TaskSystem.setStatusFilter('today')" id="todo-status-today" class="px-3 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-400">Due Today</button>
+          <button onclick="TaskSystem.setStatusFilter('pending')" id="todo-status-pending" class="px-3 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-400">Pending</button>
+          <button onclick="TaskSystem.setStatusFilter('completed')" id="todo-status-completed" class="px-3 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-400">Completed</button>
+        </div>
+      </div>
+
+      <!-- Task Cards List -->
+      <div id="todo-tasks-list" class="space-y-3">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- CONTENT VIEW -->
+    <section id="view-content" class="hidden space-y-6">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h2 class="text-2xl font-black text-white flex items-center gap-2">
+            <i class="fa-solid fa-book-open text-apexOrange"></i> Core Study Content
+          </h2>
+          <p class="text-xs text-gray-400">Formula sheets, concept notes & PYQ solution guides.</p>
+        </div>
+      </div>
+
+      <!-- Content Search & Subject Filters -->
+      <div class="glass-card p-4 rounded-xl border border-amber-900/30 flex flex-col md:flex-row justify-between gap-3">
+        <div class="relative flex-1">
+          <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-500 text-xs"></i>
+          <input type="text" id="content-search" oninput="ContentSystem.render()" placeholder="Search theory, formula or topic..." class="w-full bg-black/60 border border-gray-800 rounded-xl pl-9 pr-3 py-2 text-xs text-white focus:outline-none focus:border-apexOrange">
+        </div>
+        <div class="flex gap-2">
+          <button onclick="ContentSystem.setTab('Physics')" id="content-tab-Physics" class="px-3 py-2 rounded-xl text-xs font-semibold bg-apexOrange text-black">Physics</button>
+          <button onclick="ContentSystem.setTab('Chemistry')" id="content-tab-Chemistry" class="px-3 py-2 rounded-xl text-xs font-semibold bg-gray-800 text-gray-300">Chemistry</button>
+          <button onclick="ContentSystem.setTab('Mathematics')" id="content-tab-Mathematics" class="px-3 py-2 rounded-xl text-xs font-semibold bg-gray-800 text-gray-300">Maths</button>
+        </div>
+      </div>
+
+      <!-- Content Cards Grid -->
+      <div id="content-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Dynamic content cards -->
+      </div>
+    </section>
+
+    <!-- FLASHCARDS VIEW -->
+    <section id="view-flashcards" class="hidden space-y-6">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h2 class="text-2xl font-black text-white flex items-center gap-2">
+            <i class="fa-solid fa-clone text-apexOrange"></i> Active Memory Flashcards
+          </h2>
+          <p class="text-xs text-gray-400">Quick-fire revision for key formulas and core principles.</p>
+        </div>
+        <div id="flashcard-deck-selector" class="flex gap-2">
+          <!-- Subject Select buttons -->
+        </div>
+      </div>
+
+      <!-- Flashcard Interactive UI -->
+      <div class="max-w-xl mx-auto space-y-6">
+        <!-- Progress Counter -->
+        <div class="flex justify-between items-center text-xs font-semibold text-gray-400 px-2">
+          <span id="fc-counter">Card 1 of 10</span>
+          <div class="flex gap-3">
+            <span class="text-emerald-400"><i class="fa-solid fa-check mr-1"></i>Known: <span id="fc-stat-known">0</span></span>
+            <span class="text-rose-400"><i class="fa-solid fa-rotate-right mr-1"></i>Revision: <span id="fc-stat-review">0</span></span>
+          </div>
+        </div>
+
+        <!-- Flip Card Box -->
+        <div onclick="FlashcardSystem.flipCard()" class="perspective-1000 cursor-pointer min-h-[260px] md:min-h-[300px]">
+          <div id="fc-card-inner" class="relative w-full h-full duration-500 transform-style-3d glass-card p-6 md:p-8 rounded-2xl border border-amber-900/40 flex flex-col justify-between text-center min-h-[260px] md:min-h-[300px]">
+            <!-- Front Side -->
+            <div id="fc-card-front" class="absolute inset-0 p-6 flex flex-col justify-between items-center backface-hidden">
+              <span id="fc-card-tag" class="text-[10px] uppercase font-bold tracking-widest text-amber-400 bg-amber-950/60 px-3 py-1 rounded-full border border-amber-800/40">Topic</span>
+              <div id="fc-card-question" class="text-lg md:text-xl font-bold text-white my-auto px-2">
+                Click card to flip
+              </div>
+              <p class="text-[11px] text-gray-500 font-medium">Tap anywhere to reveal answer <i class="fa-solid fa-hand-pointer ml-1"></i></p>
+            </div>
+
+            <!-- Back Side -->
+            <div id="fc-card-back" class="absolute inset-0 p-6 flex flex-col justify-between items-center backface-hidden rotate-y-180 bg-black/90 rounded-2xl border border-amber-500/40">
+              <span class="text-[10px] uppercase font-bold tracking-widest text-emerald-400 bg-emerald-950/60 px-3 py-1 rounded-full border border-emerald-800/40">Solution / Concept</span>
+              <div id="fc-card-answer" class="text-sm md:text-base text-gray-200 my-auto px-2 leading-relaxed">
+                Explanation text here
+              </div>
+              <p class="text-[11px] text-gray-500">Tap to flip back</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Controls -->
+        <div class="flex items-center justify-between gap-3">
+          <button onclick="FlashcardSystem.prevCard()" class="px-4 py-2.5 bg-gray-800 hover:bg-gray-700 rounded-xl text-xs font-semibold text-gray-200 transition">
+            <i class="fa-solid fa-arrow-left mr-1"></i> Prev
+          </button>
+          
+          <div class="flex gap-2">
+            <button onclick="FlashcardSystem.markCard(false)" class="px-4 py-2.5 bg-rose-950/60 hover:bg-rose-900/80 border border-rose-800/60 text-rose-300 rounded-xl text-xs font-bold transition">
+              <i class="fa-solid fa-xmark mr-1"></i> Need Revision
+            </button>
+            <button onclick="FlashcardSystem.markCard(true)" class="px-4 py-2.5 bg-emerald-950/60 hover:bg-emerald-900/80 border border-emerald-800/60 text-emerald-300 rounded-xl text-xs font-bold transition">
+              <i class="fa-solid fa-check mr-1"></i> Mastered
+            </button>
+          </div>
+
+          <button onclick="FlashcardSystem.nextCard()" class="px-4 py-2.5 bg-gray-800 hover:bg-gray-700 rounded-xl text-xs font-semibold text-gray-200 transition">
+            Next <i class="fa-solid fa-arrow-right ml-1"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- BACKLOG VIEW -->
+    <section id="view-backlog" class="hidden space-y-6">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h2 class="text-2xl font-black text-white flex items-center gap-2">
+            <i class="fa-solid fa-clock-rotate-left text-apexOrange"></i> Backlog Manager
+          </h2>
+          <p class="text-xs text-gray-400">Missed objectives automatically move here. Clear them systematically.</p>
+        </div>
+      </div>
+
+      <div id="backlog-container" class="space-y-3">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- ERROR BOOK VIEW -->
+    <section id="view-errorbook" class="hidden space-y-6">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+          <h2 class="text-2xl font-black text-white flex items-center gap-2">
+            <i class="fa-solid fa-book-skull text-apexOrange"></i> Mistake Tracker (Error Book)
+          </h2>
+          <p class="text-xs text-gray-400">Log question mistakes, conceptual errors, calculations and voice analysis.</p>
+        </div>
+        <button onclick="ErrorBookSystem.openAddModal()" class="apex-gradient-bg text-black font-bold px-4 py-2.5 rounded-xl shadow-lg hover:opacity-90 transition flex items-center gap-2 text-sm">
+          <i class="fa-solid fa-plus"></i> Log New Error
+        </button>
+      </div>
+
+      <!-- Search & Filters -->
+      <div class="glass-card p-4 rounded-xl border border-amber-900/30 flex flex-col md:flex-row gap-3">
+        <input type="text" id="error-search" oninput="ErrorBookSystem.render()" placeholder="Search error logs..." class="w-full bg-black/60 border border-gray-800 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-apexOrange">
+        <select id="error-filter-type" onchange="ErrorBookSystem.render()" class="bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-gray-300 focus:outline-none focus:border-apexOrange">
+          <option value="All">All Mistake Types</option>
+          <option value="Conceptual Error">Conceptual Error</option>
+          <option value="Calculation Error">Calculation Error</option>
+          <option value="Silly Mistake">Silly Mistake</option>
+          <option value="Formula Error">Formula Error</option>
+          <option value="Question Misread">Question Misread</option>
+          <option value="Time Management">Time Management</option>
+        </select>
+      </div>
+
+      <div id="error-logs-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Dynamic Error cards -->
+      </div>
+    </section>
+
+    <!-- PROGRESS VIEW -->
+    <section id="view-progress" class="hidden space-y-6">
+      <div>
+        <h2 class="text-2xl font-black text-white flex items-center gap-2">
+          <i class="fa-solid fa-chart-line text-apexOrange"></i> Advanced Progress Analytics
+        </h2>
+        <p class="text-xs text-gray-400">Calculated entirely from your completed tasks and practice modules.</p>
+      </div>
+
+      <!-- Real Calculated Syllabus Overview -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="glass-card p-5 rounded-2xl border border-amber-900/30 text-center">
+          <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Overall Completion</h3>
+          <div id="prog-overall-pct" class="text-4xl font-black apex-gradient-text">0%</div>
+          <p id="prog-overall-detail" class="text-xs text-gray-400 mt-2">0 of 0 tasks completed</p>
+        </div>
+
+        <div class="glass-card p-5 rounded-2xl border border-amber-900/30 text-center">
+          <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">JEE Main Focused</h3>
+          <div id="prog-main-pct" class="text-4xl font-black text-emerald-400">0%</div>
+          <p id="prog-main-detail" class="text-xs text-gray-400 mt-2">0 tasks completed</p>
+        </div>
+
+        <div class="glass-card p-5 rounded-2xl border border-amber-900/30 text-center">
+          <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">JEE Advanced Focused</h3>
+          <div id="prog-adv-pct" class="text-4xl font-black text-amber-400">0%</div>
+          <p id="prog-adv-detail" class="text-xs text-gray-400 mt-2">0 tasks completed</p>
+        </div>
+      </div>
+
+      <!-- Subject Breakdown Detail -->
+      <div class="glass-card p-6 rounded-2xl border border-amber-900/30 space-y-6">
+        <h3 class="text-lg font-bold text-white">Subject Mastery</h3>
+        <div id="prog-subject-cards" class="space-y-4">
+          <!-- Dynamic Progress Bars -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SURPRISE / DAILY CHALLENGE VIEW -->
+    <section id="view-surprise" class="hidden space-y-6 max-w-2xl mx-auto">
+      <div class="text-center space-y-2">
+        <div class="inline-flex w-12 h-12 rounded-2xl bg-amber-500/20 text-apexOrange items-center justify-center text-2xl">
+          <i class="fa-solid fa-dice"></i>
+        </div>
+        <h2 class="text-2xl font-black text-white">Daily APEX Challenge</h2>
+        <p class="text-xs text-gray-400">Randomized daily target to test your versatility across JEE subjects.</p>
+      </div>
+
+      <div class="glass-card p-6 md:p-8 rounded-2xl border border-amber-500/30 text-center space-y-6 glow-orange">
+        <div class="space-y-2">
+          <span id="surprise-subject-tag" class="text-xs font-bold uppercase tracking-widest text-black bg-apexOrange px-3 py-1 rounded-full">Subject</span>
+          <h3 id="surprise-title" class="text-xl md:text-2xl font-black text-white mt-3">Loading Challenge...</h3>
+          <p id="surprise-desc" class="text-sm text-gray-300 max-w-md mx-auto">Click generate below to spawn your target.</p>
+        </div>
+
+        <div class="flex justify-center gap-3 pt-2">
+          <button onclick="SurpriseSystem.generateNew()" class="px-4 py-2.5 bg-gray-800 hover:bg-gray-700 rounded-xl text-xs font-semibold text-gray-200 transition">
+            <i class="fa-solid fa-shuffle mr-1"></i> New Challenge
+          </button>
+          <button id="surprise-complete-btn" onclick="SurpriseSystem.completeChallenge()" class="apex-gradient-bg text-black font-bold px-6 py-2.5 rounded-xl shadow-lg hover:opacity-90 transition text-xs">
+            <i class="fa-solid fa-check mr-1"></i> Mark Challenge Completed
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROFILE & SETTINGS VIEW -->
+    <section id="view-settings" class="hidden space-y-6 max-w-3xl mx-auto">
+      <div>
+        <h2 class="text-2xl font-black text-white flex items-center gap-2">
+          <i class="fa-solid fa-gear text-apexOrange"></i> Profile & Settings
+        </h2>
+        <p class="text-xs text-gray-400">Account management, referrals, data backups, and customization.</p>
+      </div>
+
+      <!-- Account Info & Referral Card -->
+      <div class="glass-card p-6 rounded-2xl border border-amber-900/30 space-y-6">
+        <div class="flex items-center justify-between border-b border-gray-800/80 pb-4">
+          <div>
+            <h3 id="settings-user-fullname" class="text-lg font-extrabold text-white">Student Name</h3>
+            <p id="settings-user-username" class="text-xs text-gray-400">@username</p>
+          </div>
+          <div id="settings-plan-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">
+            FREE ACCOUNT
+          </div>
+        </div>
+
+        <!-- Referral Link Program -->
+        <div class="bg-amber-950/30 border border-amber-900/40 p-4 rounded-xl space-y-3">
+          <div class="flex justify-between items-center">
+            <h4 class="text-sm font-bold text-amber-300 flex items-center gap-2">
+              <i class="fa-solid fa-gift text-apexOrange"></i> Refer & Unlock APEX Premium
+            </h4>
+            <span id="settings-referral-count" class="text-xs font-black text-amber-400 bg-amber-950 border border-amber-800 px-2.5 py-1 rounded-lg">0 / 3 Verified</span>
+          </div>
+          <p class="text-xs text-gray-300">Invite 3 peers to sign up using your referral code to unlock all PRO features permanently.</p>
+          
+          <div class="flex items-center gap-2">
+            <input type="text" id="settings-referral-code" readonly class="bg-black border border-amber-900/60 rounded-xl px-4 py-2 text-xs font-mono font-bold text-apexOrange w-full">
+            <button onclick="SettingsSystem.copyReferralCode()" class="apex-gradient-bg text-black font-bold px-4 py-2 rounded-xl text-xs whitespace-nowrap hover:opacity-90">
+              Copy Code
+            </button>
+          </div>
+
+          <!-- Referral List -->
+          <div class="pt-2">
+            <span class="text-[11px] text-gray-400 font-semibold">Your Referred Accounts:</span>
+            <div id="settings-referred-list" class="text-xs text-amber-200/80 mt-1 font-mono">
+              None yet.
+            </div>
+          </div>
+        </div>
+
+        <!-- Data Management -->
+        <div class="space-y-3 pt-2">
+          <h4 class="text-sm font-bold text-white">Data Control & Backup</h4>
+          <div class="flex flex-wrap gap-3">
+            <button onclick="SettingsSystem.exportData()" class="bg-gray-800 hover:bg-gray-700 text-gray-200 text-xs font-semibold px-4 py-2.5 rounded-xl border border-gray-700 transition flex items-center gap-2">
+              <i class="fa-solid fa-download text-apexOrange"></i> Export JSON Backup
+            </button>
+            <label class="bg-gray-800 hover:bg-gray-700 text-gray-200 text-xs font-semibold px-4 py-2.5 rounded-xl border border-gray-700 transition flex items-center gap-2 cursor-pointer">
+              <i class="fa-solid fa-upload text-emerald-400"></i> Import JSON Data
+              <input type="file" accept=".json" onchange="SettingsSystem.importData(event)" class="hidden">
+            </label>
+            <button onclick="SettingsSystem.resetData()" class="bg-rose-950/60 hover:bg-rose-900/80 text-rose-300 text-xs font-semibold px-4 py-2.5 rounded-xl border border-rose-800/60 transition flex items-center gap-2">
+              <i class="fa-solid fa-trash-can"></i> Reset Account Data
+            </button>
+          </div>
+        </div>
+
+        <!-- Logout Action -->
+        <div class="pt-4 border-t border-gray-800">
+          <button onclick="AuthSystem.logout()" class="w-full bg-red-950/60 hover:bg-red-900/80 text-red-200 font-bold py-3 rounded-xl border border-red-800/80 text-xs transition">
+            Log Out of Account
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Mobile Bottom Navigation Bar -->
+  <nav id="mobile-nav" class="hidden md:hidden fixed bottom-0 left-0 right-0 z-40 glass-card border-t border-amber-900/40 px-2 py-2">
+    <div class="flex justify-around items-center">
+      <button onclick="AppRouter.navigate('home')" id="mob-nav-home" class="flex flex-col items-center py-1 px-3 text-gray-400 text-[10px] font-medium transition">
+        <i class="fa-solid fa-house text-base mb-1"></i>
+        <span>Home</span>
+      </button>
+      <button onclick="AppRouter.navigate('todo')" id="mob-nav-todo" class="flex flex-col items-center py-1 px-3 text-gray-400 text-[10px] font-medium transition">
+        <i class="fa-solid fa-list-check text-base mb-1"></i>
+        <span>To-Do</span>
+      </button>
+      <button onclick="AppRouter.navigate('content')" id="mob-nav-content" class="flex flex-col items-center py-1 px-3 text-gray-400 text-[10px] font-medium transition relative">
+        <i class="fa-solid fa-book-open text-base mb-1"></i>
+        <span>Content</span>
+      </button>
+      <button onclick="AppRouter.navigate('errorbook')" id="mob-nav-errorbook" class="flex flex-col items-center py-1 px-3 text-gray-400 text-[10px] font-medium transition">
+        <i class="fa-solid fa-book-skull text-base mb-1"></i>
+        <span>Errors</span>
+      </button>
+      <button onclick="AppRouter.navigate('settings')" id="mob-nav-settings" class="flex flex-col items-center py-1 px-3 text-gray-400 text-[10px] font-medium transition">
+        <i class="fa-solid fa-gear text-base mb-1"></i>
+        <span>Settings</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Footer Branding -->
+  <footer id="main-footer" class="hidden text-center py-4 border-t border-amber-900/20 text-[11px] text-gray-500">
+    <p>APEX JEE &bull; Founded by <span class="text-amber-400/80 font-medium">Mayuresh Kandale</span></p>
+  </footer>
+
+  <!-- MODALS SECTION -->
+
+  <!-- Premium Lock Modal -->
+  <div id="modal-premium" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div class="glass-card max-w-md w-full p-6 rounded-2xl border border-amber-500/40 space-y-5 text-center relative glow-orange">
+      <button onclick="ModalManager.close('modal-premium')" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <div class="w-16 h-16 apex-gradient-bg text-black rounded-2xl mx-auto flex items-center justify-center text-2xl font-black shadow-lg">
+        <i class="fa-solid fa-crown"></i>
+      </div>
+
+      <div class="space-y-1">
+        <h3 class="text-xl font-black text-white">Unlock APEX Premium</h3>
+        <p class="text-xs text-gray-300">Feature: <span id="premium-feature-name" class="text-amber-400 font-bold">Content</span></p>
+      </div>
+
+      <div class="bg-amber-950/40 border border-amber-900/50 p-4 rounded-xl text-left space-y-3">
+        <p class="text-xs text-gray-300 leading-relaxed">
+          Refer <strong class="text-amber-300">3 friends</strong> to APEX JEE to unlock complete access to Content, Flashcards, Progress Analytics, Error Tracker, Backlog Manager, and Daily Surprise Challenges.
+        </p>
+
+        <div class="flex justify-between items-center text-xs font-bold text-amber-400">
+          <span>Your Progress:</span>
+          <span id="prem-modal-count">0 / 3 Friends</span>
+        </div>
+
+        <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+          <div id="prem-modal-bar" class="bg-apexOrange h-full w-0 transition-all duration-300"></div>
+        </div>
+
+        <div class="pt-2">
+          <label class="block text-[10px] font-semibold text-gray-400 uppercase mb-1">Your Unique Referral Code</label>
+          <div class="flex gap-2">
+            <input type="text" id="prem-modal-code" readonly class="w-full bg-black border border-amber-900/60 rounded-xl px-3 py-1.5 text-xs font-mono font-bold text-apexOrange">
+            <button onclick="SettingsSystem.copyReferralCode()" class="apex-gradient-bg text-black font-bold px-3 py-1.5 rounded-xl text-xs whitespace-nowrap">
+              Copy
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="ModalManager.close('modal-premium')" class="w-full bg-gray-800 hover:bg-gray-700 text-gray-300 font-semibold py-2.5 rounded-xl text-xs">
+        Close
+      </button>
+    </div>
+  </div>
+
+  <!-- Add / Edit Task Modal -->
+  <div id="modal-task" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div class="glass-card max-w-lg w-full p-6 rounded-2xl border border-amber-900/40 space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b border-gray-800 pb-3">
+        <h3 id="modal-task-title" class="text-lg font-extrabold text-white">Add New Task</h3>
+        <button onclick="ModalManager.close('modal-task')" class="text-gray-400 hover:text-white">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form id="form-task" onsubmit="TaskSystem.handleSaveTask(event)" class="space-y-4">
+        <input type="hidden" id="task-edit-id">
+
+        <div>
+          <label class="block text-xs font-semibold text-gray-300 mb-1">Task Title *</label>
+          <input type="text" id="task-title" required placeholder="e.g. Solve Rotational Dynamics PYQs" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-apexOrange">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">Subject *</label>
+            <select id="task-subject" required class="w-full bg-black/60 border border-gray-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-apexOrange">
+              <option value="Physics">Physics</option>
+              <option value="Chemistry">Chemistry</option>
+              <option value="Mathematics">Mathematics</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">Chapter *</label>
+            <input type="text" id="task-chapter" required placeholder="e.g. Thermodynamics" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-apexOrange">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">Exam Target Mode</label>
+            <select id="task-mode" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-apexOrange">
+              <option value="JEE Main Only">JEE Main Only</option>
+              <option value="JEE Advanced Only">JEE Advanced Only</option>
+              <option value="JEE Main + Advanced">JEE Main + Advanced</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">Priority</label>
+            <select id="task-priority" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-apexOrange">
+              <option value="Medium">Medium Priority</option>
+              <option value="High">High Priority</option>
+              <option value="Low">Low Priority</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">Target Date *</label>
+            <input type="date" id="task-date" required class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-apexOrange">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">Estimated Minutes</label>
+            <input type="number" id="task-time" min="5" max="360" value="45" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-apexOrange">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-gray-300 mb-1">Notes / Instructions</label>
+          <textarea id="task-notes" rows="2" placeholder="Key formulas or question numbers to cover..." class="w-full bg-black/60 border border-gray-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-apexOrange"></textarea>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-2 border-t border-gray-800">
+          <button type="button" onclick="ModalManager.close('modal-task')" class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-gray-300 text-xs font-semibold rounded-xl">
+            Cancel
+          </button>
+          <button type="submit" class="apex-gradient-bg text-black font-bold px-5 py-2 rounded-xl text-xs shadow-lg hover:opacity-90">
+            Save Task
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Error Modal -->
+  <div id="modal-error" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div class="glass-card max-w-lg w-full p-6 rounded-2xl border border-amber-900/40 space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center border-b border-gray-800 pb-3">
+        <h3 class="text-lg font-extrabold text-white">Log Mistake in Error Book</h3>
+        <button onclick="ModalManager.close('modal-error')" class="text-gray-400 hover:text-white">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form id="form-error" onsubmit="ErrorBookSystem.handleSaveError(event)" class="space-y-4">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">Subject *</label>
+            <select id="err-subject" required class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-apexOrange">
+              <option value="Physics">Physics</option>
+              <option value="Chemistry">Chemistry</option>
+              <option value="Mathematics">Mathematics</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-300 mb-1">Chapter *</label>
+            <input type="text" id="err-chapter" required placeholder="e.g. Electrostatics" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-apexOrange">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-gray-300 mb-1">Question / Concept Summary *</label>
+          <input type="text" id="err-question" required placeholder="e.g. Q4 from 2023 Main paper on Gauss Law" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-apexOrange">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-gray-300 mb-1">Mistake Category *</label>
+          <select id="err-type" required class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-apexOrange">
+            <option value="Conceptual Error">Conceptual Error</option>
+            <option value="Calculation Error">Calculation Error</option>
+            <option value="Silly Mistake">Silly Mistake</option>
+            <option value="Formula Error">Formula Error</option>
+            <option value="Question Misread">Question Misread</option>
+            <option value="Time Management">Time Management</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-gray-300 mb-1">Description / Correct Method</label>
+          <textarea id="err-desc" rows="3" placeholder="Explain where logic went wrong and correct formula to use..." class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-apexOrange"></textarea>
+        </div>
+
+        <!-- Image Upload Field -->
+        <div>
+          <label class="block text-xs font-semibold text-gray-300 mb-1">Question Image (Optional)</label>
+          <input type="file" id="err-image-input" accept="image/*" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-1.5 text-xs text-gray-400">
+        </div>
+
+        <!-- Voice Recorder -->
+        <div class="bg-black/40 border border-gray-800 p-3 rounded-xl space-y-2">
+          <label class="block text-xs font-semibold text-amber-300">Voice Reflection Note (MediaRecorder API)</label>
+          <div class="flex items-center gap-3">
+            <button type="button" id="mic-record-btn" onclick="ErrorBookSystem.toggleRecordVoice()" class="px-3 py-1.5 bg-rose-900/60 hover:bg-rose-800 text-rose-200 border border-rose-700 text-xs font-semibold rounded-xl flex items-center gap-1.5">
+              <i class="fa-solid fa-microphone"></i> <span id="mic-btn-text">Record Voice Note</span>
+            </button>
+            <span id="mic-status" class="text-[11px] text-gray-400">No recording</span>
+          </div>
+          <audio id="err-audio-preview" controls class="hidden w-full mt-2 h-8"></audio>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-2 border-t border-gray-800">
+          <button type="button" onclick="ModalManager.close('modal-error')" class="px-4 py-2 bg-gray-800 text-gray-300 text-xs font-semibold rounded-xl">
+            Cancel
+          </button>
+          <button type="submit" class="apex-gradient-bg text-black font-bold px-5 py-2 rounded-xl text-xs shadow-lg hover:opacity-90">
+            Save Error Log
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Content Detail / Reader Modal -->
+  <div id="modal-content-reader" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div class="glass-card max-w-2xl w-full p-6 rounded-2xl border border-amber-900/40 space-y-4 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-start border-b border-gray-800 pb-3">
+        <div>
+          <span id="reader-subject-tag" class="text-[10px] font-bold text-amber-400 uppercase tracking-widest bg-amber-950 px-2.5 py-0.5 rounded-full border border-amber-800">Subject</span>
+          <h3 id="reader-title" class="text-xl font-black text-white mt-1">Topic Title</h3>
+        </div>
+        <button onclick="ModalManager.close('modal-content-reader')" class="text-gray-400 hover:text-white">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div id="reader-body" class="text-xs md:text-sm text-gray-300 space-y-3 leading-relaxed">
+        <!-- Dynamic rich content rendered here -->
+      </div>
+
+      <div class="pt-3 border-t border-gray-800 flex justify-end">
+        <button onclick="ModalManager.close('modal-content-reader')" class="apex-gradient-bg text-black font-bold px-5 py-2 rounded-xl text-xs">
+          Got It
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast Container -->
+  <div id="toast-container" class="fixed bottom-16 md:bottom-6 right-4 z-50 space-y-2 pointer-events-none"></div>
+
+  <script>
+    
+    // Core Application Global State Object
+    const AppState = {
+      currentUser: null,  // Logged in user object
+      users: [],          // Registered users list
+      tasks: [],          // Active user's tasks
+      errors: [],         // Active user's error book items
+      flashcards: [],     // Flashcard user state (mastery)
+      surprises: [],      // Completed surprise challenges
+      referrals: [],      // Users who used current user's referral code
+
+      // Namespaces
+      USERS_KEY: 'apex_users_v1',
+      SESSION_KEY: 'apex_session_v1',
+      DATA_PREFIX: 'apex_data_'
+    };
+
+    const NotificationSystem = {
+      show(message, type = 'success') {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        toast.className = `pointer-events-auto flex items-center gap-2 px-4 py-3 rounded-xl border text-xs font-bold shadow-xl transition-all duration-300 transform translate-y-2 opacity-0 ${
+          type === 'success' 
+            ? 'bg-emerald-950/90 border-emerald-500/50 text-emerald-200' 
+            : 'bg-rose-950/90 border-rose-500/50 text-rose-200'
+        }`;
+        toast.innerHTML = `
+          <i class="${type === 'success' ? 'fa-solid fa-circle-check text-emerald-400' : 'fa-solid fa-circle-exclamation text-rose-400'} text-base"></i>
+          <span>${message}</span>
+        `;
+        container.appendChild(toast);
+
+        // Animate in
+        setTimeout(() => {
+          toast.classList.remove('translate-y-2', 'opacity-0');
+        }, 10);
+
+        // Remove after 3s
+        setTimeout(() => {
+          toast.classList.add('opacity-0');
+          setTimeout(() => toast.remove(), 300);
+        }, 3000);
+      }
+    };
+
+    const AuthSystem = {
+      init() {
+        try {
+          const storedUsers = localStorage.getItem(AppState.USERS_KEY);
+          AppState.users = storedUsers ? JSON.parse(storedUsers) : [];
+
+          const activeSession = localStorage.getItem(AppState.SESSION_KEY);
+          if (activeSession) {
+            const user = AppState.users.find(u => u.username.toLowerCase() === activeSession.toLowerCase());
+            if (user) {
+              this.setCurrentUser(user);
+              return;
+            }
+          }
+        } catch (e) {
+          console.error('Storage error during auth init', e);
+        }
+
+        // Show Auth Screen if no valid session
+        AppRouter.showAuthScreen();
+      },
+
+      switchTab(tab) {
+        document.getElementById('auth-error-msg').classList.add('hidden');
+        const loginBtn = document.getElementById('auth-tab-login');
+        const signupBtn = document.getElementById('auth-tab-signup');
+        const loginForm = document.getElementById('form-login');
+        const signupForm = document.getElementById('form-signup');
+
+        if (tab === 'login') {
+          loginBtn.className = "flex-1 py-2 text-center text-sm font-semibold border-b-2 border-apexOrange text-apexOrange transition";
+          signupBtn.className = "flex-1 py-2 text-center text-sm font-semibold border-b-2 border-transparent text-gray-400 hover:text-white transition";
+          loginForm.classList.remove('hidden');
+          signupForm.classList.add('hidden');
+        } else {
+          signupBtn.className = "flex-1 py-2 text-center text-sm font-semibold border-b-2 border-apexOrange text-apexOrange transition";
+          loginBtn.className = "flex-1 py-2 text-center text-sm font-semibold border-b-2 border-transparent text-gray-400 hover:text-white transition";
+          signupForm.classList.remove('hidden');
+          loginForm.classList.add('hidden');
+        }
+      },
+
+      handleSignup(e) {
+        e.preventDefault();
+        const name = document.getElementById('signup-name').value.trim();
+        const username = document.getElementById('signup-username').value.trim();
+        const password = document.getElementById('signup-password').value;
+        const refCode = document.getElementById('signup-referral').value.trim().toUpperCase();
+
+        if (!name || !username || !password) {
+          this.showError('Please fill out all required fields.');
+          return;
+        }
+
+        if (AppState.users.some(u => u.username.toLowerCase() === username.toLowerCase())) {
+          this.showError('Username or email already exists.');
+          return;
+        }
+
+        // Generate User ID and unique referral code
+        const userId = 'usr_' + Date.now();
+        const userReferralCode = 'APEX' + Math.floor(1000 + Math.random() * 9000);
+
+        const newUser = {
+          id: userId,
+          name: name,
+          username: username,
+          password: password, // Simple local store auth
+          referralCode: userReferralCode,
+          referredBy: refCode || null,
+          referrals: [],
+          premium: false,
+          createdAt: new Date().toISOString()
+        };
+
+        // Check if valid referral code entered
+        if (refCode) {
+          const referrer = AppState.users.find(u => u.referralCode === refCode && u.username.toLowerCase() !== username.toLowerCase());
+          if (referrer) {
+            if (!referrer.referrals.includes(username)) {
+              referrer.referrals.push(username);
+              // Check referral count threshold for referrer
+              if (referrer.referrals.length >= 3) {
+                referrer.premium = true;
+              }
+            }
+          }
+        }
+
+        AppState.users.push(newUser);
+        this.saveUsers();
+
+        // Initialize empty state storage for user
+        this.initUserDataStorage(userId);
+
+        // Login new user
+        this.setCurrentUser(newUser);
+        NotificationSystem.show('Account created successfully! Welcome to APEX JEE.');
+      },
+
+      handleLogin(e) {
+        e.preventDefault();
+        const username = document.getElementById('login-username').value.trim();
+        const password = document.getElementById('login-password').value;
+
+        const user = AppState.users.find(u => u.username.toLowerCase() === username.toLowerCase() && u.password === password);
+
+        if (!user) {
+          this.showError('Invalid username or password.');
+          return;
+        }
+
+        this.setCurrentUser(user);
+        NotificationSystem.show(`Welcome back, ${user.name}!`);
+      },
+
+      setCurrentUser(user) {
+        AppState.currentUser = user;
+        localStorage.setItem(AppState.SESSION_KEY, user.username);
+        this.loadUserData(user.id);
+        
+        // Update header UI
+        document.getElementById('header-user-name').innerText = user.name;
+        document.getElementById('dash-user-name').innerText = user.name;
+        
+        this.updatePremiumBadges();
+
+        // Navigation to home
+        AppRouter.navigate('home');
+      },
+
+      logout() {
+        localStorage.removeItem(AppState.SESSION_KEY);
+        AppState.currentUser = null;
+        AppState.tasks = [];
+        AppState.errors = [];
+        AppState.flashcards = [];
+        AppState.surprises = [];
+        
+        AppRouter.showAuthScreen();
+        NotificationSystem.show('Logged out successfully.');
+      },
+
+      saveUsers() {
+        localStorage.setItem(AppState.USERS_KEY, JSON.stringify(AppState.users));
+      },
+
+      initUserDataStorage(userId) {
+        const key = AppState.DATA_PREFIX + userId;
+        const initialData = {
+          tasks: [],
+          errors: [],
+          flashcards: [],
+          surprises: []
+        };
+        localStorage.setItem(key, JSON.stringify(initialData));
+      },
+
+      loadUserData(userId) {
+        const key = AppState.DATA_PREFIX + userId;
+        const raw = localStorage.getItem(key);
+        if (raw) {
+          try {
+            const parsed = JSON.parse(raw);
+            AppState.tasks = parsed.tasks || [];
+            AppState.errors = parsed.errors || [];
+            AppState.flashcards = parsed.flashcards || [];
+            AppState.surprises = parsed.surprises || [];
+          } catch(e) {
+            console.error('Data parse error', e);
+          }
+        } else {
+          this.initUserDataStorage(userId);
+        }
+      },
+
+      saveCurrentUserData() {
+        if (!AppState.currentUser) return;
+        const key = AppState.DATA_PREFIX + AppState.currentUser.id;
+        const data = {
+          tasks: AppState.tasks,
+          errors: AppState.errors,
+          flashcards: AppState.flashcards,
+          surprises: AppState.surprises
+        };
+        localStorage.setItem(key, JSON.stringify(data));
+      },
+
+      updatePremiumBadges() {
+        if (!AppState.currentUser) return;
+        const isPrem = AppState.currentUser.premium || AppState.currentUser.referrals.length >= 3;
+        if (isPrem) {
+          AppState.currentUser.premium = true;
+          document.getElementById('header-premium-badge').classList.remove('hidden');
+          document.getElementById('dash-badge-status').className = "text-xs bg-amber-500/20 text-amber-400 border border-amber-500/40 px-2 py-0.5 rounded-full font-bold";
+          document.getElementById('dash-badge-status').innerText = "PRO PLAN";
+
+          // Remove lock icons from nav
+          document.querySelectorAll('.lock-icon').forEach(icon => icon.classList.add('hidden'));
+        } else {
+          document.getElementById('header-premium-badge').classList.add('hidden');
+          document.getElementById('dash-badge-status').className = "text-xs bg-gray-800 text-gray-300 border border-gray-700 px-2 py-0.5 rounded-full font-semibold";
+          document.getElementById('dash-badge-status').innerText = "FREE PLAN";
+          document.querySelectorAll('.lock-icon').forEach(icon => icon.classList.remove('hidden'));
+        }
+      },
+
+      showError(msg) {
+        const errEl = document.getElementById('auth-error-msg');
+        errEl.innerText = msg;
+        errEl.classList.remove('hidden');
+      }
+    };
+
+    const AppRouter = {
+      activeView: 'home',
+
+      showAuthScreen() {
+        document.getElementById('main-header').classList.add('hidden');
+        document.getElementById('mobile-nav').classList.add('hidden');
+        document.getElementById('main-footer').classList.add('hidden');
+
+        document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
+        document.getElementById('view-auth').classList.remove('hidden');
+      },
+
+      navigate(viewName) {
+        if (!AppState.currentUser) {
+          this.showAuthScreen();
+          return;
+        }
+
+        // Check if view is locked premium
+        const lockedViews = ['content', 'flashcards', 'backlog', 'errorbook', 'progress', 'surprise'];
+        const isPrem = AppState.currentUser.premium || AppState.currentUser.referrals.length >= 3;
+
+        if (lockedViews.includes(viewName) && !isPrem) {
+          ModalManager.openPremiumModal(viewName);
+          return;
+        }
+
+        this.activeView = viewName;
+
+        // Show navigation bars
+        document.getElementById('main-header').classList.remove('hidden');
+        document.getElementById('mobile-nav').classList.remove('hidden');
+        document.getElementById('main-footer').classList.remove('hidden');
+
+        // Hide all views
+        document.querySelectorAll('main > section').forEach(sec => sec.classList.add('hidden'));
+
+        // Show targeted view
+        const targetView = document.getElementById(`view-${viewName}`);
+        if (targetView) {
+          targetView.classList.remove('hidden');
+        }
+
+        // Highlight Desktop & Mobile Nav Tab
+        this.updateNavUI(viewName);
+
+        // Render view content
+        this.renderViewContent(viewName);
+      },
+
+      updateNavUI(viewName) {
+        // Desktop nav active state
+        document.querySelectorAll('#main-header nav button').forEach(btn => {
+          btn.classList.remove('nav-active', 'bg-white/10');
+        });
+        const activeDesktopBtn = document.getElementById(`nav-btn-${viewName}`);
+        if (activeDesktopBtn) {
+          activeDesktopBtn.classList.add('nav-active', 'bg-white/10');
+        }
+
+        // Mobile nav active state
+        document.querySelectorAll('#mobile-nav button').forEach(btn => {
+          btn.classList.remove('mobile-nav-active');
+        });
+        const activeMobileBtn = document.getElementById(`mob-nav-${viewName}`);
+        if (activeMobileBtn) {
+          activeMobileBtn.classList.add('mobile-nav-active');
+        }
+      },
+
+      renderViewContent(viewName) {
+        switch (viewName) {
+          case 'home':
+            DashboardSystem.render();
+            break;
+          case 'todo':
+            TaskSystem.renderTasks();
+            break;
+          case 'content':
+            ContentSystem.render();
+            break;
+          case 'flashcards':
+            FlashcardSystem.init();
+            break;
+          case 'backlog':
+            BacklogSystem.render();
+            break;
+          case 'errorbook':
+            ErrorBookSystem.render();
+            break;
+          case 'progress':
+            ProgressSystem.render();
+            break;
+          case 'surprise':
+            SurpriseSystem.init();
+            break;
+          case 'settings':
+            SettingsSystem.render();
+            break;
+        }
+      }
+    };
+
+    const ModalManager = {
+      open(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) modal.classList.remove('hidden');
+      },
+
+      close(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) modal.classList.add('hidden');
+      },
+
+      openPremiumModal(featureName) {
+        const prettyNames = {
+          content: 'Core Study Content & PYQs',
+          flashcards: 'Active Memory Flashcards',
+          backlog: 'Backlog Manager',
+          errorbook: 'Mistake Tracker (Error Book)',
+          progress: 'Deep Progress Analytics',
+          surprise: 'Daily APEX Challenges'
+        };
+
+        document.getElementById('premium-feature-name').innerText = prettyNames[featureName] || featureName;
+        
+        const count = AppState.currentUser ? AppState.currentUser.referrals.length : 0;
+        document.getElementById('prem-modal-count').innerText = `${count} / 3 Friends`;
+        document.getElementById('prem-modal-bar').style.width = `${Math.min(100, (count / 3) * 100)}%`;
+        document.getElementById('prem-modal-code').value = AppState.currentUser ? AppState.currentUser.referralCode : '';
+
+        this.open('modal-premium');
+      }
+    };
+
+    const TaskSystem = {
+      subjectFilter: 'All',
+      statusFilter: 'all',
+
+      openAddTaskModal(editTaskId = null) {
+        const form = document.getElementById('form-task');
+        form.reset();
+        document.getElementById('task-edit-id').value = '';
+        document.getElementById('modal-task-title').innerText = 'Add New Task';
+
+        // Set default date to today YYYY-MM-DD
+        document.getElementById('task-date').value = new Date().toISOString().split('T')[0];
+
+        if (editTaskId) {
+          const task = AppState.tasks.find(t => t.id === editTaskId);
+          if (task) {
+            document.getElementById('modal-task-title').innerText = 'Edit Task';
+            document.getElementById('task-edit-id').value = task.id;
+            document.getElementById('task-title').value = task.title;
+            document.getElementById('task-subject').value = task.subject;
+            document.getElementById('task-chapter').value = task.chapter;
+            document.getElementById('task-mode').value = task.mode;
+            document.getElementById('task-priority').value = task.priority;
+            document.getElementById('task-date').value = task.date;
+            document.getElementById('task-time').value = task.estimatedTime;
+            document.getElementById('task-notes').value = task.notes || '';
+          }
+        }
+
+        ModalManager.open('modal-task');
+      },
+
+      handleSaveTask(e) {
+        e.preventDefault();
+        const editId = document.getElementById('task-edit-id').value;
+
+        const taskObj = {
+          id: editId || 'task_' + Date.now(),
+          title: document.getElementById('task-title').value.trim(),
+          subject: document.getElementById('task-subject').value,
+          chapter: document.getElementById('task-chapter').value.trim(),
+          mode: document.getElementById('task-mode').value,
+          priority: document.getElementById('task-priority').value,
+          date: document.getElementById('task-date').value,
+          estimatedTime: parseInt(document.getElementById('task-time').value) || 30,
+          notes: document.getElementById('task-notes').value.trim(),
+          completed: false,
+          createdAt: new Date().toISOString()
+        };
+
+        if (editId) {
+          const index = AppState.tasks.findIndex(t => t.id === editId);
+          if (index !== -1) {
+            taskObj.completed = AppState.tasks[index].completed;
+            taskObj.completedAt = AppState.tasks[index].completedAt;
+            AppState.tasks[index] = taskObj;
+            NotificationSystem.show('Task updated successfully!');
+          }
+        } else {
+          AppState.tasks.unshift(taskObj);
+          NotificationSystem.show('New study task created!');
+        }
+
+        AuthSystem.saveCurrentUserData();
+        ModalManager.close('modal-task');
+
+        if (AppRouter.activeView === 'home') DashboardSystem.render();
+        else if (AppRouter.activeView === 'todo') this.renderTasks();
+      },
+
+      toggleTaskComplete(id) {
+        const task = AppState.tasks.find(t => t.id === id);
+        if (task) {
+          task.completed = !task.completed;
+          task.completedAt = task.completed ? new Date().toISOString() : null;
+          AuthSystem.saveCurrentUserData();
+
+          NotificationSystem.show(task.completed ? 'Task completed! Good job!' : 'Task marked pending.');
+
+          if (AppRouter.activeView === 'home') DashboardSystem.render();
+          else if (AppRouter.activeView === 'todo') this.renderTasks();
+        }
+      },
+
+      deleteTask(id) {
+        AppState.tasks = AppState.tasks.filter(t => t.id !== id);
+        AuthSystem.saveCurrentUserData();
+        NotificationSystem.show('Task deleted.');
+
+        if (AppRouter.activeView === 'home') DashboardSystem.render();
+        else if (AppRouter.activeView === 'todo') this.renderTasks();
+      },
+
+      duplicateTask(id) {
+        const orig = AppState.tasks.find(t => t.id === id);
+        if (orig) {
+          const copy = {
+            ...orig,
+            id: 'task_' + Date.now(),
+            title: orig.title + ' (Copy)',
+            completed: false,
+            completedAt: null,
+            createdAt: new Date().toISOString()
+          };
+          AppState.tasks.unshift(copy);
+          AuthSystem.saveCurrentUserData();
+          NotificationSystem.show('Task duplicated.');
+          this.renderTasks();
+        }
+      },
+
+      setSubjectFilter(subj) {
+        this.subjectFilter = subj;
+        document.querySelectorAll('#view-todo button[id^="todo-filter-subj-"]').forEach(btn => {
+          btn.className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300 hover:text-white";
+        });
+        document.getElementById(`todo-filter-subj-${subj}`).className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-apexOrange text-black";
+        this.renderTasks();
+      },
+
+      setStatusFilter(status) {
+        this.statusFilter = status;
+        document.querySelectorAll('#view-todo button[id^="todo-status-"]').forEach(btn => {
+          btn.className = "px-3 py-1 rounded-full text-xs font-medium bg-gray-800 text-gray-400";
+        });
+        document.getElementById(`todo-status-${status}`).className = "px-3 py-1 rounded-full text-xs font-medium bg-amber-500/20 text-amber-300 border border-amber-500/30";
+        this.renderTasks();
+      },
+
+      renderTasks() {
+        const container = document.getElementById('todo-tasks-list');
+        const searchQuery = (document.getElementById('todo-search-input').value || '').toLowerCase();
+        const sortVal = document.getElementById('todo-sort-select').value;
+        const todayStr = new Date().toISOString().split('T')[0];
+
+        let filtered = AppState.tasks.filter(task => {
+          // Subject Filter
+          if (this.subjectFilter !== 'All' && task.subject !== this.subjectFilter) return false;
+
+          // Status Filter
+          if (this.statusFilter === 'today' && task.date !== todayStr) return false;
+          if (this.statusFilter === 'pending' && task.completed) return false;
+          if (this.statusFilter === 'completed' && !task.completed) return false;
+
+          // Search Filter
+          if (searchQuery) {
+            const matchTitle = task.title.toLowerCase().includes(searchQuery);
+            const matchChapter = task.chapter.toLowerCase().includes(searchQuery);
+            if (!matchTitle && !matchChapter) return false;
+          }
+
+          return true;
+        });
+
+        // Sorting
+        filtered.sort((a, b) => {
+          if (sortVal === 'newest') return new Date(b.createdAt) - new Date(a.createdAt);
+          if (sortVal === 'oldest') return new Date(a.createdAt) - new Date(b.createdAt);
+          if (sortVal === 'time') return b.estimatedTime - a.estimatedTime;
+          if (sortVal === 'priority') {
+            const pMap = { High: 3, Medium: 2, Low: 1 };
+            return pMap[b.priority] - pMap[a.priority];
+          }
+          return 0;
+        });
+
+        if (filtered.length === 0) {
+          container.innerHTML = `
+            <div class="glass-card p-8 rounded-2xl text-center space-y-3 border border-amber-900/20">
+              <i class="fa-solid fa-list-check text-4xl text-gray-600"></i>
+              <h4 class="text-sm font-bold text-gray-300">No Tasks Found</h4>
+              <p class="text-xs text-gray-500">You haven't created any tasks matching your criteria yet.</p>
+              <button onclick="TaskSystem.openAddTaskModal()" class="apex-gradient-bg text-black font-bold px-4 py-2 rounded-xl text-xs">
+                + Add Task Now
+              </button>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = filtered.map(t => {
+          const isHighPrio = t.priority === 'High';
+          return `
+            <div class="glass-card p-4 rounded-xl border border-amber-900/30 flex flex-col md:flex-row justify-between items-start md:items-center gap-3 transition-all ${t.completed ? 'opacity-60 bg-black/40' : 'glass-card-hover'}">
+              <div class="flex items-start gap-3 w-full md:w-auto">
+                <input type="checkbox" ${t.completed ? 'checked' : ''} onchange="TaskSystem.toggleTaskComplete('${t.id}')" class="mt-1 w-4 h-4 accent-amber-500 rounded cursor-pointer">
+                <div class="space-y-1">
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-sm font-bold text-white ${t.completed ? 'line-through text-gray-400' : ''}">${t.title}</span>
+                    <span class="text-[10px] font-semibold bg-gray-800 text-gray-300 px-2 py-0.5 rounded">${t.subject}</span>
+                    <span class="text-[10px] font-semibold bg-amber-950/80 text-amber-300 border border-amber-900/50 px-2 py-0.5 rounded">${t.mode}</span>
+                    ${isHighPrio ? '<span class="text-[10px] font-extrabold bg-rose-950 text-rose-300 border border-rose-800 px-1.5 py-0.5 rounded">HIGH PRIORITY</span>' : ''}
+                  </div>
+                  <p class="text-xs text-gray-400">
+                    <i class="fa-solid fa-book text-apexOrange mr-1"></i>${t.chapter} &bull; 
+                    <i class="fa-regular fa-clock text-gray-500 ml-1"></i> ${t.estimatedTime} mins &bull; 
+                    <i class="fa-regular fa-calendar text-gray-500 ml-1"></i> ${t.date}
+                  </p>
+                  ${t.notes ? `<p class="text-xs text-gray-400 italic bg-black/30 p-1.5 rounded mt-1 border border-gray-800/60">${t.notes}</p>` : ''}
+                </div>
+              </div>
+
+              <!-- Actions -->
+              <div class="flex items-center gap-2 self-end md:self-center">
+                <button onclick="TaskSystem.openAddTaskModal('${t.id}')" class="p-2 text-gray-400 hover:text-white transition" title="Edit Task">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                <button onclick="TaskSystem.duplicateTask('${t.id}')" class="p-2 text-gray-400 hover:text-amber-300 transition" title="Duplicate Task">
+                  <i class="fa-solid fa-copy"></i>
+                </button>
+                <button onclick="TaskSystem.deleteTask('${t.id}')" class="p-2 text-gray-400 hover:text-rose-400 transition" title="Delete Task">
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+    };
+
+    const DashboardSystem = {
+      render() {
+        const todayStr = new Date().toISOString().split('T')[0];
+
+        // Filter today's tasks
+        const todayTasks = AppState.tasks.filter(t => t.date === todayStr);
+        const todayCompleted = todayTasks.filter(t => t.completed);
+
+        document.getElementById('stat-today-total').innerText = todayTasks.length;
+        document.getElementById('stat-today-completed').innerText = todayCompleted.length;
+
+        const pct = todayTasks.length > 0 ? Math.round((todayCompleted.length / todayTasks.length) * 100) : 0;
+        document.getElementById('stat-completion-pct').innerText = `${pct}%`;
+        document.getElementById('stat-completion-bar').style.width = `${pct}%`;
+
+        // Calculate Real Streak from completed task dates
+        const streak = this.calculateStreak();
+        document.getElementById('stat-streak-days').innerText = `${streak} Day${streak === 1 ? '' : 's'}`;
+
+        // Backlogs (tasks dated before today that are pending)
+        const backlogs = AppState.tasks.filter(t => t.date < todayStr && !t.completed);
+        document.getElementById('stat-backlog-count').innerText = backlogs.length;
+
+        // Render Today's tasks quick list
+        const todayContainer = document.getElementById('dash-today-tasks-container');
+        if (todayTasks.length === 0) {
+          todayContainer.innerHTML = `
+            <div class="text-center py-6 border border-dashed border-gray-800 rounded-xl space-y-2">
+              <p class="text-xs text-gray-400">No study tasks planned for today.</p>
+              <button onclick="TaskSystem.openAddTaskModal()" class="text-xs text-apexOrange hover:underline font-bold">
+                + Create Today's First Task
+              </button>
+            </div>
+          `;
+        } else {
+          todayContainer.innerHTML = todayTasks.map(t => `
+            <div class="flex items-center justify-between p-2.5 bg-black/40 border border-gray-800/80 rounded-xl text-xs">
+              <div class="flex items-center gap-2">
+                <input type="checkbox" ${t.completed ? 'checked' : ''} onchange="TaskSystem.toggleTaskComplete('${t.id}')" class="accent-amber-500 rounded">
+                <span class="font-semibold ${t.completed ? 'line-through text-gray-500' : 'text-gray-200'}">${t.title}</span>
+              </div>
+              <span class="text-[10px] text-gray-400 bg-gray-800/80 px-2 py-0.5 rounded">${t.subject}</span>
+            </div>
+          `).join('');
+        }
+
+        // Subject Breakdown Stats
+        this.renderSubjectBreakdown();
+      },
+
+      calculateStreak() {
+        if (AppState.tasks.length === 0) return 0;
+        const completedDates = [...new Set(AppState.tasks
+          .filter(t => t.completed && t.completedAt)
+          .map(t => t.completedAt.split('T')[0]))].sort().reverse();
+
+        if (completedDates.length === 0) return 0;
+
+        let streak = 0;
+        let checkDate = new Date();
+        
+        // Loop backwards
+        for (let i = 0; i < 30; i++) {
+          const dateStr = checkDate.toISOString().split('T')[0];
+          if (completedDates.includes(dateStr)) {
+            streak++;
+            checkDate.setDate(checkDate.getDate() - 1);
+          } else if (i === 0) {
+            // Check yesterday if today hasn't been completed yet
+            checkDate.setDate(checkDate.getDate() - 1);
+          } else {
+            break;
+          }
+        }
+        return streak;
+      },
+
+      renderSubjectBreakdown() {
+        const subjects = ['Physics', 'Chemistry', 'Mathematics'];
+        const map = { Physics: 'physics', Chemistry: 'chemistry', Mathematics: 'math' };
+
+        subjects.forEach(subj => {
+          const subjTasks = AppState.tasks.filter(t => t.subject === subj);
+          const subjDone = subjTasks.filter(t => t.completed);
+          const pct = subjTasks.length > 0 ? Math.round((subjDone.length / subjTasks.length) * 100) : 0;
+
+          document.getElementById(`dash-pct-${map[subj]}`).innerText = `${pct}%`;
+          document.getElementById(`dash-bar-${map[subj]}`).style.width = `${pct}%`;
+        });
+      }
+    };
+
+    const ContentSystem = {
+      activeSubject: 'Physics',
+
+      // Curated Educational Content Modules
+      database: [
+        {
+          id: 'c1',
+          subject: 'Physics',
+          chapter: 'Rotational Dynamics',
+          title: 'Moment of Inertia Theorems & Formulas',
+          type: 'Formula Sheet',
+          body: `
+            <p><strong>Parallel Axis Theorem:</strong> $I = I_{cm} + Md^2$</p>
+            <p><strong>Perpendicular Axis Theorem (2D laminar bodies):</strong> $I_z = I_x + I_y$</p>
+            <h4 class="font-bold text-white mt-3">Standard Bodies Moment of Inertia:</h4>
+            <ul class="list-disc pl-5 space-y-1">
+              <li>Solid Sphere: $\\frac{2}{5} MR^2$</li>
+              <li>Hollow Sphere: $\\frac{2}{3} MR^2$</li>
+              <li>Solid Cylinder / Disc: $\\frac{1}{2} MR^2$</li>
+              <li>Thin Rod about Center: $\\frac{1}{12} ML^2$</li>
+            </ul>
+          `
+        },
+        {
+          id: 'c2',
+          subject: 'Physics',
+          chapter: 'Electrostatics',
+          title: 'Gauss Law Applications & Electric Potential',
+          type: 'Theory Notes',
+          body: `
+            <p>Gauss's Law states that net electric flux through any closed surface is proportional to enclosed charge: $\\Phi = \\oint \\vec{E} \\cdot d\\vec{A} = \\frac{Q_{encl}}{\\varepsilon_0}$.</p>
+            <h4 class="font-bold text-white mt-3">Electric Potential Key Concepts:</h4>
+            <p>Point Charge Potential: $V = \\frac{1}{4\\pi\\varepsilon_0} \\frac{q}{r}$</p>
+            <p>Relation between E and V: $\\vec{E} = -\\nabla V = -\\frac{\\partial V}{\\partial r}\\hat{r}$</p>
+          `
+        },
+        {
+          id: 'c3',
+          subject: 'Chemistry',
+          chapter: 'Chemical Bonding',
+          title: 'VSEPR Theory & Hybridization Shortcuts',
+          type: 'Formula & Concept',
+          body: `
+            <p><strong>Steric Number Formula:</strong> $\\text{SN} = \\frac{1}{2}[V + M - C + A]$</p>
+            <p>Where $V$ = valence electrons, $M$ = monovalent atoms, $C$ = cation charge, $A$ = anion charge.</p>
+            <h4 class="font-bold text-white mt-3">Geometries:</h4>
+            <ul class="list-disc pl-5 space-y-1">
+              <li>SN = 2: $sp$ (Linear, 180°)</li>
+              <li>SN = 3: $sp^2$ (Trigonal Planar, 120°)</li>
+              <li>SN = 4: $sp^3$ (Tetrahedral, 109.5°)</li>
+              <li>SN = 5: $sp^3d$ (Trigonal Bipyramidal)</li>
+            </ul>
+          `
+        },
+        {
+          id: 'c4',
+          subject: 'Chemistry',
+          chapter: 'Thermodynamics',
+          title: 'Gibbs Free Energy & Spontaneity Rules',
+          type: 'Formula Sheet',
+          body: `
+            <p><strong>Gibbs-Helmholtz Equation:</strong> $\\Delta G = \\Delta H - T\\Delta S$</p>
+            <h4 class="font-bold text-white mt-3">Spontaneity Criteria:</h4>
+            <ul class="list-disc pl-5 space-y-1">
+              <li>$\\Delta G < 0$: Spontaneous process</li>
+              <li>$\\Delta G = 0$: System in Equilibrium</li>
+              <li>$\\Delta G > 0$: Non-spontaneous process</li>
+            </ul>
+          `
+        },
+        {
+          id: 'c5',
+          subject: 'Mathematics',
+          chapter: 'Calculus - Integration',
+          title: 'Standard Integration Formulas & Substitution Shortcuts',
+          type: 'Formula Sheet',
+          body: `
+            <p><strong>Integration by Parts:</strong> $\\int u v \, dx = u \\int v dx - \\int (u' \\int v dx) dx$ (Follow ILATE rule)</p>
+            <h4 class="font-bold text-white mt-3">Special Integrals:</h4>
+            <p>$\\int \\frac{dx}{x^2 - a^2} = \\frac{1}{2a} \\ln\\left|\\frac{x-a}{x+a}\\right| + C$</p>
+            <p>$\\int \\frac{dx}{\\sqrt{a^2 - x^2}} = \\sin^{-1}\\left(\\frac{x}{a}\\right) + C$</p>
+          `
+        },
+        {
+          id: 'c6',
+          subject: 'Mathematics',
+          chapter: 'Coordinate Geometry',
+          title: 'Conic Sections Key Formulas (Parabola, Ellipse, Hyperbola)',
+          type: 'PYQ Reference',
+          body: `
+            <p><strong>Standard Ellipse:</strong> $\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1$ ($a > b$)</p>
+            <p>Eccentricity: $e = \\sqrt{1 - \\frac{b^2}{a^2}}$</p>
+            <p>Latus Rectum Length: $\\frac{2b^2}{a}$</p>
+          `
+        }
+      ],
+
+      setTab(subject) {
+        this.activeSubject = subject;
+        document.querySelectorAll('#view-content button[id^="content-tab-"]').forEach(btn => {
+          btn.className = "px-3 py-2 rounded-xl text-xs font-semibold bg-gray-800 text-gray-300";
+        });
+        document.getElementById(`content-tab-${subject}`).className = "px-3 py-2 rounded-xl text-xs font-semibold bg-apexOrange text-black";
+        this.render();
+      },
+
+      render() {
+        const container = document.getElementById('content-grid');
+        const query = (document.getElementById('content-search').value || '').toLowerCase();
+
+        const filtered = this.database.filter(item => {
+          if (item.subject !== this.activeSubject) return false;
+          if (query) {
+            const matchTitle = item.title.toLowerCase().includes(query);
+            const matchChapter = item.chapter.toLowerCase().includes(query);
+            if (!matchTitle && !matchChapter) return false;
+          }
+          return true;
+        });
+
+        if (filtered.length === 0) {
+          container.innerHTML = `
+            <div class="col-span-full glass-card p-8 rounded-2xl text-center space-y-2 border border-amber-900/20">
+              <i class="fa-solid fa-book-open text-3xl text-gray-600"></i>
+              <p class="text-xs text-gray-400">No content cards matching query.</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = filtered.map(item => `
+          <div onclick="ContentSystem.openReader('${item.id}')" class="glass-card p-5 rounded-2xl border border-amber-900/30 glass-card-hover cursor-pointer space-y-3 flex flex-col justify-between">
+            <div class="space-y-1.5">
+              <div class="flex justify-between items-center text-[10px]">
+                <span class="font-bold text-apexOrange uppercase tracking-wider bg-amber-950/60 px-2 py-0.5 rounded border border-amber-800/40">${item.type}</span>
+                <span class="text-gray-400 font-medium">${item.chapter}</span>
+              </div>
+              <h4 class="text-sm font-bold text-white leading-snug">${item.title}</h4>
+            </div>
+            <div class="flex items-center justify-between text-xs font-semibold text-apexOrange pt-2 border-t border-gray-800/60">
+              <span>Read Full Module</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </div>
+        `).join('');
+      },
+
+      openReader(id) {
+        const item = this.database.find(c => c.id === id);
+        if (!item) return;
+
+        document.getElementById('reader-subject-tag').innerText = `${item.subject} • ${item.chapter}`;
+        document.getElementById('reader-title').innerText = item.title;
+        document.getElementById('reader-body').innerHTML = item.body;
+
+        ModalManager.open('modal-content-reader');
+      }
+    };
+
+    const FlashcardSystem = {
+      activeSubject: 'Physics',
+      currentIndex: 0,
+      isFlipped: false,
+
+      decks: {
+        Physics: [
+          { tag: 'Mechanics', q: 'What is the formula for escape velocity from Earth’s surface?', a: '$v_e = \\sqrt{\\frac{2GM}{R}} = \\sqrt{2gR} \\approx 11.2 \\text{ km/s}$' },
+          { tag: 'Optics', q: 'Lens Maker’s Formula for thin lenses in air?', a: '$\\frac{1}{f} = (n - 1) \\left( \\frac{1}{R_1} - \\frac{1}{R_2} \\right)$' },
+          { tag: 'Thermodynamics', q: 'Efficiency $\\eta$ of a Carnot engine working between $T_1$ (hot) and $T_2$ (cold)?', a: '$\\eta = 1 - \\frac{T_2}{T_1}$ (Temperatures must be in Kelvin!)' }
+        ],
+        Chemistry: [
+          { tag: 'Organic', q: 'What is the Reimer-Tiemann reaction product from Phenol?', a: 'Salicylaldehyde (2-hydroxybenzaldehyde) via dichlorocarbene intermediate.' },
+          { tag: 'Physical', q: 'Arrhenius Equation for Rate Constant $k$?', a: '$k = A e^{-E_a / RT}$ or $\\ln k = \\ln A - \\frac{E_a}{RT}$' }
+        ],
+        Mathematics: [
+          { tag: 'Algebra', q: 'Sum of roots and product of roots for $ax^2 + bx + c = 0$?', a: 'Sum $\\alpha + \\beta = -\\frac{b}{a}$, Product $\\alpha\\beta = \\frac{c}{a}$' },
+          { tag: 'Vectors', q: 'Condition for two non-zero vectors $\\vec{A}$ and $\\vec{B}$ to be perpendicular?', a: 'Dot product $\\vec{A} \\cdot \\vec{B} = 0$' }
+        ]
+      },
+
+      init() {
+        this.renderSubjectSelector();
+        this.loadCard();
+      },
+
+      renderSubjectSelector() {
+        const container = document.getElementById('flashcard-deck-selector');
+        const subjects = ['Physics', 'Chemistry', 'Mathematics'];
+        container.innerHTML = subjects.map(s => `
+          <button onclick="FlashcardSystem.switchSubject('${s}')" class="px-3 py-1.5 rounded-xl text-xs font-semibold ${this.activeSubject === s ? 'bg-apexOrange text-black font-bold' : 'bg-gray-800 text-gray-300'}">
+            ${s}
+          </button>
+        `).join('');
+      },
+
+      switchSubject(s) {
+        this.activeSubject = s;
+        this.currentIndex = 0;
+        this.isFlipped = false;
+        this.renderSubjectSelector();
+        this.loadCard();
+      },
+
+      flipCard() {
+        this.isFlipped = !this.isFlipped;
+        const inner = document.getElementById('fc-card-inner');
+        if (this.isFlipped) {
+          inner.classList.add('rotate-y-180');
+        } else {
+          inner.classList.remove('rotate-y-180');
+        }
+      },
+
+      loadCard() {
+        const deck = this.decks[this.activeSubject] || [];
+        if (deck.length === 0) return;
+
+        this.isFlipped = false;
+        document.getElementById('fc-card-inner').classList.remove('rotate-y-180');
+
+        const card = deck[this.currentIndex];
+        document.getElementById('fc-counter').innerText = `Card ${this.currentIndex + 1} of ${deck.length}`;
+        document.getElementById('fc-card-tag').innerText = card.tag;
+        document.getElementById('fc-card-question').innerHTML = card.q;
+        document.getElementById('fc-card-answer').innerHTML = card.a;
+
+        this.updateStats();
+      },
+
+      nextCard() {
+        const deck = this.decks[this.activeSubject] || [];
+        this.currentIndex = (this.currentIndex + 1) % deck.length;
+        this.loadCard();
+      },
+
+      prevCard() {
+        const deck = this.decks[this.activeSubject] || [];
+        this.currentIndex = (this.currentIndex - 1 + deck.length) % deck.length;
+        this.loadCard();
+      },
+
+      markCard(isMastered) {
+        const cardKey = `${this.activeSubject}_${this.currentIndex}`;
+        let fc = AppState.flashcards.find(f => f.id === cardKey);
+        if (!fc) {
+          fc = { id: cardKey, mastered: isMastered };
+          AppState.flashcards.push(fc);
+        } else {
+          fc.mastered = isMastered;
+        }
+
+        AuthSystem.saveCurrentUserData();
+        NotificationSystem.show(isMastered ? 'Marked as Mastered!' : 'Added to Revision Deck');
+        this.nextCard();
+      },
+
+      updateStats() {
+        const known = AppState.flashcards.filter(f => f.mastered).length;
+        const review = AppState.flashcards.filter(f => !f.mastered).length;
+        document.getElementById('fc-stat-known').innerText = known;
+        document.getElementById('fc-stat-review').innerText = review;
+      }
+    };
+
+    const BacklogSystem = {
+      render() {
+        const container = document.getElementById('backlog-container');
+        const todayStr = new Date().toISOString().split('T')[0];
+
+        // Missed tasks are past date and incomplete
+        const backlogs = AppState.tasks.filter(t => t.date < todayStr && !t.completed);
+
+        if (backlogs.length === 0) {
+          container.innerHTML = `
+            <div class="glass-card p-8 rounded-2xl text-center space-y-2 border border-amber-900/20">
+              <i class="fa-solid fa-circle-check text-4xl text-emerald-400"></i>
+              <h4 class="text-base font-bold text-white">No Pending Backlogs!</h4>
+              <p class="text-xs text-gray-400">You are completely up to date with your study plan.</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = backlogs.map(t => `
+          <div class="glass-card p-4 rounded-xl border border-rose-900/40 flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold text-white">${t.title}</span>
+                <span class="text-[10px] bg-rose-950 text-rose-300 border border-rose-800 px-2 py-0.5 rounded font-bold">MISSED: ${t.date}</span>
+              </div>
+              <p class="text-xs text-gray-400">${t.subject} &bull; ${t.chapter} &bull; ${t.estimatedTime} mins</p>
+            </div>
+            <div class="flex items-center gap-2 self-end md:self-center">
+              <button onclick="BacklogSystem.rescheduleToToday('${t.id}')" class="apex-gradient-bg text-black font-bold px-3 py-1.5 rounded-xl text-xs hover:opacity-90">
+                + Add to Today
+              </button>
+              <button onclick="TaskSystem.deleteTask('${t.id}')" class="px-3 py-1.5 bg-gray-800 text-gray-300 hover:text-white rounded-xl text-xs font-semibold">
+                Dismiss
+              </button>
+            </div>
+          </div>
+        `).join('');
+      },
+
+      rescheduleToToday(taskId) {
+        const task = AppState.tasks.find(t => t.id === taskId);
+        if (task) {
+          task.date = new Date().toISOString().split('T')[0];
+          AuthSystem.saveCurrentUserData();
+          NotificationSystem.show('Task moved to Today’s Planner!');
+          this.render();
+        }
+      }
+    };
+
+    const ErrorBookSystem = {
+      mediaRecorder: null,
+      audioChunks: [],
+      recordedAudioUrl: null,
+
+      openAddModal() {
+        document.getElementById('form-error').reset();
+        document.getElementById('err-audio-preview').classList.add('hidden');
+        this.recordedAudioUrl = null;
+        document.getElementById('mic-status').innerText = "No recording";
+        ModalManager.open('modal-error');
+      },
+
+      async toggleRecordVoice() {
+        const btnText = document.getElementById('mic-btn-text');
+        const status = document.getElementById('mic-status');
+
+        if (this.mediaRecorder && this.mediaRecorder.state === 'recording') {
+          this.mediaRecorder.stop();
+          btnText.innerText = "Record Voice Note";
+          status.innerText = "Recording saved!";
+          return;
+        }
+
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          this.mediaRecorder = new MediaRecorder(stream);
+          this.audioChunks = [];
+
+          this.mediaRecorder.ondataavailable = e => this.audioChunks.push(e.data);
+          this.mediaRecorder.onstop = () => {
+            const audioBlob = new Blob(this.audioChunks, { type: 'audio/webm' });
+            const reader = new FileReader();
+            reader.readAsDataURL(audioBlob);
+            reader.onloadend = () => {
+              this.recordedAudioUrl = reader.result;
+              const preview = document.getElementById('err-audio-preview');
+              preview.src = this.recordedAudioUrl;
+              preview.classList.remove('hidden');
+            };
+          };
+
+          this.mediaRecorder.start();
+          btnText.innerText = "Stop Recording";
+          status.innerText = "Recording... Speak now";
+        } catch (err) {
+          alert('Microphone access denied or unavailable in this browser.');
+          console.error(err);
+        }
+      },
+
+      async handleSaveError(e) {
+        e.preventDefault();
+
+        const imageInput = document.getElementById('err-image-input');
+        let imageBase64 = null;
+
+        if (imageInput.files && imageInput.files[0]) {
+          imageBase64 = await this.fileToBase64(imageInput.files[0]);
+        }
+
+        const errorObj = {
+          id: 'err_' + Date.now(),
+          subject: document.getElementById('err-subject').value,
+          chapter: document.getElementById('err-chapter').value.trim(),
+          question: document.getElementById('err-question').value.trim(),
+          type: document.getElementById('err-type').value,
+          description: document.getElementById('err-desc').value.trim(),
+          image: imageBase64,
+          audio: this.recordedAudioUrl,
+          createdAt: new Date().toLocaleDateString()
+        };
+
+        AppState.errors.unshift(errorObj);
+        AuthSystem.saveCurrentUserData();
+
+        NotificationSystem.show('Mistake logged in Error Book!');
+        ModalManager.close('modal-error');
+        this.render();
+      },
+
+      fileToBase64(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => resolve(reader.result);
+          reader.onerror = error => reject(error);
+        });
+      },
+
+      deleteError(id) {
+        AppState.errors = AppState.errors.filter(e => e.id !== id);
+        AuthSystem.saveCurrentUserData();
+        NotificationSystem.show('Error log removed.');
+        this.render();
+      },
+
+      render() {
+        const container = document.getElementById('error-logs-list');
+        const query = (document.getElementById('error-search').value || '').toLowerCase();
+        const typeFilter = document.getElementById('error-filter-type').value;
+
+        const filtered = AppState.errors.filter(err => {
+          if (typeFilter !== 'All' && err.type !== typeFilter) return false;
+          if (query) {
+            const matchQ = err.question.toLowerCase().includes(query);
+            const matchChap = err.chapter.toLowerCase().includes(query);
+            if (!matchQ && !matchChap) return false;
+          }
+          return true;
+        });
+
+        if (filtered.length === 0) {
+          container.innerHTML = `
+            <div class="col-span-full glass-card p-8 rounded-2xl text-center space-y-2 border border-amber-900/20">
+              <i class="fa-solid fa-book-skull text-4xl text-gray-600"></i>
+              <h4 class="text-sm font-bold text-gray-300">No Error Logs</h4>
+              <p class="text-xs text-gray-500">Log mistakes to analyze weak spots in your preparation.</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = filtered.map(err => `
+          <div class="glass-card p-5 rounded-2xl border border-amber-900/30 space-y-3 relative">
+            <button onclick="ErrorBookSystem.deleteError('${err.id}')" class="absolute top-4 right-4 text-gray-500 hover:text-rose-400">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-bold uppercase tracking-wider bg-rose-950 text-rose-300 border border-rose-800/60 px-2 py-0.5 rounded">${err.type}</span>
+                <span class="text-xs font-semibold text-amber-400">${err.subject} &bull; ${err.chapter}</span>
+              </div>
+              <h4 class="text-sm font-bold text-white pt-1">${err.question}</h4>
+            </div>
+
+            ${err.description ? `<p class="text-xs text-gray-300 bg-black/40 p-2.5 rounded-xl border border-gray-800/80 leading-relaxed">${err.description}</p>` : ''}
+
+            ${err.image ? `<img src="${err.image}" class="w-full max-h-48 object-cover rounded-xl border border-gray-800">` : ''}
+
+            ${err.audio ? `<audio src="${err.audio}" controls class="w-full h-8 mt-2"></audio>` : ''}
+
+            <p class="text-[10px] text-gray-500 font-mono">Logged on: ${err.createdAt}</p>
+          </div>
+        `).join('');
+      }
+    };
+
+    const ProgressSystem = {
+      render() {
+        const totalTasks = AppState.tasks.length;
+        const completedTasks = AppState.tasks.filter(t => t.completed).length;
+
+        const overallPct = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+        document.getElementById('prog-overall-pct').innerText = `${overallPct}%`;
+        document.getElementById('prog-overall-detail').innerText = `${completedTasks} of ${totalTasks} tasks completed`;
+
+        // JEE Main Focused Tasks
+        const mainTasks = AppState.tasks.filter(t => t.mode.includes('Main'));
+        const mainDone = mainTasks.filter(t => t.completed).length;
+        const mainPct = mainTasks.length > 0 ? Math.round((mainDone / mainTasks.length) * 100) : 0;
+        document.getElementById('prog-main-pct').innerText = `${mainPct}%`;
+        document.getElementById('prog-main-detail').innerText = `${mainDone} of ${mainTasks.length} completed`;
+
+        // JEE Advanced Focused Tasks
+        const advTasks = AppState.tasks.filter(t => t.mode.includes('Advanced'));
+        const advDone = advTasks.filter(t => t.completed).length;
+        const advPct = advTasks.length > 0 ? Math.round((advDone / advTasks.length) * 100) : 0;
+        document.getElementById('prog-adv-pct').innerText = `${advPct}%`;
+        document.getElementById('prog-adv-detail').innerText = `${advDone} of ${advTasks.length} completed`;
+
+        // Subject mastery
+        const subjects = ['Physics', 'Chemistry', 'Mathematics'];
+        const container = document.getElementById('prog-subject-cards');
+
+        container.innerHTML = subjects.map(s => {
+          const sTasks = AppState.tasks.filter(t => t.subject === s);
+          const sDone = sTasks.filter(t => t.completed).length;
+          const pct = sTasks.length > 0 ? Math.round((sDone / sTasks.length) * 100) : 0;
+
+          return `
+            <div class="space-y-1.5">
+              <div class="flex justify-between text-xs font-bold">
+                <span class="text-white">${s}</span>
+                <span class="text-apexOrange">${pct}% (${sDone}/${sTasks.length} Tasks)</span>
+              </div>
+              <div class="w-full bg-gray-800 h-2.5 rounded-full overflow-hidden">
+                <div class="bg-apexOrange h-full transition-all duration-500" style="width: ${pct}%"></div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+    };
+
+    const SurpriseSystem = {
+      challenges: [
+        { subject: 'Physics', title: 'Formula Masterclass', desc: 'Revise 10 core formulas from Rotational Motion and Electrostatics.' },
+        { subject: 'Chemistry', title: 'PYQ Sprint', desc: 'Solve 5 Organic Chemistry Reaction Mechanism questions.' },
+        { subject: 'Mathematics', title: 'Integration Rush', desc: 'Solve 3 Definite Integration Advanced level problems.' },
+        { subject: 'Physics', title: 'Concept Check', desc: 'Draw standard Ray Diagrams for Concave Mirrors and Refraction.' }
+      ],
+
+      activeChallenge: null,
+
+      init() {
+        if (!this.activeChallenge) {
+          this.generateNew();
+        }
+      },
+
+      generateNew() {
+        const idx = Math.floor(Math.random() * this.challenges.length);
+        this.activeChallenge = this.challenges[idx];
+
+        document.getElementById('surprise-subject-tag').innerText = this.activeChallenge.subject;
+        document.getElementById('surprise-title').innerText = this.activeChallenge.title;
+        document.getElementById('surprise-desc').innerText = this.activeChallenge.desc;
+      },
+
+      completeChallenge() {
+        NotificationSystem.show('Surprise challenge completed! Streak updated.');
+        this.generateNew();
+      }
+    };
+
+    const SettingsSystem = {
+      render() {
+        const u = AppState.currentUser;
+        if (!u) return;
+
+        document.getElementById('settings-user-fullname').innerText = u.name;
+        document.getElementById('settings-user-username').innerText = `@${u.username}`;
+        document.getElementById('settings-referral-code').value = u.referralCode;
+
+        const isPrem = u.premium || u.referrals.length >= 3;
+        const count = u.referrals.length;
+
+        document.getElementById('settings-referral-count').innerText = `${count} / 3 Verified`;
+
+        if (isPrem) {
+          document.getElementById('settings-plan-badge').className = "px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40";
+          document.getElementById('settings-plan-badge').innerText = "PRO UNLOCKED";
+        } else {
+          document.getElementById('settings-plan-badge').className = "px-3 py-1 rounded-full text-xs font-bold bg-gray-800 text-gray-400 border border-gray-700";
+          document.getElementById('settings-plan-badge').innerText = "FREE PLAN";
+        }
+
+        const listEl = document.getElementById('settings-referred-list');
+        if (u.referrals.length === 0) {
+          listEl.innerText = 'No referred users yet.';
+        } else {
+          listEl.innerText = u.referrals.map(r => `• @${r}`).join('\n');
+        }
+      },
+
+      copyReferralCode() {
+        const codeInput = document.getElementById('settings-referral-code');
+        codeInput.select();
+        document.execCommand('copy');
+        NotificationSystem.show('Referral code copied to clipboard!');
+      },
+
+      exportData() {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify({
+          user: AppState.currentUser,
+          tasks: AppState.tasks,
+          errors: AppState.errors,
+          flashcards: AppState.flashcards,
+          surprises: AppState.surprises
+        }));
+        const dlAnchor = document.createElement('a');
+        dlAnchor.setAttribute("href", dataStr);
+        dlAnchor.setAttribute("download", `apex_jee_backup_${AppState.currentUser.username}.json`);
+        document.body.appendChild(dlAnchor);
+        dlAnchor.click();
+        dlAnchor.remove();
+      },
+
+      importData(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          try {
+            const imported = JSON.parse(event.target.result);
+            if (imported.tasks) AppState.tasks = imported.tasks;
+            if (imported.errors) AppState.errors = imported.errors;
+            if (imported.flashcards) AppState.flashcards = imported.flashcards;
+
+            AuthSystem.saveCurrentUserData();
+            NotificationSystem.show('Data imported successfully!');
+            this.render();
+          } catch(err) {
+            alert('Invalid JSON file format.');
+          }
+        };
+        reader.readAsText(file);
+      },
+
+      resetData() {
+        if (confirm('Are you sure you want to clear all tasks and error logs? This cannot be undone.')) {
+          AppState.tasks = [];
+          AppState.errors = [];
+          AppState.flashcards = [];
+          AppState.surprises = [];
+          AuthSystem.saveCurrentUserData();
+          NotificationSystem.show('User data reset complete.');
+          AppRouter.navigate('home');
+        }
+      }
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // Keyboard Escape Key Handler for Modals
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          document.querySelectorAll('[id^="modal-"]').forEach(m => m.classList.add('hidden'));
+        }
+      });
+
+      // Launch Authentication and System Init
+      AuthSystem.init();
+    });
+  </script>
 </body>
 </html>
