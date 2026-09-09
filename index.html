@@ -4,547 +4,147 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b1020">
-<meta name="description" content="APEX — Your Exam Partner. Student productivity and exam preparation.">
 <title>APEX — Your Exam Partner</title>
 <style>
-:root{
-  --bg:#f5f7fb;--surface:#fff;--surface2:#eef2f8;--text:#101828;--muted:#667085;
-  --primary:#5b5ce2;--primary2:#4445c7;--success:#12b76a;--danger:#f04438;--warning:#f79009;
-  --border:#e4e7ec;--shadow:0 10px 30px rgba(16,24,40,.07);--radius:20px;
-}
-[data-theme=dark]{
- --bg:#090d18;--surface:#111827;--surface2:#1a2233;--text:#f2f4f7;--muted:#98a2b3;
- --border:#293246;--shadow:0 10px 30px rgba(0,0,0,.25);
-}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
-button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}.hidden{display:none!important}
-#app{min-height:100vh}.screen{max-width:1100px;margin:auto;padding:20px 16px 100px}
-.auth-wrap{min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at top,#e9e9ff,transparent 45%),var(--bg)}
-.auth-card{width:min(440px,100%);background:var(--surface);padding:28px;border:1px solid var(--border);border-radius:28px;box-shadow:var(--shadow)}
-.logo{font-weight:900;letter-spacing:-1px;font-size:32px}.tag{color:var(--muted);margin-top:4px}
-.field{display:flex;flex-direction:column;gap:7px;margin:13px 0}.field label{font-size:13px;font-weight:700}.field input,.field select,.field textarea{
- width:100%;padding:13px 14px;border:1px solid var(--border);border-radius:13px;background:var(--surface);color:var(--text);outline:none}
-.field textarea{min-height:110px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(91,92,226,.12)}
-.btn{padding:12px 16px;border-radius:13px;font-weight:800;transition:.15s}.btn:active{transform:scale(.98)}
-.primary{background:var(--primary);color:#fff}.secondary{background:var(--surface2);color:var(--text)}.danger{background:#fee4e2;color:#b42318}.success{background:#d1fadf;color:#067647}.ghost{background:transparent;color:var(--muted)}
-.row{display:flex;gap:10px;align-items:center}.between{display:flex;justify-content:space-between;gap:12px;align-items:center}.wrap{flex-wrap:wrap}
-.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}.brand-mini{font-weight:900;font-size:23px}.avatar{
- width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--primary);color:#fff;font-weight:900;overflow:hidden}
-.avatar img{width:100%;height:100%;object-fit:cover}.iconbtn{width:42px;height:42px;border-radius:13px;background:var(--surface);border:1px solid var(--border);color:var(--text)}
-.greeting{font-size:28px;letter-spacing:-1px;margin:4px 0}.muted{color:var(--muted)}.small{font-size:12px}.section{margin:22px 0}.section h2{font-size:18px;margin:0 0 12px}
-.grid{display:grid;gap:12px}.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
-.stat .num{font-size:26px;font-weight:900;margin-top:5px}.stat .label{font-size:12px;color:var(--muted);font-weight:700}
-.quick{display:flex;align-items:center;gap:12px}.quick .qicon{width:45px;height:45px;border-radius:14px;display:grid;place-items:center;background:var(--surface2);font-size:21px}
-.progress{height:8px;background:var(--surface2);border-radius:99px;overflow:hidden}.progress>i{display:block;height:100%;background:var(--primary);border-radius:inherit}
-.task{display:flex;gap:12px;align-items:flex-start}.check{width:24px;height:24px;border:2px solid var(--border);border-radius:8px;flex:none;background:transparent}.check.done{background:var(--success);border-color:var(--success);color:#fff}
-.task-title{font-weight:800}.strike{text-decoration:line-through;opacity:.6}.badge{display:inline-flex;padding:5px 8px;border-radius:99px;background:var(--surface2);font-size:11px;font-weight:800}.badge.high{background:#fee4e2;color:#b42318}.badge.med{background:#fef0c7;color:#93370d}.badge.low{background:#d1fadf;color:#067647}
-.list{display:flex;flex-direction:column;gap:10px}.empty{text-align:center;padding:30px 12px;color:var(--muted)}.tabs{display:flex;gap:8px;overflow:auto;padding-bottom:4px}.tab{padding:9px 13px;border-radius:99px;background:var(--surface2);white-space:nowrap;font-weight:750;color:var(--muted)}.tab.active{background:var(--primary);color:#fff}
-.bottom{position:fixed;bottom:0;left:0;right:0;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(14px);border-top:1px solid var(--border);z-index:20;padding:8px max(8px,env(safe-area-inset-left)) max(8px,env(safe-area-inset-bottom))}
-.nav{max-width:700px;margin:auto;display:grid;grid-template-columns:repeat(5,1fr)}.nav button{background:none;color:var(--muted);padding:6px 2px;font-size:11px;font-weight:800}.nav button.active{color:var(--primary)}.nav .ni{font-size:21px;display:block;margin-bottom:2px}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:50;display:grid;place-items:end center;padding:12px}.modalbox{width:min(620px,100%);max-height:92vh;overflow:auto;background:var(--surface);border-radius:24px;padding:20px;border:1px solid var(--border)}
-.toast{position:fixed;left:50%;bottom:85px;transform:translateX(-50%);background:#101828;color:#fff;padding:11px 15px;border-radius:12px;z-index:80;box-shadow:var(--shadow);font-size:13px}
-header.page{margin-bottom:18px}.page h1{font-size:28px;letter-spacing:-1px;margin:0}.actions{display:flex;gap:8px;flex-wrap:wrap}
-.item-actions{display:flex;gap:6px;margin-left:auto}.item-actions button{padding:7px 9px;border-radius:9px;background:var(--surface2);color:var(--text);font-size:12px}
-.calendar-note{font-size:12px;color:var(--muted);margin-top:4px}
-table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--border);font-size:13px}
-@media(max-width:720px){.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}.g2{grid-template-columns:1fr}.screen{padding-top:14px}.greeting{font-size:25px}}
-@media(min-width:900px){.bottom{position:sticky;top:0;bottom:auto;border:0;background:transparent;backdrop-filter:none;padding:0;margin:-20px auto 10px}.nav{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:5px;box-shadow:var(--shadow)}}
+:root{--bg:#f5f7fb;--card:#fff;--text:#101828;--muted:#667085;--primary:#5b5cf0;--primary2:#7c3aed;--line:#e5e7eb;--ok:#12b76a;--danger:#ef4444;--shadow:0 10px 30px #10182812}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select,textarea{font:inherit}button{border:0;cursor:pointer}.hidden{display:none!important}
+#app{min-height:100vh}.screen{min-height:100vh}.center{display:grid;place-items:center;padding:24px}
+.splash{background:linear-gradient(145deg,#0b1020,#25236b);color:white;text-align:center}.logo{width:74px;height:74px;border-radius:22px;background:linear-gradient(135deg,#fff,#b8b8ff);color:#24245f;display:grid;place-items:center;font-size:34px;font-weight:900;margin:auto;box-shadow:0 18px 50px #0005}
+.splash h1{font-size:40px;margin:18px 0 4px}.splash p{opacity:.8}.loader{margin:30px auto 0;width:150px;height:5px;border-radius:99px;background:#ffffff25;overflow:hidden}.loader i{display:block;width:45%;height:100%;background:white;border-radius:99px;animation:load 1.3s infinite}@keyframes load{to{transform:translateX(240%)}} 
+.auth{max-width:430px;width:100%}.auth-card,.card{background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}.auth-card{padding:28px}.brand{text-align:center;margin-bottom:22px}.brand b{font-size:28px}.tabs{display:flex;background:#f1f3f8;padding:4px;border-radius:12px;margin-bottom:18px}.tabs button{flex:1;padding:10px;border-radius:9px;background:transparent}.tabs .active{background:white;box-shadow:0 2px 8px #00000012;font-weight:700}.field{margin:12px 0}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:7px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:12px 13px;outline:none;background:#fff}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px #5b5cf015}.primary{width:100%;padding:13px;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--primary2));color:white;font-weight:800;margin-top:8px}.ghost{background:#f2f4f7;padding:10px 13px;border-radius:10px}.danger{color:var(--danger)}.small{font-size:12px;color:var(--muted)}
+.app-shell{max-width:1100px;margin:auto;min-height:100vh;padding-bottom:88px}.topbar{height:66px;background:var(--card);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 18px;position:sticky;top:0;z-index:20}.topbar .title{font-weight:900;font-size:20px}.iconbtn{width:40px;height:40px;border-radius:12px;background:#f2f4f7}.content{padding:18px}.page{display:none}.page.active{display:block}.hero{padding:22px;border-radius:24px;background:linear-gradient(135deg,#15194d,#5b5cf0);color:white;box-shadow:var(--shadow);margin-bottom:16px}.hero h2{margin:0 0 5px;font-size:25px}.hero p{margin:0;opacity:.82}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.chip{background:#ffffff1a;border:1px solid #ffffff25;padding:8px 10px;border-radius:999px;font-size:12px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.card{padding:16px}.stat b{font-size:24px}.stat span{display:block;color:var(--muted);font-size:12px;margin-top:3px}.section-title{display:flex;justify-content:space-between;align-items:center;margin:22px 2px 10px}.section-title h3{margin:0}.list{display:grid;gap:10px}.row{display:flex;align-items:center;gap:12px}.task{display:flex;align-items:center;gap:12px}.check{width:24px;height:24px;border:2px solid #cbd5e1;border-radius:7px;background:white}.check.done{background:var(--ok);border-color:var(--ok);color:white}.task-main{flex:1}.task-main b{display:block}.task-main small{color:var(--muted)}.progress{height:8px;background:#edf0f5;border-radius:99px;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--primary2));border-radius:99px}.feature{display:flex;align-items:center;gap:12px}.feature .ico{width:44px;height:44px;border-radius:14px;background:#eef0ff;display:grid;place-items:center;font-size:21px}.bottom{position:fixed;bottom:0;left:0;right:0;height:72px;background:#ffffffed;backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;justify-content:center;z-index:30}.bottom-inner{width:min(1100px,100%);display:grid;grid-template-columns:repeat(5,1fr)}.nav{background:transparent;color:#667085;font-size:11px}.nav.active{color:var(--primary);font-weight:800}.nav span{display:block;font-size:21px;margin-bottom:2px}.modal{position:fixed;inset:0;background:#10182880;display:grid;place-items:center;padding:18px;z-index:50}.modal-box{width:min(460px,100%);background:white;border-radius:24px;padding:22px;box-shadow:0 30px 80px #0004}.modal-box h2{margin-top:0}.actions{display:flex;gap:10px;margin-top:16px}.actions button{flex:1}.notice{padding:12px;border-radius:12px;background:#eef4ff;color:#344054;font-size:13px;margin:10px 0}.toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);background:#111827;color:white;padding:11px 15px;border-radius:12px;z-index:80;box-shadow:var(--shadow);font-size:13px}.avatar{width:48px;height:48px;border-radius:50%;background:#e9e8ff;display:grid;place-items:center;font-weight:900;color:#4f46e5}.empty{text-align:center;padding:30px;color:var(--muted)}@media(min-width:760px){.grid{grid-template-columns:repeat(4,1fr)}.content{padding:28px}.bottom{position:fixed}.auth-card{padding:34px}}
 </style>
 </head>
 <body>
 <div id="app"></div>
-<div id="modal" class="modal hidden"></div>
-<div id="toast" class="toast hidden"></div>
 <script>
-"use strict";
-
-/* ============================================================
-   APEX — SINGLE FILE LOCAL-FIRST APPLICATION
-   No Google Login/OAuth/dependencies.
-   Core data lives in localStorage. Passwords are PBKDF2 hashes,
-   never plaintext. A production cloud backend is required for
-   multi-device sync, email password reset, push notifications,
-   and secure server-side admin authorization.
-============================================================ */
-
-const KEY="APEX_V1_STATE";
-const VERSION="1.0.0";
-const uid=()=>crypto.randomUUID?crypto.randomUUID():"id-"+Date.now()+"-"+Math.random().toString(36).slice(2);
-const nowISO=()=>new Date().toISOString();
-const localDate=d=>{const x=d?new Date(d):new Date();return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,"0")}-${String(x.getDate()).padStart(2,"0")}`};
-const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const fmtMin=m=>{m=Math.max(0,Math.round(m||0));return `${Math.floor(m/60)}h ${m%60}m`};
-const dateText=d=>new Intl.DateTimeFormat(undefined,{day:"numeric",month:"short",year:"numeric"}).format(new Date(d+"T00:00:00"));
-const timeText=d=>new Intl.DateTimeFormat(undefined,{hour:"numeric",minute:"2-digit"}).format(new Date(d));
-const subjectList=exam=>exam==="NEET"?["Physics","Chemistry","Biology"]:["Physics","Chemistry","Mathematics"];
-
-let state=load();
-let page="home";
-let studySubject=null;
-
-function defaultState(){
- return {
-  version:VERSION,sessionUserId:null,theme:"system",
-  users:[],tasks:[],backlog:[],sessions:[],notes:[],tests:[],attempts:[],
-  xp:[],activities:[],achievements:[],notifications:[],referrals:[],
-  curriculum:[
-   {id:uid(),exam:"JEE",name:"Physics",chapters:[
-    {id:uid(),name:"Units & Measurements",topics:["Dimensions","Errors","Significant Figures"]},
-    {id:uid(),name:"Kinematics",topics:["Motion in Straight Line","Motion in Plane"]},
-    {id:uid(),name:"Newton's Laws of Motion",topics:["NLM","Friction","Circular Motion"]},
-    {id:uid(),name:"Work, Energy & Power",topics:["Work","Energy","Power"]}
-   ]},
-   {id:uid(),exam:"JEE",name:"Chemistry",chapters:[
-    {id:uid(),name:"Some Basic Concepts",topics:["Mole Concept","Stoichiometry"]},
-    {id:uid(),name:"Atomic Structure",topics:["Bohr Model","Quantum Numbers"]},
-    {id:uid(),name:"Chemical Bonding",topics:["VSEPR","Hybridisation","MOT"]}
-   ]},
-   {id:uid(),exam:"JEE",name:"Mathematics",chapters:[
-    {id:uid(),name:"Sets",topics:["Set Operations","Intervals"]},
-    {id:uid(),name:"Logarithms",topics:["Laws","Equations"]},
-    {id:uid(),name:"Quadratic Equations",topics:["Roots","Graphs"]}
-   ]},
-   {id:uid(),exam:"NEET",name:"Physics",chapters:[{id:uid(),name:"Units & Measurements",topics:["Dimensions","Errors"]},{id:uid(),name:"Kinematics",topics:["Motion","Vectors"]}]},
-   {id:uid(),exam:"NEET",name:"Chemistry",chapters:[{id:uid(),name:"Some Basic Concepts",topics:["Mole Concept"]},{id:uid(),name:"Atomic Structure",topics:["Quantum Numbers"]}]},
-   {id:uid(),exam:"NEET",name:"Biology",chapters:[{id:uid(),name:"The Living World",topics:["Taxonomy","Nomenclature"]},{id:uid(),name:"Cell: The Unit of Life",topics:["Cell Structure","Organelles"]}]}
-  ],
-  settings:{notifications:true,reminderMinutes:10},
-  app:{guideVersion:0}
+const KEY='apex_v1';
+const state=JSON.parse(localStorage.getItem(KEY)||'null')||{
+ users:[],session:null,tasks:[],backlog:[],notes:[],study:[],tests:[],xp:0,streak:0,lastActive:null,
+ settings:{theme:'light',notifications:true},onboarded:false,referral:null
+};
+const save=()=>localStorage.setItem(KEY,JSON.stringify(state));
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const uid=()=>Math.random().toString(36).slice(2)+Date.now().toString(36);
+const user=()=>state.users.find(u=>u.id===state.session);
+const toast=m=>{let t=document.createElement('div');t.className='toast';t.textContent=m;document.body.append(t);setTimeout(()=>t.remove(),2200)};
+function app(){ if(!state.session) return auth(); shell(); }
+function auth(){
+ $('#app').innerHTML=`<div class="screen center"><div class="auth-card auth">
+ <div class="brand"><div class="logo" style="width:58px;height:58px;font-size:27px">A</div><b>APEX</b><div class="small">Your Exam Partner.</div></div>
+ <div class="tabs"><button class="active" id="loginTab">Login</button><button id="signupTab">Sign Up</button></div>
+ <form id="authForm">
+ <div id="signupFields"></div>
+ <div class="field"><label>Email or User ID</label><input id="loginId" required autocomplete="username"></div>
+ <div class="field"><label>Password</label><input id="loginPass" type="password" required autocomplete="current-password"></div>
+ <button class="primary">Login</button>
+ </form>
+ <p class="small" style="text-align:center;margin-top:15px">Google Login has been completely removed.</p>
+ </div></div>`;
+ let signup=false;
+ $('#loginTab').onclick=()=>setMode(false); $('#signupTab').onclick=()=>setMode(true);
+ function setMode(v){
+   signup=v;$('#loginTab').classList.toggle('active',!v);$('#signupTab').classList.toggle('active',v);
+   $('#signupFields').innerHTML=v?`<div class="field"><label>Full name</label><input id="name" required></div>
+   <div class="field"><label>Custom User ID</label><input id="custom" required></div>
+   <div class="field"><label>Exam</label><select id="exam"><option>JEE</option><option>NEET</option></select></div>
+   <div class="field"><label>Grade</label><input id="grade" placeholder="e.g. 11"></div>`:'';
+   $('#authForm').querySelector('button').textContent=v?'Create account':'Login';
+ }
+ $('#authForm').onsubmit=e=>{e.preventDefault();
+   const id=$('#loginId').value.trim(), pass=$('#loginPass').value;
+   if(signup){
+     const name=$('#name').value.trim(), custom=$('#custom').value.trim(), exam=$('#exam').value, grade=$('#grade').value.trim();
+     if(!name||!custom)return toast('Fill all required fields');
+     if(state.users.some(u=>u.custom.toLowerCase()===custom.toLowerCase()||u.email.toLowerCase()===id.toLowerCase()))return toast('User ID/email already exists');
+     const u={id:uid(),name,custom,email:id,pass,exam,grade,createdAt:Date.now()};
+     state.users.push(u);state.session=u.id;state.xp=0;state.streak=0;save();showReferral();return;
+   }
+   const u=state.users.find(x=>x.email.toLowerCase()===id.toLowerCase()||x.custom.toLowerCase()===id.toLowerCase());
+   if(!u||u.pass!==pass)return toast('Incorrect login details');
+   state.session=u.id;save();app();
  };
 }
-function load(){try{return JSON.parse(localStorage.getItem(KEY))||defaultState()}catch{return defaultState()}}
-function save(){localStorage.setItem(KEY,JSON.stringify(state))}
-function user(){return state.users.find(u=>u.id===state.sessionUserId)}
-function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.remove("hidden");clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.classList.add("hidden"),2200)}
-function modal(html){const m=document.getElementById("modal");m.innerHTML=`<div class="modalbox">${html}</div>`;m.classList.remove("hidden")}
-function closeModal(){document.getElementById("modal").classList.add("hidden")}
-function setTheme(){
- let t=state.theme;if(t==="system")t=matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light";
- document.documentElement.dataset.theme=t;
+function shell(){
+ $('#app').innerHTML=`<div class="app-shell"><header class="topbar"><div class="row"><button class="iconbtn" onclick="showProfile()">☰</button><div class="title">APEX</div></div><button class="iconbtn" onclick="showNotifications()">🔔</button></header>
+ <main class="content">
+ <section id="home" class="page active"></section><section id="study" class="page"></section><section id="tests" class="page"></section><section id="notes" class="page"></section><section id="profile" class="page"></section>
+ </main></div>
+ <nav class="bottom"><div class="bottom-inner">
+ ${[['home','🏠','Home'],['study','📚','Study'],['tests','📝','Tests'],['notes','📒','Notes'],['profile','👤','Profile']].map(x=>`<button class="nav ${x[0]=='home'?'active':''}" data-page="${x[0]}"><span>${x[1]}</span>${x[2]}</button>`).join('')}
+ </div></nav>`;
+ document.querySelectorAll('.nav').forEach(b=>b.onclick=()=>go(b.dataset.page));
+ renderAll();
 }
-setTheme();
-
-async function derive(password,salt){
- const enc=new TextEncoder();
- const key=await crypto.subtle.importKey("raw",enc.encode(password),"PBKDF2",false,["deriveBits"]);
- const bits=await crypto.subtle.deriveBits({name:"PBKDF2",salt:enc.encode(salt),iterations:150000,hash:"SHA-256"},key,256);
- return [...new Uint8Array(bits)].map(x=>x.toString(16).padStart(2,"0")).join("");
+function go(p){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===p));document.querySelectorAll('.nav').forEach(x=>x.classList.toggle('active',x.dataset.page===p));renderAll();}
+function renderAll(){renderHome();renderStudy();renderTests();renderNotes();renderProfile();}
+function renderHome(){
+ const u=user(),today=new Date().toISOString().slice(0,10),ts=state.tasks.filter(t=>t.date===today),done=ts.filter(t=>t.done).length;
+ const bl=state.backlog.filter(x=>!x.done).length,mins=state.study.filter(x=>x.date===today).reduce((a,x)=>a+x.minutes,0);
+ $('#home').innerHTML=`<div class="hero"><h2>Hello, ${esc(u.name.split(' ')[0])} 👋</h2><p>Keep going. Your goals are closer than you think.</p><div class="chips"><span class="chip">${u.exam}</span><span class="chip">🔥 ${state.streak} day streak</span><span class="chip">⭐ ${state.xp} XP</span></div></div>
+ <div class="grid3"><div class="card stat"><b>${done}/${ts.length}</b><span>Today's tasks</span></div><div class="card stat"><b>${Math.floor(mins/60)}h ${mins%60}m</b><span>Study today</span></div><div class="card stat"><b>${bl}</b><span>Backlog left</span></div></div>
+ <div class="section-title"><h3>Quick access</h3></div><div class="grid">${[['📋','To-Do','todo'],['📚','Backlog','backlog'],['🎯','Progress','progress'],['🏆','Gamification','game']].map(x=>`<button class="card feature" onclick="quick('${x[2]}')"><span class="ico">${x[0]}</span><span><b>${x[1]}</b><small class="small">Open ${x[1].toLowerCase()}</small></span></button>`).join('')}</div>
+ <div class="section-title"><h3>Today's tasks</h3><button class="ghost" onclick="quick('todo')">+ Add</button></div>
+ <div class="list">${ts.length?ts.map(taskHTML).join(''):'<div class="card empty">No tasks for today. Add your first study task.</div>'}</div>`;
 }
-async function hashPassword(p,s){return derive(p,s)}
-function validEmail(e){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)}
-function passwordOK(p){return p.length>=8}
-function greeting(){const h=new Date().getHours();return h<12?"Good morning":h<17?"Good afternoon":"Good evening"}
-function currentUserData(){const u=user();return u||null}
-
-function signOut(){state.sessionUserId=null;save();page="home";render()}
-function startApp(){if(!state.sessionUserId)renderAuth();else render()}
-
-function renderAuth(){
- document.getElementById("app").innerHTML=`
- <div class="auth-wrap"><div class="auth-card">
-  <div class="logo">APEX</div><div class="tag">Your Exam Partner.</div>
-  <div style="height:20px"></div>
-  <div class="tabs"><button class="tab active" id="loginTab">Login</button><button class="tab" id="signupTab">Sign Up</button></div>
-  <div id="authForm"></div>
-  <p class="small muted" style="margin-top:18px">Local-first build • No Google Sign-In</p>
- </div></div>`;
- document.getElementById("loginTab").onclick=()=>authForm("login");
- document.getElementById("signupTab").onclick=()=>authForm("signup");
- authForm("login");
+function taskHTML(t){return `<div class="card task"><button class="check ${t.done?'done':''}" onclick="toggleTask('${t.id}')">${t.done?'✓':''}</button><div class="task-main"><b>${esc(t.title)}</b><small>${esc(t.subject||'General')} · ${esc(t.time||'Any time')}</small></div><button class="iconbtn" onclick="deleteTask('${t.id}')">⋯</button></div>`}
+function quick(type){
+ if(type==='todo'){modal(`<h2>Today's To-Do</h2><div class="field"><label>Task</label><input id="mTitle" placeholder="e.g. Complete NLM lecture"></div><div class="field"><label>Subject</label><input id="mSubject" placeholder="Physics"></div><div class="field"><label>Date</label><input id="mDate" type="date" value="${new Date().toISOString().slice(0,10)}"></div><div class="field"><label>Time</label><input id="mTime" type="time"></div><div class="actions"><button class="ghost" onclick="closeModal()">Cancel</button><button class="primary" onclick="addTask()">Add task</button></div>`);return}
+ if(type==='backlog'){modal(`<h2>Add backlog</h2><div class="field"><label>Chapter/topic</label><input id="bTitle" placeholder="e.g. NLM"></div><div class="field"><label>Subject</label><input id="bSubject" placeholder="Physics"></div><div class="field"><label>Items remaining</label><input id="bCount" type="number" min="1" value="1"></div><div class="actions"><button class="ghost" onclick="closeModal()">Cancel</button><button class="primary" onclick="addBacklog()">Add</button></div>`);return}
+ if(type==='progress'){modal(`<h2>Progress</h2><div class="grid3"><div class="card stat"><b>${state.tasks.filter(t=>t.done).length}</b><span>Tasks completed</span></div><div class="card stat"><b>${state.tests.length}</b><span>Tests logged</span></div><div class="card stat"><b>${state.xp}</b><span>XP</span></div></div><div class="actions"><button class="primary" onclick="closeModal()">Done</button></div>`);return}
+ if(type==='game'){modal(`<h2>Gamification</h2><p>⭐ ${state.xp} XP · 🔥 ${state.streak} day streak</p><div class="notice">Earn XP by completing meaningful study activities. Repeatedly toggling a task won't award points twice.</div><div class="actions"><button class="primary" onclick="closeModal()">Keep going 🚀</button></div>`)}
 }
-function authForm(type){
- document.querySelectorAll(".tabs .tab").forEach((b,i)=>b.classList.toggle("active",(type==="login"&&i===0)||(type==="signup"&&i===1)));
- const box=document.getElementById("authForm");
- if(type==="login")box.innerHTML=`
-  <form id="loginForm">
-   <div class="field"><label>Email or username</label><input id="loginId" required autocomplete="username"></div>
-   <div class="field"><label>Password</label><input id="loginPass" type="password" required autocomplete="current-password"></div>
-   <button class="btn primary" style="width:100%">Login</button>
-   <button type="button" class="btn ghost" style="width:100%;margin-top:5px" id="forgot">Forgot password?</button>
-  </form>`;
- else box.innerHTML=`
-  <form id="signupForm">
-   <div class="field"><label>Full name</label><input id="full" required maxlength="80"></div>
-   <div class="field"><label>Custom User ID</label><input id="uname" required pattern="[A-Za-z0-9_]{3,24}" maxlength="24"></div>
-   <div class="field"><label>Email</label><input id="email" type="email" required></div>
-   <div class="field"><label>Password</label><input id="pass" type="password" minlength="8" required autocomplete="new-password"><span class="small muted">At least 8 characters.</span></div>
-   <div class="field"><label>Exam</label><select id="exam"><option>JEE</option><option>NEET</option></select></div>
-   <div class="field"><label>Grade / Class</label><input id="grade" required placeholder="11th"></div>
-   <div class="field"><label>Profile photo (optional)</label><input id="photo" type="file" accept="image/*"></div>
-   <button class="btn primary" style="width:100%">Create account</button>
-  </form>`;
- if(type==="login"){
-  document.getElementById("loginForm").onsubmit=async e=>{e.preventDefault();await login()};
-  document.getElementById("forgot").onclick=forgotPassword;
- }else document.getElementById("signupForm").onsubmit=async e=>{e.preventDefault();await signup()};
+function addTask(){let title=$('#mTitle').value.trim();if(!title)return toast('Enter a task');state.tasks.push({id:uid(),title,subject:$('#mSubject').value.trim(),date:$('#mDate').value,time:$('#mTime').value,done:false,xp:false});save();closeModal();renderAll();toast('Task added')}
+function toggleTask(id){let t=state.tasks.find(x=>x.id===id);if(!t)return;t.done=!t.done;if(t.done&&!t.xp){state.xp+=10;t.xp=true;activity();toast('+10 XP')}save();renderAll()}
+function deleteTask(id){state.tasks=state.tasks.filter(x=>x.id!==id);save();renderAll();toast('Task removed')}
+function addBacklog(){let title=$('#bTitle').value.trim();if(!title)return toast('Enter a chapter/topic');state.backlog.push({id:uid(),title,subject:$('#bSubject').value.trim(),count:+$('#bCount').value||1,done:false});save();closeModal();renderAll();toast('Backlog added')}
+function activity(){let d=new Date().toISOString().slice(0,10);if(state.lastActive!==d){let y=new Date();y.setDate(y.getDate()-1);let yd=y.toISOString().slice(0,10);state.streak=state.lastActive===yd?state.streak+1:1;state.lastActive=d}}
+function renderStudy(){
+ const bl=state.backlog.filter(x=>!x.done);
+ $('#study').innerHTML=`<div class="section-title"><h2>Study</h2><button class="primary" style="width:auto" onclick="startStudy()">+ Session</button></div>
+ <div class="grid"><div class="card"><b>Physics</b><div class="progress" style="margin-top:12px"><i style="width:42%"></i></div><small class="small">42% tracked</small></div><div class="card"><b>Chemistry</b><div class="progress" style="margin-top:12px"><i style="width:31%"></i></div><small class="small">31% tracked</small></div><div class="card"><b>Mathematics</b><div class="progress" style="margin-top:12px"><i style="width:28%"></i></div><small class="small">28% tracked</small></div></div>
+ <div class="section-title"><h3>Backlog</h3><button class="ghost" onclick="quick('backlog')">+ Add</button></div>
+ <div class="list">${bl.length?bl.map(x=>`<div class="card task"><button class="check" onclick="finishBacklog('${x.id}')"></button><div class="task-main"><b>${esc(x.title)}</b><small>${esc(x.subject)} · ${x.count} item(s) remaining</small></div></div>`).join(''):'<div class="card empty">No backlog 🎉</div>'}</div>`;
 }
-async function signup(){
- const full=fullEl().value.trim(),uname=el("uname").value.trim(),email=el("email").value.trim().toLowerCase(),pass=el("pass").value,exam=el("exam").value,grade=el("grade").value.trim();
- if(!validEmail(email)||!passwordOK(pass))return toast("Use a valid email and 8+ character password.");
- if(state.users.some(u=>u.email===email))return toast("An account with this email already exists.");
- if(state.users.some(u=>u.username.toLowerCase()===uname.toLowerCase()))return toast("That User ID is already taken.");
- let photo="";
- const file=el("photo").files[0];
- if(file){if(file.size>1500000)return toast("Profile photo must be under 1.5 MB.");photo=await readDataURL(file)}
- const salt=uid(),hash=await hashPassword(pass,salt);
- const u={id:uid(),fullName:full,username:uname,email,passwordHash:hash,passwordSalt:salt,exam,grade,photo,createdAt:nowISO(),updatedAt:nowISO(),onboarded:false};
- state.users.push(u);state.sessionUserId=u.id;save();
- showReferral();
+function finishBacklog(id){let x=state.backlog.find(b=>b.id===id);if(!x)return;x.done=true;state.xp+=30;activity();save();renderAll();toast('+30 XP — backlog cleared')}
+function startStudy(){modal(`<h2>Study session</h2><div class="field"><label>Subject</label><input id="sSub" placeholder="Physics"></div><div class="field"><label>Minutes studied</label><input id="sMin" type="number" min="1" value="60"></div><div class="actions"><button class="ghost" onclick="closeModal()">Cancel</button><button class="primary" onclick="saveStudy()">Save session</button></div>`)}
+function saveStudy(){let m=+$('#sMin').value;if(!m||m<1)return toast('Enter valid minutes');state.study.push({id:uid(),subject:$('#sSub').value.trim(),minutes:m,date:new Date().toISOString().slice(0,10)});state.xp+=20;activity();save();closeModal();renderAll();toast('+20 XP — study session saved')}
+function renderTests(){
+ $('#tests').innerHTML=`<div class="section-title"><h2>Tests</h2><button class="primary" style="width:auto" onclick="logTest()">+ Log test</button></div>
+ <div class="grid3"><div class="card stat"><b>${state.tests.length}</b><span>Tests</span></div><div class="card stat"><b>${state.tests.length?Math.round(state.tests.reduce((a,x)=>a+x.accuracy,0)/state.tests.length):0}%</b><span>Average accuracy</span></div><div class="card stat"><b>${state.tests.reduce((a,x)=>a+x.score,0)}</b><span>Total score</span></div></div>
+ <div class="section-title"><h3>Test history</h3></div><div class="list">${state.tests.length?state.tests.slice().reverse().map(t=>`<div class="card"><div class="row"><div class="avatar">🎯</div><div style="flex:1"><b>${esc(t.name)}</b><small class="small">${esc(t.subject)} · ${t.score} marks · ${t.accuracy}% accuracy</small></div></div></div>`).join(''):'<div class="card empty">No tests logged yet.</div>'}</div>`;
 }
-async function login(){
- const id=el("loginId").value.trim().toLowerCase(),pass=el("loginPass").value;
- const u=state.users.find(x=>x.email===id||x.username.toLowerCase()===id);
- if(!u)return toast("Account not found.");
- if(!(await hashPassword(pass,u.passwordSalt)===u.passwordHash))return toast("Incorrect password. Please try again.");
- state.sessionUserId=u.id;u.lastLoginAt=nowISO();save();render();
+function logTest(){modal(`<h2>Log a test</h2><div class="field"><label>Test name</label><input id="tName" placeholder="Chapter test"></div><div class="field"><label>Subject</label><input id="tSub" placeholder="Physics"></div><div class="field"><label>Score</label><input id="tScore" type="number" min="0" value="0"></div><div class="field"><label>Accuracy %</label><input id="tAcc" type="number" min="0" max="100" value="0"></div><div class="actions"><button class="ghost" onclick="closeModal()">Cancel</button><button class="primary" onclick="saveTest()">Save</button></div>`)}
+function saveTest(){let name=$('#tName').value.trim();if(!name)return toast('Enter test name');state.tests.push({id:uid(),name,subject:$('#tSub').value.trim(),score:+$('#tScore').value||0,accuracy:+$('#tAcc').value||0});state.xp+=15;save();closeModal();renderAll();toast('+15 XP — test saved')}
+function renderNotes(){
+ $('#notes').innerHTML=`<div class="section-title"><h2>Notes</h2><button class="primary" style="width:auto" onclick="addNote()">+ Note</button></div>
+ <div class="field"><input id="noteSearch" placeholder="Search notes..." oninput="renderNoteList()"></div><div id="noteList" class="list"></div>`;
+ renderNoteList();
 }
-function forgotPassword(){
- modal(`<h2>Forgot password</h2>
- <p class="muted">This single-file offline build cannot securely email a password-reset link. A production deployment must connect this flow to a backend email service.</p>
- <p>You can still use <b>Change Password</b> after logging in on a device where the session is already available.</p>
- <button class="btn secondary" onclick="closeModal()">Close</button>`);
-}
-function showReferral(){
- modal(`<h2>Have a referral code?</h2><p class="muted">Optional. You can skip this and continue normally.</p>
- <div class="field"><label>Referral code</label><input id="refCode" maxlength="32" placeholder="Enter code"></div>
- <div class="actions"><button class="btn primary" onclick="applyReferral()">Apply</button><button class="btn secondary" onclick="skipReferral()">Skip</button></div>`);
-}
-function applyReferral(){
- const code=el("refCode").value.trim().toUpperCase();
- if(!code)return toast("Enter a referral code.");
- // No fake referral validation: local build only accepts codes configured in state.referrals as admin-created records.
- const r=state.referrals.find(x=>x.code===code&&x.active!==false&&(!x.expiresAt||x.expiresAt>=localDate()));
- if(!r)return toast("Referral code not found.");
- const u=user();if(r.usedBy?.includes(u.id))return toast("This referral was already used.");
- r.usedBy=r.usedBy||[];r.usedBy.push(u.id);u.referralCode=code;save();closeModal();showGuide();
-}
-function skipReferral(){user().referralSkipped=true;save();closeModal();showGuide()}
-function showGuide(){
- modal(`<h2>Take the APEX app usage guide in 2 minutes.</h2>
- <div class="list">
- ${["✅ To-Do — plan and complete daily work","📚 Study — browse exam subjects and chapters","📝 Tests — attempt tests and review performance","📦 Backlog — turn pending lectures/DPPs into actionable work","📈 Progress — see real activity and study time","🏆 Gamification — earn XP for meaningful activity","👤 Profile — manage your account and preferences","🔔 Notifications — receive local reminders and announcements"].map(x=>`<div class="card">${x}</div>`).join("")}
- </div><div class="actions" style="margin-top:14px"><button class="btn primary" onclick="finishGuide()">Start / Finish Guide</button><button class="btn secondary" onclick="finishGuide()">Skip</button></div>`);
-}
-function finishGuide(){user().onboarded=true;state.app.guideVersion=1;save();closeModal();render()}
-
-function el(id){return document.getElementById(id)} function fullEl(){return el("full")}
-function readDataURL(file){return new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res(r.result);r.onerror=rej;r.readAsDataURL(file)})}
-
-function render(){
- if(!user())return renderAuth();
- setTheme();
- document.getElementById("app").innerHTML=`<div class="screen" id="screen"></div><div class="bottom"><div class="nav">
- ${nav("home","⌂","Home")}${nav("study","📚","Study")}${nav("tests","📝","Tests")}${nav("notes","🗒","Notes")}${nav("profile","👤","Profile")}
- </div></div>`;
- document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>{page=b.dataset.page;render()});
- if(page==="home")homePage();if(page==="study")studyPage();if(page==="tests")testsPage();if(page==="notes")notesPage();if(page==="profile")profilePage();
-}
-function nav(p,i,t){return `<button data-page="${p}" class="${page===p?"active":""}"><span class="ni">${i}</span>${t}</button>`}
-function header(title,sub=""){return `<header class="page"><div class="between"><div><h1>${title}</h1>${sub?`<div class="muted">${sub}</div>`:""}</div><div class="row"><button class="iconbtn" onclick="notificationPage()">🔔</button><div class="avatar" onclick="page='profile';render()">${user().photo?`<img src="${user().photo}">`:esc(user().fullName[0].toUpperCase())}</div></div></div></header>`}
-
-function todayTasks(){return state.tasks.filter(t=>t.userId===user().id&&t.date===localDate())}
-function xpTotal(){return state.xp.filter(x=>x.userId===user().id).reduce((a,x)=>a+x.amount,0)}
-function activityFor(d){return state.activities.find(a=>a.userId===user().id&&a.date===d)}
-function currentStreak(){
- let d=new Date(),n=0;
- while(true){const s=localDate(d),a=activityFor(s);if(!a||a.meaningful<=0)break;n++;d.setDate(d.getDate()-1)}
- return n
-}
-function bestStreak(){
- const dates=state.activities.filter(a=>a.userId===user().id&&a.meaningful>0).map(a=>a.date).sort();
- let best=0,cur=0,prev="";
- for(const d of dates){if(prev){const x=new Date(prev+"T00:00:00"),y=new Date(d+"T00:00:00");const diff=Math.round((y-x)/86400000);cur=diff===1?cur+1:1}else cur=1;best=Math.max(best,cur);prev=d}return best
-}
-function markMeaningful(date,delta){
- let a=activityFor(date);if(!a){a={id:uid(),userId:user().id,date,meaningful:0,studyMinutes:0,tasksCompleted:0,backlogCompleted:0,testsCompleted:0};state.activities.push(a)}
- a.meaningful=Math.max(0,a.meaningful+delta);save()
-}
-function award(source,sourceId,amount){
- const key=`${user().id}:${source}:${sourceId}`;
- if(state.xp.some(x=>x.key===key))return false;
- state.xp.push({id:uid(),userId:user().id,source,sourceId,amount,key,createdAt:nowISO()});return true
-}
-
-function homePage(){
- const tasks=todayTasks(),done=tasks.filter(t=>t.status==="COMPLETED").length,mins=state.sessions.filter(s=>s.userId===user().id&&s.date===localDate()).reduce((a,s)=>a+s.minutes,0);
- const backlog=state.backlog.filter(b=>b.userId===user().id),remaining=backlog.reduce((a,b)=>a+Math.max(0,b.lecturesTotal-b.lecturesCompleted)+Math.max(0,b.dppsTotal-b.dppsCompleted)+Math.max(0,b.homeworkTotal-b.homeworkCompleted),0);
- const pct=tasks.length?Math.round(done/tasks.length*100):0;
- el("screen").innerHTML=`
- ${header("Home")}
- <div class="section"><div class="greeting">${greeting()}, ${esc(user().fullName.split(" ")[0])} 👋</div><div class="muted">Keep going. Your goals are closer than you think.</div></div>
- <div class="grid g4">
-  ${stat("🔥",currentStreak(),"Current streak")}${stat("⭐",xpTotal(),"XP points")}${stat("⏱",fmtMin(mins),"Study today")}${stat("✓",`${done}/${tasks.length}`,"Tasks done")}
- </div>
- <div class="section card"><div class="between"><div><b>Today's progress</b><div class="small muted">${done} completed • ${tasks.length-done} remaining</div></div><b>${pct}%</b></div><div class="progress" style="margin-top:12px"><i style="width:${pct}%"></i></div></div>
- <div class="section"><div class="between"><h2>Quick actions</h2></div><div class="grid g2">
- ${quick("✓","To-Do","Plan today's work",()=>todoPage())}${quick("📚","Study","Subjects & chapters",()=>{page="study";render()})}
- ${quick("📝","Tests","Practice & history",()=>{page="tests";render()})}${quick("📦","Backlog",`${remaining} work items remaining`,()=>backlogPage())}
- ${quick("📈","Progress","See your real activity",()=>progressPage())}${quick("🏆","Gamification",`${xpTotal()} XP • best ${bestStreak()} days`,()=>gamificationPage())}
- </div></div>
- <div class="section"><div class="between"><h2>Today's tasks</h2><button class="btn secondary" onclick="todoPage()">View all</button></div>
- ${tasks.length?`<div class="list">${tasks.slice(0,5).map(taskCard).join("")}</div>`:`<div class="card empty">No tasks planned for today.<br><button class="btn primary" style="margin-top:12px" onclick="openTask()">Add your first task</button></div>`}</div>`;
-}
-function stat(i,n,l){return `<div class="card stat"><div>${i}</div><div class="num">${esc(n)}</div><div class="label">${l}</div></div>`}
-function quick(i,t,s,fn){return `<button class="card quick" onclick="(${fn.toString()})()"><span class="qicon">${i}</span><span style="text-align:left"><b>${t}</b><br><span class="small muted">${s}</span></span></button>`}
-
-function taskCard(t){
- return `<div class="card task"><button class="check ${t.status==="COMPLETED"?"done":""}" onclick="toggleTask('${t.id}')">${t.status==="COMPLETED"?"✓":""}</button>
- <div style="flex:1"><div class="task-title ${t.status==="COMPLETED"?"strike":""}">${esc(t.title)}</div>
- <div class="small muted">${esc(t.subject||"General")} ${t.startTime?`• ${esc(t.startTime)}${t.endTime?"–"+esc(t.endTime):""}`:""} • ${t.estimatedMinutes||0} min</div>
- ${t.notes?`<div class="small calendar-note">${esc(t.notes)}</div>`:""}</div>
- <div class="item-actions"><button onclick="openTask('${t.id}')">Edit</button><button onclick="deleteTask('${t.id}')">Delete</button></div></div>`
-}
-function todoPage(){
- const list=state.tasks.filter(t=>t.userId===user().id).sort((a,b)=>(a.date+a.startTime).localeCompare(b.date+b.startTime));
- el("screen").innerHTML=`${header("To-Do","Plan, schedule and complete meaningful work")}
- <div class="actions" style="margin-bottom:12px"><button class="btn primary" onclick="openTask()">+ Add task</button><button class="btn secondary" onclick="showTaskFilters()">Filter / Sort</button></div>
- <div id="todoList" class="list">${list.length?list.map(taskCard).join(""):`<div class="card empty">Your task list is empty.</div>`}</div>`;
-}
-function showTaskFilters(){
- modal(`<h2>Task filters</h2><div class="field"><label>Date</label><select id="filterDate"><option value="all">All</option><option value="today">Today</option><option value="upcoming">Upcoming</option><option value="completed">Completed</option><option value="pending">Pending</option></select></div><div class="field"><label>Subject</label><select id="filterSub"><option value="all">All subjects</option>${subjectList(user().exam).map(s=>`<option>${s}</option>`).join("")}</select></div><div class="actions"><button class="btn primary" onclick="applyFilters()">Apply</button><button class="btn secondary" onclick="closeModal()">Cancel</button></div>`)
-}
-function applyFilters(){
- const d=el("filterDate").value,s=el("filterSub").value,today=localDate();
- let list=state.tasks.filter(t=>t.userId===user().id);
- if(d==="today")list=list.filter(t=>t.date===today);if(d==="upcoming")list=list.filter(t=>t.date>today);if(d==="completed")list=list.filter(t=>t.status==="COMPLETED");if(d==="pending")list=list.filter(t=>t.status!=="COMPLETED");if(s!=="all")list=list.filter(t=>t.subject===s);
- closeModal();el("todoList").innerHTML=list.length?list.map(taskCard).join(""):`<div class="card empty">No tasks match those filters.</div>`;
-}
-function openTask(id=""){
- const t=id?state.tasks.find(x=>x.id===id):null;
- modal(`<h2>${t?"Edit task":"Add task"}</h2><form id="taskForm">
- <div class="field"><label>Task title</label><input id="tt" required maxlength="120" value="${esc(t?.title)}"></div>
- <div class="grid g2"><div class="field"><label>Subject</label><select id="ts"><option value="">General</option>${subjectList(user().exam).map(s=>`<option ${t?.subject===s?"selected":""}>${s}</option>`).join("")}</select></div>
- <div class="field"><label>Chapter / topic</label><input id="tc" value="${esc(t?.chapter)}"></div></div>
- <div class="grid g2"><div class="field"><label>Date</label><input id="td" type="date" required value="${t?.date||localDate()}"></div>
- <div class="field"><label>Start time</label><input id="tst" type="time" value="${t?.startTime||""}"></div></div>
- <div class="grid g2"><div class="field"><label>End time</label><input id="tet" type="time" value="${t?.endTime||""}"></div>
- <div class="field"><label>Estimated duration (minutes)</label><input id="tm" type="number" min="1" max="1440" value="${t?.estimatedMinutes||60}"></div></div>
- <div class="field"><label>Priority</label><select id="tp"><option ${t?.priority==="HIGH"?"selected":""}>HIGH</option><option ${!t||t?.priority==="MEDIUM"?"selected":""}>MEDIUM</option><option ${t?.priority==="LOW"?"selected":""}>LOW</option></select></div>
- <div class="field"><label>Notes</label><textarea id="tn">${esc(t?.notes)}</textarea></div>
- <div class="actions"><button class="btn primary">Save task</button><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button></div>
- </form>`);
- el("taskForm").onsubmit=e=>{e.preventDefault();saveTask(id)}
-}
-function saveTask(id){
- const obj={title:el("tt").value.trim(),subject:el("ts").value,chapter:el("tc").value.trim(),date:el("td").value,startTime:el("tst").value,endTime:el("tet").value,estimatedMinutes:+el("tm").value||0,priority:el("tp").value,notes:el("tn").value.trim()};
- if(!obj.title||!obj.date)return toast("Title and date are required.");
- if(obj.startTime&&obj.endTime&&obj.endTime<obj.startTime)return toast("End time must be after start time.");
- if(id){Object.assign(state.tasks.find(t=>t.id===id),obj,{updatedAt:nowISO()})}else state.tasks.push({id:uid(),userId:user().id,status:"PENDING",createdAt:nowISO(),updatedAt:nowISO(),...obj});
- save();closeModal();toast("Task saved");page==="home"?render():todoPage();
-}
-function toggleTask(id){
- const t=state.tasks.find(x=>x.id===id);if(!t)return;
- if(t.status==="COMPLETED"){t.status="PENDING";t.completedAt=null;markMeaningful(localDate(),-1);save();toast("Task marked incomplete");render()}
- else{
-  modal(`<h2>Have you completed your task?</h2><p class="muted">${esc(t.title)}</p><div class="actions"><button class="btn success" onclick="confirmComplete('${id}')">✓ Yes</button><button class="btn secondary" onclick="closeModal()">✕ No</button></div>`);
- }
-}
-function confirmComplete(id){
- const t=state.tasks.find(x=>x.id===id);if(!t)return;closeModal();t.status="COMPLETED";t.completedAt=nowISO();t.updatedAt=nowISO();markMeaningful(t.date,1);
- if(award("TASK_COMPLETED",t.id,10))toast("+10 XP • Task completed");save();render();
-}
-function deleteTask(id){if(confirm("Delete this task?")){state.tasks=state.tasks.filter(t=>t.id!==id);save();toast("Task deleted");render()}}
-function backlogPage(){
- const list=state.backlog.filter(b=>b.userId===user().id),remaining=bRemainingAll(list),completed=list.filter(b=>b.status==="COMPLETED").length;
- el("screen").innerHTML=`${header("Backlog","Turn pending work into actionable study")}
- <div class="grid g4">${stat("📦",remaining,"Work units remaining")}${stat("🔴",list.filter(b=>b.priority==="HIGH"&&b.status!=="COMPLETED").length,"High priority")}${stat("✓",completed,"Items completed")}${stat("📋",list.length,"Total items")}</div>
- <div class="actions" style="margin:14px 0"><button class="btn primary" onclick="openBacklog()">+ Add backlog</button></div>
- <div class="list">${list.length?list.map(backlogCard).join(""):`<div class="card empty">No backlog items yet.</div>`}</div>`;
-}
-function bRemaining(b){return Math.max(0,(b.lecturesTotal||0)-(b.lecturesCompleted||0))+Math.max(0,(b.dppsTotal||0)-(b.dppsCompleted||0))+Math.max(0,(b.homeworkTotal||0)-(b.homeworkCompleted||0))}
-function bRemainingAll(l){return l.reduce((a,b)=>a+bRemaining(b),0)}
-function backlogCard(b){
- const total=(b.lecturesTotal||0)+(b.dppsTotal||0)+(b.homeworkTotal||0),done=(b.lecturesCompleted||0)+(b.dppsCompleted||0)+(b.homeworkCompleted||0),pct=total?Math.round(done/total*100):0;
- return `<div class="card"><div class="between"><div><b>${esc(b.chapter||b.topic||"Backlog")}</b><div class="small muted">${esc(b.subject)}${b.topic?" • "+esc(b.topic):""}</div></div><span class="badge ${b.priority==="HIGH"?"high":b.priority==="LOW"?"low":"med"}">${b.priority}</span></div>
- <div class="small muted" style="margin:12px 0">Lectures ${b.lecturesCompleted||0}/${b.lecturesTotal||0} • DPPs ${b.dppsCompleted||0}/${b.dppsTotal||0} • HW ${b.homeworkCompleted||0}/${b.homeworkTotal||0}</div>
- <div class="progress"><i style="width:${pct}%"></i></div><div class="between small" style="margin-top:8px"><span>${pct}% complete</span><span>${bRemaining(b)} remaining</span></div>
- <div class="actions" style="margin-top:12px"><button class="btn primary" onclick="progressBacklog('${b.id}')">Update progress</button><button class="btn secondary" onclick="openBacklog('${b.id}')">Edit</button><button class="btn danger" onclick="deleteBacklog('${b.id}')">Delete</button></div></div>`
-}
-function openBacklog(id=""){
- const b=id?state.backlog.find(x=>x.id===id):null;
- modal(`<h2>${b?"Edit backlog":"Add backlog item"}</h2><form id="backForm">
- <div class="grid g2"><div class="field"><label>Subject</label><select id="bs">${subjectList(user().exam).map(s=>`<option ${b?.subject===s?"selected":""}>${s}</option>`).join("")}</select></div>
- <div class="field"><label>Chapter</label><input id="bc" required value="${esc(b?.chapter)}"></div></div>
- <div class="field"><label>Topic (optional)</label><input id="bt" value="${esc(b?.topic)}"></div>
- <div class="grid g3"><div class="field"><label>Lectures</label><input id="bl" type="number" min="0" value="${b?.lecturesTotal||0}"></div><div class="field"><label>DPPs</label><input id="bd" type="number" min="0" value="${b?.dppsTotal||0}"></div><div class="field"><label>Homework</label><input id="bh" type="number" min="0" value="${b?.homeworkTotal||0}"></div></div>
- <div class="grid g2"><div class="field"><label>Estimated minutes</label><input id="bem" type="number" min="0" value="${b?.estimatedMinutes||0}"></div><div class="field"><label>Deadline</label><input id="bdeadline" type="date" value="${b?.deadline||""}"></div></div>
- <div class="field"><label>Priority</label><select id="bp"><option ${b?.priority==="HIGH"?"selected":""}>HIGH</option><option ${!b||b?.priority==="MEDIUM"?"selected":""}>MEDIUM</option><option ${b?.priority==="LOW"?"selected":""}>LOW</option></select></div>
- <div class="actions"><button class="btn primary">Save backlog</button><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button></div></form>`);
- el("backForm").onsubmit=e=>{e.preventDefault();saveBacklog(id)}
-}
-function saveBacklog(id){
- const o={subject:el("bs").value,chapter:el("bc").value.trim(),topic:el("bt").value.trim(),lecturesTotal:+el("bl").value||0,dppsTotal:+el("bd").value||0,homeworkTotal:+el("bh").value||0,estimatedMinutes:+el("bem").value||0,deadline:el("bdeadline").value,priority:el("bp").value};
- if(!o.chapter)return toast("Chapter is required.");
- if(id){Object.assign(state.backlog.find(x=>x.id===id),o,{updatedAt:nowISO()})}
- else state.backlog.push({id:uid(),userId:user().id,lecturesCompleted:0,dppsCompleted:0,homeworkCompleted:0,status:"PENDING",createdAt:nowISO(),updatedAt:nowISO(),...o});
- save();closeModal();toast("Backlog saved");backlogPage();
-}
-function progressBacklog(id){
- const b=state.backlog.find(x=>x.id===id);
- modal(`<h2>Update progress</h2><p class="muted">${esc(b.chapter)}</p>
- <div class="grid g3">${["lectures","dpps","homework"].map((x,i)=>`<div class="field"><label>${x.toUpperCase()} done</label><input id="p${i}" type="number" min="0" max="${b[x+"Total"]||0}" value="${b[x+"Completed"]||0}"></div>`).join("")}</div>
- <div class="actions"><button class="btn primary" onclick="saveBackProgress('${id}')">Save</button><button class="btn secondary" onclick="closeModal()">Cancel</button></div>`);
-}
-function saveBackProgress(id){
- const b=state.backlog.find(x=>x.id===id),before=bRemaining(b);
- b.lecturesCompleted=Math.min(b.lecturesTotal,+el("p0").value||0);b.dppsCompleted=Math.min(b.dppsTotal,+el("p1").value||0);b.homeworkCompleted=Math.min(b.homeworkTotal,+el("p2").value||0);
- b.status=bRemaining(b)===0?"COMPLETED":"PENDING";b.updatedAt=nowISO();
- const after=bRemaining(b),completedDelta=Math.max(0,before-after);
- if(completedDelta){markMeaningful(localDate(),1);award("BACKLOG_PROGRESS",b.id+"-"+(before-after),30)}
- save();closeModal();toast(b.status==="COMPLETED"?"+30 XP • Backlog completed":"Backlog updated");backlogPage();
-}
-function deleteBacklog(id){if(confirm("Delete this backlog item?")){state.backlog=state.backlog.filter(b=>b.id!==id);save();backlogPage()}}
-
-function studyPage(){
- const subs=subjectList(user().exam),curr=state.curriculum.filter(x=>x.exam===user().exam);
- if(studySubject){
-  const s=curr.find(x=>x.id===studySubject);
-  el("screen").innerHTML=`${header(s.name,"Chapter and topic map")}<button class="btn secondary" onclick="studySubject=null;studyPage()">← All subjects</button>
-  <div class="section list">${s.chapters.map(c=>{const total=c.topics.length||1;const related=state.backlog.filter(b=>b.userId===user().id&&b.subject===s.name&&b.chapter===c.name);const done=related.reduce((a,b)=>a+(b.lecturesCompleted||0)+(b.dppsCompleted||0)+(b.homeworkCompleted||0),0);const planned=related.reduce((a,b)=>a+(b.lecturesTotal||0)+(b.dppsTotal||0)+(b.homeworkTotal||0),0);const pct=planned?Math.round(done/planned*100):0;return `<div class="card"><div class="between"><div><b>${esc(c.name)}</b><div class="small muted">${c.topics.map(esc).join(" • ")}</div></div><span class="badge">${pct}%</span></div><div class="progress" style="margin-top:10px"><i style="width:${pct}%"></i></div><div class="actions" style="margin-top:10px"><button class="btn secondary" onclick="openTaskFor('${esc(s.name)}','${esc(c.name)}')">+ Study task</button><button class="btn secondary" onclick="openBacklogFor('${esc(s.name)}','${esc(c.name)}')">+ Backlog</button></div></div>`}).join("")}</div>`;
-  return;
- }
- el("screen").innerHTML=`${header("Study",`${user().exam} • Subject → Chapter → Topic`)}
- <div class="grid g2">${curr.map(s=>`<button class="card quick" onclick="studySubject='${s.id}';studyPage()"><span class="qicon">📚</span><span style="text-align:left"><b>${esc(s.name)}</b><br><span class="small muted">${s.chapters.length} chapters • notes • practice</span></span></button>`).join("")}</div>
- <div class="section card"><b>Curriculum model</b><p class="muted small">APEX keeps exam content configurable. Chapters can be linked to tasks, backlog, notes and future tests without changing the app shell.</p></div>`;
-}
-function openTaskFor(subject,chapter){openTask();setTimeout(()=>{if(el("ts"))el("ts").value=subject;if(el("tc"))el("tc").value=chapter},0)}
-function openBacklogFor(subject,chapter){openBacklog();setTimeout(()=>{if(el("bs"))el("bs").value=subject;if(el("bc"))el("bc").value=chapter},0)}
-
-function testsPage(){
- const attempts=state.attempts.filter(a=>a.userId===user().id);
- el("screen").innerHTML=`${header("Tests","Practice, submit and review performance")}
- <div class="grid g3">${stat("📝",state.tests.length,"Available tests")}${stat("🎯",attempts.length,"Attempts")}${stat("📊",attempts.length?Math.round(attempts.reduce((a,x)=>a+x.accuracy,0)/attempts.length)+"%":"—","Average accuracy")}</div>
- <div class="section"><div class="between"><h2>Tests</h2><button class="btn secondary" onclick="addSampleTest()">Add sample test</button></div>
- <div class="list">${state.tests.length?state.tests.map(testCard).join(""):`<div class="card empty">No tests have been loaded yet. The test engine is ready for real question data.</div>`}</div></div>
- <div class="section"><h2>Test history</h2><div class="list">${attempts.length?attempts.slice().reverse().map(a=>`<div class="card between"><div><b>${esc(state.tests.find(t=>t.id===a.testId)?.title||"Test")}</b><div class="small muted">${dateText(localDate(a.submittedAt))}</div></div><b>${a.score}/${a.maxScore} • ${a.accuracy}%</b></div>`).join(""):`<div class="card empty">No attempts yet.</div>`}</div></div>`;
-}
-function testCard(t){return `<div class="card between"><div><b>${esc(t.title)}</b><div class="small muted">${esc(t.type)} • ${t.questions.length} questions • ${t.durationMinutes} min</div></div><button class="btn primary" onclick="startTest('${t.id}')">Start</button></div>`}
-function addSampleTest(){
- const t={id:uid(),title:"JEE Physics — NLM Quick Test",type:"Chapter-wise",durationMinutes:10,marksPerCorrect:4,negativePerWrong:1,questions:[
-  {id:uid(),text:"If net force on a body is zero, its acceleration is:",options:["Zero","Always 9.8 m/s²","Infinite","Cannot be determined"],answer:0,topic:"NLM"},
-  {id:uid(),text:"The SI unit of force is:",options:["Joule","Newton","Watt","Pascal"],answer:1,topic:"NLM"},
-  {id:uid(),text:"Newton's second law relates force to:",options:["Mass × acceleration","Mass × velocity","Energy × time","Power × distance"],answer:0,topic:"NLM"}
- ],createdAt:nowISO()};state.tests.push(t);save();toast("Test added");testsPage();
-}
-function startTest(id){
- const t=state.tests.find(x=>x.id===id),answers={},started=Date.now();
- modal(`<div class="between"><h2>${esc(t.title)}</h2><span class="badge" id="timer">--:--</span></div><p class="muted small">Choose one answer for each question. Submit when finished.</p>
- <div id="questionBox" class="list">${t.questions.map((q,i)=>`<div class="card"><b>Q${i+1}. ${esc(q.text)}</b><div style="margin-top:10px" class="list">${q.options.map((o,j)=>`<label class="card" style="padding:10px"><input type="radio" name="q${i}" value="${j}"> ${esc(o)}</label>`).join("")}</div></div>`).join("")}</div>
- <button class="btn primary" style="margin-top:14px;width:100%" onclick="submitTest('${id}',${started})">Submit test</button>`);
- let sec=t.durationMinutes*60;window.__timer=setInterval(()=>{sec--;if(el("timer"))el("timer").textContent=`${String(Math.floor(sec/60)).padStart(2,"0")}:${String(sec%60).padStart(2,"0")}`;if(sec<=0){clearInterval(window.__timer);if(el("timer"))el("timer").textContent="Time";}},1000);
-}
-function submitTest(id,started){
- clearInterval(window.__timer);const t=state.tests.find(x=>x.id===id);let correct=0,wrong=0,un=0,topics={};
- t.questions.forEach((q,i)=>{const a=document.querySelector(`input[name=q${i}]:checked`);if(!a){un++;return}const ok=+a.value===q.answer;if(ok)correct++;else wrong++;topics[q.topic]=(topics[q.topic]||0)+(ok?1:-1)});
- const score=correct*t.marksPerCorrect-wrong*t.negativePerWrong,maxScore=t.questions.length*t.marksPerCorrect,accuracy=t.questions.length?Math.round(correct/t.questions.length*100):0;
- const a={id:uid(),userId:user().id,testId:id,startedAt:new Date(started).toISOString(),submittedAt:nowISO(),score,maxScore,correct,wrong,unattempted:un,accuracy,timeTakenSeconds:Math.round((Date.now()-started)/1000),topics};
- state.attempts.push(a);markMeaningful(localDate(),1);award("TEST_COMPLETED",a.id,20);save();closeModal();
- modal(`<h2>Test result</h2><div class="grid g2">${stat("🎯",score+"/"+maxScore,"Score")}${stat("✓",correct,"Correct")}${stat("✕",wrong,"Incorrect")}${stat("—",un,"Unattempted")}</div><div class="card" style="margin-top:12px"><b>Accuracy ${accuracy}%</b><div class="progress" style="margin-top:8px"><i style="width:${accuracy}%"></i></div><p class="small muted">Time taken: ${fmtMin(Math.round(a.timeTakenSeconds/60))}</p></div><button class="btn primary" style="margin-top:12px" onclick="closeModal();testsPage()">Done</button>`);
-}
-function notificationPage(){
- const ns=state.notifications.filter(n=>!n.userId||n.userId===user().id).slice().reverse();
- modal(`<div class="between"><h2>Notifications</h2><button class="iconbtn" onclick="closeModal()">×</button></div>${ns.length?`<div class="list">${ns.map(n=>`<div class="card"><b>${esc(n.title)}</b><div class="small muted">${esc(n.body)}</div><div class="small calendar-note">${new Date(n.createdAt).toLocaleString()}</div></div>`).join("")}`:`<div class="empty">No notifications.</div>`}`);
-}
-
-function notesPage(){
- const notes=state.notes.filter(n=>n.userId===user().id);
- el("screen").innerHTML=`${header("Notes","Capture revision points without clutter")}
- <div class="actions"><button class="btn primary" onclick="openNote()">+ New note</button><input id="noteSearch" placeholder="Search notes..." style="flex:1;min-width:150px;padding:12px;border:1px solid var(--border);border-radius:12px;background:var(--surface);color:var(--text)" oninput="filterNotes()"></div>
- <div id="notesList" class="list" style="margin-top:14px">${renderNotes(notes)}</div>`;
-}
-function renderNotes(ns){return ns.length?ns.map(n=>`<div class="card"><div class="between"><div><b>${esc(n.title)}</b><div class="small muted">${esc(n.subject||"General")} ${n.chapter?"• "+esc(n.chapter):""}</div></div><div class="item-actions"><button onclick="openNote('${n.id}')">Edit</button><button onclick="deleteNote('${n.id}')">Delete</button></div></div><p style="white-space:pre-wrap">${esc(n.content)}</p></div>`).join(""):`<div class="card empty">No notes yet.</div>`}
-function filterNotes(){const q=el("noteSearch").value.toLowerCase();el("notesList").innerHTML=renderNotes(state.notes.filter(n=>n.userId===user().id&&(n.title+" "+n.content+" "+n.subject+" "+n.chapter).toLowerCase().includes(q)))}
-function openNote(id=""){
- const n=id?state.notes.find(x=>x.id===id):null;
- modal(`<h2>${n?"Edit note":"New note"}</h2><form id="noteForm"><div class="field"><label>Title</label><input id="nt" required value="${esc(n?.title)}"></div><div class="grid g2"><div class="field"><label>Subject</label><select id="ns"><option value="">General</option>${subjectList(user().exam).map(s=>`<option ${n?.subject===s?"selected":""}>${s}</option>`).join("")}</select></div><div class="field"><label>Chapter</label><input id="nc" value="${esc(n?.chapter)}"></div></div><div class="field"><label>Note</label><textarea id="nn" required>${esc(n?.content)}</textarea></div><div class="actions"><button class="btn primary">Save note</button><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button></div></form>`);
- el("noteForm").onsubmit=e=>{e.preventDefault();const o={title:el("nt").value.trim(),subject:el("ns").value,chapter:el("nc").value.trim(),content:el("nn").value.trim()};if(id)Object.assign(state.notes.find(x=>x.id===id),o,{updatedAt:nowISO()});else state.notes.push({id:uid(),userId:user().id,createdAt:nowISO(),updatedAt:nowISO(),...o});save();closeModal();notesPage();toast("Note saved")}
-}
-function deleteNote(id){if(confirm("Delete this note?")){state.notes=state.notes.filter(n=>n.id!==id);save();notesPage()}}
-
-function progressPage(){
- const uidv=user().id,acts=state.activities.filter(a=>a.userId===uidv).sort((a,b)=>b.date.localeCompare(a.date));
- const taskAll=state.tasks.filter(t=>t.userId===uidv),completed=taskAll.filter(t=>t.status==="COMPLETED").length;
- const study=state.sessions.filter(s=>s.userId===uidv),study7=study.filter(s=>{const d=new Date(s.date+"T00:00:00"),x=new Date();return (x-d)/86400000<7}).reduce((a,s)=>a+s.minutes,0);
- const study30=study.filter(s=>{const d=new Date(s.date+"T00:00:00"),x=new Date();return (x-d)/86400000<30}).reduce((a,s)=>a+s.minutes,0);
- const tests=state.attempts.filter(a=>a.userId===uidv);
- el("screen").innerHTML=`${header("Progress","Analytics based only on your recorded activity")}
- <div class="grid g3">${stat("⏱",fmtMin(study7),"Study time • 7 days")}${stat("📅",fmtMin(study30),"Study time • 30 days")}${stat("✓",completed,"Tasks completed")}${stat("📦",state.backlog.filter(b=>b.userId===uidv&&b.status==="COMPLETED").length,"Backlog completed")}${stat("📝",tests.length,"Tests attempted")}${stat("🔥",currentStreak(),"Current streak")}</div>
- <div class="section card"><div class="between"><b>Recent activity</b><span class="small muted">${acts.length} active days recorded</span></div><div style="margin-top:12px">${acts.slice(0,14).map(a=>`<div class="between" style="padding:9px 0;border-bottom:1px solid var(--border)"><span>${dateText(a.date)}</span><span class="small muted">${a.tasksCompleted||0} tasks • ${a.studyMinutes||0}m study • ${a.meaningful} meaningful</span></div>`).join("")||`<div class="empty">Start studying to create your first activity record.</div>`}</div></div>
- <div class="section card"><b>Study time</b><div class="small muted" style="margin:7px 0">You can record a completed session below.</div><button class="btn primary" onclick="recordStudy()">+ Record study session</button></div>`;
-}
-function recordStudy(){
- modal(`<h2>Record study session</h2><form id="studyForm"><div class="grid g2"><div class="field"><label>Date</label><input id="sd" type="date" value="${localDate()}" required></div><div class="field"><label>Minutes</label><input id="sm" type="number" min="1" max="1440" value="60" required></div></div><div class="field"><label>Subject</label><select id="ss">${subjectList(user().exam).map(s=>`<option>${s}</option>`).join("")}</select></div><div class="field"><label>Chapter / topic</label><input id="sch"></div><div class="actions"><button class="btn primary">Save session</button><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button></div></form>`);
- el("studyForm").onsubmit=e=>{e.preventDefault();const date=el("sd").value,mins=+el("sm").value;state.sessions.push({id:uid(),userId:user().id,date,minutes:mins,subject:el("ss").value,chapter:el("sch").value.trim(),createdAt:nowISO()});let a=activityFor(date);if(!a){a={id:uid(),userId:user().id,date,meaningful:0,studyMinutes:0,tasksCompleted:0,backlogCompleted:0,testsCompleted:0};state.activities.push(a)}a.meaningful++;a.studyMinutes+=mins;award("STUDY_SESSION",state.sessions.at(-1).id,20);save();closeModal();toast("+20 XP • Study session recorded");progressPage()}
-}
-function gamificationPage(){
- const xp=xpTotal(),st=currentStreak(),best=bestStreak(),tasks=state.tasks.filter(t=>t.userId===user().id&&t.status==="COMPLETED").length,backs=state.backlog.filter(b=>b.userId===user().id&&b.status==="COMPLETED").length,tests=state.attempts.filter(a=>a.userId===user().id).length;
- const ach=[["🔥","7-day streak",st>=7],["📚","10 chapters / backlog items completed",backs>=10],["🎯","100 tasks completed",tasks>=100],["🏆","10 tests completed",tests>=10]];
- el("screen").innerHTML=`${header("Gamification","Earn XP from meaningful academic actions")}
- <div class="grid g3">${stat("⭐",xp,"XP")}${stat("🔥",st,"Current streak")}${stat("🏅",best,"Best streak")}</div>
- <div class="section card"><b>Achievements</b><div class="list" style="margin-top:10px">${ach.map(a=>`<div class="between card" style="box-shadow:none"><span>${a[0]} ${a[1]}</span><span class="badge">${a[2]?"Unlocked":"Locked"}</span></div>`).join("")}</div></div>
- <div class="section card"><b>XP rules</b><p class="small muted">Task +10 • Study session +20 • Test +20 • Completed backlog item +30. XP awards are idempotent so repeating the same event does not repeatedly award points.</p></div>`;
-}
-
-function profilePage(){
- el("screen").innerHTML=`${header("Profile","Your APEX account")}
- <div class="card"><div class="row"><div class="avatar" style="width:70px;height:70px">${user().photo?`<img src="${user().photo}">`:esc(user().fullName[0].toUpperCase())}</div><div><h2 style="margin:0">${esc(user().fullName)}</h2><div class="muted">@${esc(user().username)}</div><div class="small muted">${esc(user().exam)} • ${esc(user().grade)}</div></div></div></div>
- <div class="section grid g2">
- ${profileAction("✏️","Edit profile","Update name, grade or photo",editProfile)}${profileAction("⚙️","Settings","Theme and preferences",settingsPage)}
- ${profileAction("🔐","Change password","Update your local password",changePassword)}${profileAction("🔔","Notifications","Reminder preferences",notificationSettings)}
- ${profileAction("📈","Progress","Your study statistics",progressPage)}${profileAction("🏆","Achievements","XP and streaks",gamificationPage)}
- ${profileAction("🔗","Referral code","Your referral status",()=>modal(`<h2>Referral</h2><p class="muted">${user().referralCode?`Used code: <b>${esc(user().referralCode)}</b>`:"No referral code used."}</p><button class="btn secondary" onclick="closeModal()">Close</button>`))}
- ${profileAction("🆘","Help & Support","Offline build information",helpPage)}
- </div><button class="btn danger" style="width:100%" onclick="signOut()">Logout</button>`;
-}
-function profileAction(i,t,s,fn){return `<button class="card quick" onclick="(${fn.toString()})()"><span class="qicon">${i}</span><span style="text-align:left"><b>${t}</b><br><span class="small muted">${s}</span></span></button>`}
-function editProfile(){
- modal(`<h2>Edit profile</h2><form id="pf"><div class="field"><label>Full name</label><input id="pn" value="${esc(user().fullName)}" required></div><div class="field"><label>Grade</label><input id="pg" value="${esc(user().grade)}" required></div><div class="field"><label>Profile photo</label><input id="pp" type="file" accept="image/*"></div><div class="actions"><button class="btn primary">Save</button><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button></div></form>`);
- el("pf").onsubmit=async e=>{e.preventDefault();user().fullName=el("pn").value.trim();user().grade=el("pg").value.trim();const f=el("pp").files[0];if(f){if(f.size>1500000)return toast("Photo must be under 1.5 MB.");user().photo=await readDataURL(f)}user().updatedAt=nowISO();save();closeModal();profilePage();toast("Profile updated")}
-}
-function changePassword(){
- modal(`<h2>Change password</h2><form id="cp"><div class="field"><label>Current password</label><input id="oldp" type="password" required></div><div class="field"><label>New password</label><input id="newp" type="password" minlength="8" required></div><div class="actions"><button class="btn primary">Change password</button><button type="button" class="btn secondary" onclick="closeModal()">Cancel</button></div></form>`);
- el("cp").onsubmit=async e=>{e.preventDefault();if(!(await hashPassword(el("oldp").value,user().passwordSalt)===user().passwordHash))return toast("Incorrect current password.");if(!passwordOK(el("newp").value))return toast("New password must be 8+ characters.");user().passwordSalt=uid();user().passwordHash=await hashPassword(el("newp").value,user().passwordSalt);user().updatedAt=nowISO();save();closeModal();toast("Password changed")}
-}
-function settingsPage(){
- modal(`<h2>Settings</h2><div class="list">
- <div class="card"><b>Theme</b><div class="actions" style="margin-top:10px">${["light","dark","system"].map(t=>`<button class="btn ${state.theme===t?"primary":"secondary"}" onclick="state.theme='${t}';save();setTheme();settingsPage()">${t[0].toUpperCase()+t.slice(1)}</button>`).join("")}</div></div>
- <div class="card"><b>Notifications</b><div class="small muted">Local reminders can work while this page/app is available. Reliable Android background push requires a native notification service/backend.</div><button class="btn secondary" style="margin-top:10px" onclick="notificationSettings()">Configure</button></div>
- <div class="card"><b>Privacy & Security</b><p class="small muted">APEX stores local data in this browser/app wrapper. Passwords are stored as PBKDF2-derived hashes, not plaintext. Do not treat client-only admin controls as secure.</p></div>
- <div class="card"><b>App version</b><div class="small muted">APEX ${VERSION}</div></div>
- </div><button class="btn secondary" onclick="closeModal()">Close</button>`);
-}
-function notificationSettings(){
- modal(`<h2>Notification settings</h2><form id="nf"><label class="row"><input id="nen" type="checkbox" ${state.settings.notifications?"checked":""}> Enable reminders</label><div class="field"><label>Reminder before task (minutes)</label><input id="nmin" type="number" min="0" max="120" value="${state.settings.reminderMinutes}"></div><button class="btn primary">Save</button></form>`);
- el("nf").onsubmit=e=>{e.preventDefault();state.settings.notifications=el("nen").checked;state.settings.reminderMinutes=Math.max(0,+el("nmin").value||0);save();closeModal();toast("Notification settings saved")}
-}
-function helpPage(){
- modal(`<h2>APEX Help & Support</h2><p>Core productivity data is local-first in this single-file edition.</p><p class="small muted">For a production release, connect a backend for secure multi-device synchronization, email password reset, server-side admin RBAC, cloud attachments and reliable push notifications.</p><button class="btn secondary" onclick="closeModal()">Close</button>`)
-}
-
-/* Scheduled local reminder checker. It avoids repeat spam by storing reminder keys. */
-setInterval(()=>{
- if(!state.sessionUserId||!state.settings.notifications)return;
- const now=new Date(), today=localDate(now);
- state.tasks.filter(t=>t.userId===user().id&&t.date===today&&t.status!=="COMPLETED"&&t.startTime).forEach(t=>{
-  const [h,m]=t.startTime.split(":").map(Number),target=new Date();target.setHours(h,m,0,0);
-  const diff=Math.round((target-now)/60000),key=`rem:${t.id}:${today}`;
-  if(diff<=state.settings.reminderMinutes&&diff>=0&&!localStorage.getItem(key)){
-   localStorage.setItem(key,"1");state.notifications.push({id:uid(),userId:user().id,title:`${t.subject||"Study"} — ${t.title}`,body:"Your scheduled study session is starting.",createdAt:nowISO()});save();toast(`🔔 ${t.title}`);
-   if("Notification"in window&&Notification.permission==="granted")new Notification(`APEX • ${t.subject||"Study"}`,{body:`${t.title} is starting.`});
-  }
- })
-},30000);
-
-function requestNotifications(){if("Notification"in window&&Notification.permission==="default")Notification.requestPermission().catch(()=>{})}
-
-/* Admin is intentionally not implemented as a fake client-side password area.
-   A secure admin panel must use server-side RBAC. The local data model can be
-   migrated to the backend later. */
-window.APEX={state,save,version:VERSION};
-
-document.addEventListener("click",e=>{if(e.target.matches(".modal"))closeModal()});
-startApp();
+function renderNoteList(){let q=($('#noteSearch')?.value||'').toLowerCase();let a=state.notes.filter(n=>(n.title+n.body).toLowerCase().includes(q));$('#noteList').innerHTML=a.length?a.map(n=>`<div class="card"><b>${esc(n.title)}</b><p class="small">${esc(n.body)}</p><button class="ghost danger" onclick="deleteNote('${n.id}')">Delete</button></div>`).join(''):'<div class="card empty">No notes found.</div>'}
+function addNote(){modal(`<h2>New note</h2><div class="field"><label>Title</label><input id="nTitle"></div><div class="field"><label>Note</label><textarea id="nBody" rows="6"></textarea></div><div class="actions"><button class="ghost" onclick="closeModal()">Cancel</button><button class="primary" onclick="saveNote()">Save</button></div>`)}
+function saveNote(){let title=$('#nTitle').value.trim(),body=$('#nBody').value.trim();if(!title)return toast('Enter a title');state.notes.push({id:uid(),title,body});save();closeModal();renderNotes();toast('Note saved')}
+function deleteNote(id){state.notes=state.notes.filter(n=>n.id!==id);save();renderNotes()}
+function renderProfile(){const u=user();$('#profile').innerHTML=`<div class="section-title"><h2>Profile</h2></div><div class="card"><div class="row"><div class="avatar">${esc(u.name[0]?.toUpperCase()||'A')}</div><div><h3 style="margin:0">${esc(u.name)}</h3><small class="small">@${esc(u.custom)} · ${esc(u.exam)} · Grade ${esc(u.grade||'-')}</small></div></div></div>
+ <div class="section-title"><h3>Account</h3></div><div class="list"><button class="card row" onclick="editProfile()">✏️ <b>Edit profile</b></button><button class="card row" onclick="settings()">⚙️ <b>Settings</b></button><button class="card row" onclick="showNotifications()">🔔 <b>Notifications</b></button><button class="card row" onclick="logout()">🚪 <b class="danger">Logout</b></button></div>
+ <div class="section-title"><h3>Your stats</h3></div><div class="grid3"><div class="card stat"><b>${state.xp}</b><span>XP</span></div><div class="card stat"><b>${state.streak}</b><span>Best/current streak</span></div><div class="card stat"><b>${state.tasks.filter(t=>t.done).length}</b><span>Tasks done</span></div></div>`}
+function editProfile(){let u=user();modal(`<h2>Edit profile</h2><div class="field"><label>Name</label><input id="pName" value="${esc(u.name)}"></div><div class="field"><label>Grade</label><input id="pGrade" value="${esc(u.grade||'')}"></div><div class="actions"><button class="ghost" onclick="closeModal()">Cancel</button><button class="primary" onclick="saveProfile()">Save</button></div>`)}
+function saveProfile(){let u=user();u.name=$('#pName').value.trim()||u.name;u.grade=$('#pGrade').value.trim();save();closeModal();renderAll();toast('Profile updated')}
+function settings(){modal(`<h2>Settings</h2><div class="field"><label>Theme</label><select id="theme"><option value="light">Light</option><option value="dark">Dark</option></select></div><label class="row"><input id="notif" type="checkbox" ${state.settings.notifications?'checked':''}> Notifications</label><div class="actions"><button class="ghost" onclick="closeModal()">Cancel</button><button class="primary" onclick="saveSettings()">Save</button></div>`);$('#theme').value=state.settings.theme}
+function saveSettings(){state.settings.theme=$('#theme').value;state.settings.notifications=$('#notif').checked;document.body.style.filter='';save();closeModal();toast('Settings saved')}
+function showProfile(){go('profile')}
+function showNotifications(){modal(`<h2>Notifications</h2><div class="notice"><b>Welcome to APEX 🚀</b><br>Your productivity dashboard is ready.</div><div class="notice">Official announcements will appear here when an authorized APEX admin publishes them.</div><div class="actions"><button class="primary" onclick="closeModal()">Done</button></div>`)}
+function logout(){state.session=null;save();app()}
+function modal(html){let m=document.createElement('div');m.className='modal';m.id='modal';m.innerHTML=`<div class="modal-box">${html}</div>`;document.body.append(m)}
+function closeModal(){document.getElementById('modal')?.remove()}
+function showReferral(){modal(`<h2>Have a referral code?</h2><p class="small">Optional. You can skip this and continue using APEX.</p><div class="field"><input id="ref" placeholder="Enter referral code"></div><div class="actions"><button class="ghost" onclick="skipReferral()">Skip</button><button class="primary" onclick="applyReferral()">Apply</button></div>`)}
+function skipReferral(){closeModal();showGuide()}
+function applyReferral(){let r=$('#ref').value.trim();if(!r)return toast('Enter a code or skip');state.referral=r;save();closeModal();toast('Referral saved');showGuide()}
+function showGuide(){modal(`<h2>APEX app guide</h2><p>Take a quick tour of To-Do, Study, Tests, Backlog, Progress, Gamification, Notes and Profile.</p><div class="notice">You can skip this guide and open it later from Help & Support.</div><div class="actions"><button class="ghost" onclick="finishGuide()">Skip</button><button class="primary" onclick="finishGuide()">Start APEX 🚀</button></div>`)}
+function finishGuide(){state.onboarded=true;save();closeModal();app()}
+setTimeout(()=>{if(!state.session){$('#app').innerHTML=`<div class="screen center splash"><div><div class="logo">A</div><h1>APEX</h1><p>Your Exam Partner.</p><div class="loader"><i></i></div></div></div>`;setTimeout(app,1200)}else app()},200);
 </script>
 </body>
 </html>
